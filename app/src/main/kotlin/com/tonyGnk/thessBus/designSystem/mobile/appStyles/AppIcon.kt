@@ -1,4 +1,4 @@
-package com.tonyGnk.thessbus.designsystem.mobile.appStyles
+package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert

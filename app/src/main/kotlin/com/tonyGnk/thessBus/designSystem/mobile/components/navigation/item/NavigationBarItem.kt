@@ -36,7 +36,6 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import androidx.compose.material3.NavigationBarItem as MaterialNavigationBarItem
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RowScope.NavigationBarItem(
     animationResource: Int,
