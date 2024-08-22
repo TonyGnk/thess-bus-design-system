@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ThessBus Showcase</string>
+
+    <string name="destination_home">Αρχική</string>
+    <string name="destination_lines">Γραμμές</string>
+    <string name="destination_alarms">Ξυπνητήρια</string>
+</resources>

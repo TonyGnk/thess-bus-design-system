@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ThessBus Showcase</string>
+
+    <string name="destination_home">Startseite</string>
+    <string name="destination_lines">Linien</string>
+    <string name="destination_alarms">Alarme</string>
+
+</resources>
