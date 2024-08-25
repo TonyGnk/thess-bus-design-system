@@ -1,4 +1,4 @@
-package com.tonyGnk.thessbus.designsystem.mobile.appStyles
+package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -19,9 +19,17 @@ object AppShape {
         @Composable
         get() = RoundedCornerShape(10.dp)
 
+    val round15: RoundedCornerShape
+        @Composable
+        get() = RoundedCornerShape(15.dp)
+
     val round20: RoundedCornerShape
         @Composable
         get() = RoundedCornerShape(20.dp)
+
+    val round25: RoundedCornerShape
+        @Composable
+        get() = RoundedCornerShape(25.dp)
 
     val round30: RoundedCornerShape
         @Composable

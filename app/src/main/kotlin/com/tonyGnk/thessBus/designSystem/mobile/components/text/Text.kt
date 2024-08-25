@@ -105,31 +105,3 @@ fun HorizontalDivider(
         color = color
     )
 }
-
-
-@Composable
-fun String.findScreenSize(textStyle: TextStyle): Size {
-    val density = LocalDensity.current
-    val layoutDirection = LocalLayoutDirection.current
-    val fontFamilyResolver = createFontFamilyResolver(LocalContext.current)
-
-    val textMeasurer = TextMeasurer(
-        defaultFontFamilyResolver = fontFamilyResolver,
-        defaultDensity = density,
-        defaultLayoutDirection = layoutDirection
-    )
-
-    val textLayoutResult: TextLayoutResult = textMeasurer.measure(
-        text = AnnotatedString(this),
-        style = textStyle
-    )
-
-    val textWidth = textLayoutResult.size.width
-    val textHeight = textLayoutResult.size.height
-
-    return with(density) {
-        Size(textWidth.toDp(), textHeight.toDp())
-    }
-}
-
-data class Size(val width: Dp, val height: Dp)

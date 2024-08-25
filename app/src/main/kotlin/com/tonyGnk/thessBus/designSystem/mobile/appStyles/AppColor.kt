@@ -106,6 +106,14 @@ object AppColor {
         @Composable
         get() = MaterialTheme.colorScheme.scrim
 
+    val inversePrimary: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.inversePrimary
+
+    val inverseOnSurface: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.inverseOnSurface
+
     val transparent: Color
         @Composable
         get() = Color.Transparent
