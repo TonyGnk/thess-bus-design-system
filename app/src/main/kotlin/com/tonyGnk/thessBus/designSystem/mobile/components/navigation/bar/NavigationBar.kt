@@ -21,7 +21,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.item.Navig
 import androidx.compose.material3.NavigationBar as MaterialNavigationBar
 
 @Composable
-internal fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
+fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
     val selected = remember { mutableIntStateOf(0) }
     val topCorners = findTheRightCorners(LocalView.current.context)
 
@@ -57,9 +57,10 @@ internal fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
     }
 }
 
+private const val STANDARD_CORNER_RADIUS_FOR_NAVIGATION_BAR = 38
 
 @Composable
-fun findTheRightCorners(context: Context): Dp {
+private fun findTheRightCorners(context: Context): Dp {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val insets = windowManager.currentWindowMetrics.windowInsets
@@ -67,17 +68,17 @@ fun findTheRightCorners(context: Context): Dp {
 
         if (bottomLeft != null) return getCornerSizeFromRadius(bottomLeft.radius)
     }
-    return 0.dp
+    return STANDARD_CORNER_RADIUS_FOR_NAVIGATION_BAR.dp
 }
 
 @Composable
-fun pxToDp(px: Int): Dp {
+private fun pxToDp(px: Int): Dp {
     val density = LocalDensity.current.density
     return (px / density).dp
 }
 
 @Composable
-fun getCornerSizeFromRadius(radiusInPx: Int): Dp {
+private fun getCornerSizeFromRadius(radiusInPx: Int): Dp {
     val radiusInDp = pxToDp(radiusInPx)
     return radiusInDp
 }
