@@ -1,25 +1,27 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
+    //  alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    id("maven-publish")
 }
 
 android {
     namespace = "com.tonyGnk.thessBus.designSystem.mobile"
     compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-    }
+//
+//    defaultConfig {
+//        applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
+//        minSdk = 24
+//        targetSdk = 34
+//        versionCode = 6
+//        versionName = "0.0.6"
+//
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        vectorDrawables {
+//            useSupportLibrary = true
+//        }
+//    }
 
     buildTypes {
         release {
@@ -58,7 +60,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    implementation("com.airbnb.android:lottie-compose:4.0.0")
+    implementation(libs.lottie.compose)
 
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
@@ -82,4 +84,20 @@ dependencies {
 //    implementation(libs.androidx.lifecycle.runtime.ktx)
 //    implementation(libs.androidx.ui)
 //    implementation(libs.androidx.ui.graphics)
+    implementation(libs.maps.compose)
+    implementation(libs.play.services.maps)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.tonyGnk"
+            artifactId = "thessBus-designSystem"
+            version = "0.0.6"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }
