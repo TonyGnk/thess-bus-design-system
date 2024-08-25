@@ -30,7 +30,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 13
 
 @Composable
-fun NavigationBarItemLabel(
+internal fun NavigationBarItemLabel(
     modifier: Modifier = Modifier,
     label: String = "Label",
     color: Color = AppColor.onBackground,
@@ -46,7 +46,7 @@ fun NavigationBarItemLabel(
         LocalTextStyle.current.copy(
             fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
             lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
-            fontWeight = FontWeight.ExtraLight
+            fontWeight = FontWeight.Thin
         )
     }
 
@@ -66,7 +66,7 @@ fun NavigationBarItemLabel(
 
 
 @Composable
-fun animateTextStyleAsState(
+private fun animateTextStyleAsState(
     targetValue: TextStyle,
     animationSpec: AnimationSpec<Float> = spring(),
     finishedListener: ((TextStyle) -> Unit)? = null
