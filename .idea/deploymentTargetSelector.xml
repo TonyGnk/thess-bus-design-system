@@ -4,16 +4,19 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-08-22T18:54:55.725427100Z">
+        <DropdownSelection timestamp="2024-08-24T19:49:18.494506800Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="Default" identifier="serial=10.234.214.117:5555;connection=88376984" />
+              <DeviceId pluginId="Default" identifier="serial=192.168.2.9:5555;connection=6fa8e075" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="MyNavigationBarPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="Preview - Dark">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
