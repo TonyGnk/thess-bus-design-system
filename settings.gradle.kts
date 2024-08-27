@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DesignSytstemTBMobile"
-include(":app")
+rootProject.name = "ThessBus Design System"
+include(":library")
+include(":showCaseMobile")
