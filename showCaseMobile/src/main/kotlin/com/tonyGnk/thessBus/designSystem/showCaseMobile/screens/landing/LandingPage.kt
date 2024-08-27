@@ -36,27 +36,26 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
+private const val MARGIN = 18
+
 @Composable
 fun LandingPage(
     navigateToNavBar: () -> Unit = {}
 ) {
     Scaffold {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            Spacer(modifier = Modifier.padding(18.dp))
-            LandingPageAppBar()
-            Spacer(modifier = Modifier.padding(9.dp))
-            LandingPageAppBarDescription()
-            Spacer(modifier = Modifier.padding(9.dp))
-            UpdateButton()
-            Spacer(modifier = Modifier.padding(9.dp))
-            ListContainer(
-                modifier = Modifier.weight(1f),
-                navigateToNavBar = navigateToNavBar
-            )
+            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
+            item { LandingPageAppBar() }
+            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
+            item { LandingPageAppBarDescription() }
+            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
+            item { UpdateButton() }
+            item { Spacer(modifier = Modifier.padding(MARGIN.dp)) }
+            item { ListContainer(navigateToNavBar = navigateToNavBar) }
         }
     }
 }
@@ -67,20 +66,15 @@ fun ListContainer(
     navigateToNavBar: () -> Unit
 ) {
     Surface(
+        modifier = modifier.fillMaxSize(),
         color = AppColor.surfaceContainerLowest,
         shadowElevation = 4.dp,
-        shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
+        shape = RoundedCornerShape(30.dp)
     ) {
-        LazyColumn(
-            modifier = modifier.fillMaxSize()
-        ) {
-            item {
-                ListItem(
-                    label = R.string.navigation_bar,
-                    navigateToNavBar = navigateToNavBar
-                )
-            }
-        }
+        ListItem(
+            label = R.string.navigation_bar,
+            navigateToNavBar = navigateToNavBar
+        )
     }
 }
 
