@@ -1,6 +1,7 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons
 
 import android.util.Log
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -10,7 +11,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.components.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import androidx.compose.material3.TextButton as MaterialTextButton
 
@@ -19,10 +19,11 @@ fun TextButton(
     modifier: Modifier = Modifier,
     text: String = "Text Button",
     onClick: () -> Unit = { Log.d("Design System", text) },
-    color: Color = AppColor.primary,
+    @DrawableRes iconRes: Int = 0,
+    contentColor: Color = AppColor.primary,
     enabled: Boolean = true,
-    shape: Shape = RoundedCornerShape(DefaultButtonValues.cornersRadius.dp),
-    padding: Int = DefaultButtonValues.padding,
+    shape: Shape = RoundedCornerShape(DefaultButtonValues.CORNER_RADIUS.dp),
+    padding: Int = DefaultButtonValues.PADDING,
 ) {
     MaterialTextButton(
         modifier = modifier,
@@ -30,7 +31,9 @@ fun TextButton(
         enabled = enabled,
         shape = shape,
         contentPadding = PaddingValues(padding.dp),
-        content = { Text(text = text, color = color) },
+        content = {
+            SharedButtonContent(text = text, iconRes = iconRes, contentColor = contentColor)
+        },
     )
 }
 
