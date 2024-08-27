@@ -1,6 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons
 
-object DefaultButtonValues {
-    const val padding = 11
-    const val cornersRadius = 16
+internal object DefaultButtonValues {
+    const val PADDING = 11
+    const val CORNER_RADIUS = 16
 }
