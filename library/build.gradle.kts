@@ -47,7 +47,6 @@ dependencies {
 
     //implementation(libs.androidx.core.splashscreen)
 
-
     implementation(libs.androidx.material3)
     implementation(libs.lottie.compose)
     api(libs.androidx.compose.foundation)

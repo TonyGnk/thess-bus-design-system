@@ -12,11 +12,11 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 #noinspection GradleDependency
 lifecycleRuntimeKtx = "2.8.4"
+serialization = "1.7.1"
 activityCompose = "1.9.1"
 #noinspection GradleDependency
 composeBom = "2024.08.00"
-#noinspection GradleDependency
-androidxNavigation = "2.8.0-alpha06"
+androidxNavigation = "2.8.0-rc01"
 lottieCompose = "4.0.0"
 
 [libraries]
@@ -34,6 +34,7 @@ androidx-compose-foundation-layout = { group = "androidx.compose.foundation", na
 #For the Showcase (Mobile)
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -56,3 +57,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
