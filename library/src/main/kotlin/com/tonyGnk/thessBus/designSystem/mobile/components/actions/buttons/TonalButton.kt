@@ -45,7 +45,9 @@ fun TonalButton(
         shape = shape,
         contentPadding = PaddingValues(padding.dp),
         content = {
-            SharedButtonContent(text = text, iconRes = iconRes, contentColor = contentColor)
+            SharedButtonContent(
+                text = text, iconRes = iconRes, contentColor = contentColor, padding = DefaultButtonValues.PADDING
+            )
         },
     )
 }

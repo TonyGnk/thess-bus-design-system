@@ -1,12 +1,14 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.DefaultButtonValues.PADDING
@@ -16,10 +18,12 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
 fun SharedButtonContent(
-    text: String, @DrawableRes iconRes: Int, contentColor: Color
+    text: String,
+    @DrawableRes iconRes: Int,
+    contentColor: Color,
+    padding: Int,
+    style: TextStyle = AppTypo.labelLarge
 ) {
-    val style = AppTypo.labelLarge
-
     when (iconRes) {
         0 -> Text(
             text = text, style = style, color = contentColor
