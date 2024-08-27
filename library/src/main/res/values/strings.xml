@@ -1,0 +1,6 @@
+<resources>
+    <!--Navigation Destinations    -->
+    <string name="destination_home">Home</string>
+    <string name="destination_lines">Lines</string>
+    <string name="destination_alarms">Alarms</string>
+</resources>

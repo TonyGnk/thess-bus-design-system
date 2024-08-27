@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.DefaultButtonValues.PADDING
-import com.tonyGnk.thessBus.designSystem.mobile.components.actions.icons.Icon
-import com.tonyGnk.thessBus.designSystem.mobile.components.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
