@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 //import androidx.compose.material3.FilledTonalButton
@@ -27,20 +26,23 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.FilledButton
-import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.TonalButton
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
+import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.SharedButtonContent
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object LandingPageRoute
 
 private const val MARGIN = 18
 
 @Composable
 fun LandingPage(
-    navigateToNavBar: () -> Unit = {}
+    navigateToDestination: (LandingDestination) -> Unit = {},
 ) {
     Scaffold {
         LazyColumn(
@@ -55,7 +57,7 @@ fun LandingPage(
             item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
             item { UpdateButton() }
             item { Spacer(modifier = Modifier.padding(MARGIN.dp)) }
-            item { ListContainer(navigateToNavBar = navigateToNavBar) }
+            item { ListContainer(navigateToNavBar = navigateToDestination) }
         }
     }
 }
@@ -63,7 +65,7 @@ fun LandingPage(
 @Composable
 fun ListContainer(
     modifier: Modifier = Modifier,
-    navigateToNavBar: () -> Unit
+    navigateToNavBar: (LandingDestination) -> Unit
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -71,10 +73,20 @@ fun ListContainer(
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(30.dp)
     ) {
-        ListItem(
-            label = R.string.navigation_bar,
-            navigateToNavBar = navigateToNavBar
-        )
+        Column {
+            LandingDestination.entries.forEachIndexed { index, destination ->
+                Column {
+                    ListItem(
+                        destination = destination,
+                        navigateToNavBar = { navigateToNavBar(destination) }
+                    )
+                    //If is not last then add a divider
+                    if (index != LandingDestination.entries.size - 1) {
+                        HorizontalDivider()
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -96,7 +108,7 @@ fun UpdateButton() {
                     )
                 context.startActivity(intent)
             },
-            iconRes = R.drawable.google_play_store_svgrepo_com__1_,
+            iconRes = R.drawable.play_store,
             text = stringResource(id = R.string.get_updates),
             modifier = Modifier
         )
@@ -106,23 +118,22 @@ fun UpdateButton() {
 
 @Composable
 fun ListItem(
-    @StringRes label: Int,
+    destination: LandingDestination,
     navigateToNavBar: () -> Unit
 ) {
-    val paddingValues = 11.dp
-    Column {
-        com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem(
-            padding = PaddingValues(paddingValues),
-            onClick = navigateToNavBar,
-//            modifier = Modifier.padding(
-//                8.dp
-//            )
-        ) {
-            Text(text = stringResource(id = label))
-        }
-        Box(modifier = Modifier.padding(horizontal = paddingValues + 14.dp)) {
-            // HorizontalDivider()
-        }
+    val paddingValues = 10
+    com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem(
+        shape = RoundedCornerShape(0.dp),
+        padding = PaddingValues(paddingValues.dp),
+        onClick = navigateToNavBar,
+    ) {
+        SharedButtonContent(
+            text = stringResource(id = destination.labelRes),
+            iconRes = destination.iconRes,
+            contentColor = AppColor.onSurface,
+            style = AppTypo.bodyLarge,
+            padding = paddingValues
+        )
     }
 }
 

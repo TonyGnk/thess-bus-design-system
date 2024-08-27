@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">ThessBus UI</string>
+
+    <!-- Landing Page -->
     <string name="large_app_name">ThessBus Design System</string>
     <string name="app_desctiption">A collection of UI components for the upcoming ThessBus app. Only for demonstration purposes and internal feedback.</string>
     <string name="get_updates">Get Updates</string>
-    <string name="navigation_bar">Navigation Bar</string>
+    //Layout
+    <string name="landing_destinations_layout">Layout</string>
+    //Actions
+    <string name="landing_destinations_actions">Actions</string>
+    //Navigation
+    <string name="landing_destinations_navigation">Navigation</string>
+
+
 </resources>
