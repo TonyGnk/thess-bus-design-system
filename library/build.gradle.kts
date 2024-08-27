@@ -79,7 +79,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.tonyGnk"
             artifactId = "thessBus-designSystem"
-            version = "0.0.8"
+            version = "0.0.9"
 
             afterEvaluate {
                 from(components["release"])
