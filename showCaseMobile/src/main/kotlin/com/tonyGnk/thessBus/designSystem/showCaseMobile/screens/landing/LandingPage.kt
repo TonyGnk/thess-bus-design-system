@@ -94,7 +94,7 @@ private fun LandingListItem(
     val paddingValues = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
     ListItem(
         shape = AppShape.rectangle,
-        padding = PaddingValues(paddingValues.dp),
+        padding = paddingValues,
         onClick = navigateToNavBar,
     ) {
         SharedButtonContent(

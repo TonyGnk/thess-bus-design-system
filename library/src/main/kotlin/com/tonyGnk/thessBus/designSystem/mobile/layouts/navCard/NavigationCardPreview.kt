@@ -47,17 +47,19 @@ fun <S> SharedTransitionWrapper(
 
 @Composable
 fun NavigationCardPreview(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isDetailedResultView: Boolean
 ) {
-    val selected = remember { mutableStateOf(NavCardPreviewType.START) }
-    val navigateToStart = { selected.value = NavCardPreviewType.START }
-    val navigateToSelectDestination = { selected.value = NavCardPreviewType.SELECT_DESTINATION }
-    val navigateToDestinationOverview = { selected.value = NavCardPreviewType.DESTINATION_OVERVIEW }
+    val currentPhase = remember { mutableStateOf(NavCardPreviewType.START) }
+    val navigateToStart = { currentPhase.value = NavCardPreviewType.START }
+    val navigateToSelectDestination = { currentPhase.value = NavCardPreviewType.SELECT_DESTINATION }
+    val navigateToDestinationOverview =
+        { currentPhase.value = NavCardPreviewType.DESTINATION_OVERVIEW }
 
-    SharedTransitionWrapper(selected.value) {
+    SharedTransitionWrapper(currentPhase.value) {
         when (it) {
             NavCardPreviewType.START -> NavCardStart(
-                modifier = modifier.padding(top = 80.dp),
+                modifier = modifier,
                 onSearchClick = navigateToSelectDestination
             )
 
@@ -73,11 +75,12 @@ fun NavigationCardPreview(
 
                 NavCardSelect(
                     modifier = modifier,
-                    onBackClick = { selected.value = NavCardPreviewType.START },
+                    onBackClick = { currentPhase.value = NavCardPreviewType.START },
                     onQueryChange = onQueryChange,
                     query = query.value,
                     searchEnabled = searchEnabled,
-                    isFocused = true
+                    isFocused = true,
+                    isDetailedResults = isDetailedResultView
                 )
             }
 
@@ -92,5 +95,5 @@ fun NavigationCardPreview(
 @AppPreview.Dark
 private
 fun Preview() = ClpTheme {
-    NavigationCardPreview()
+    NavigationCardPreview(isDetailedResultView = false)
 }

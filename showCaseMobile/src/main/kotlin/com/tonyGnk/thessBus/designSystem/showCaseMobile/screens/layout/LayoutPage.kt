@@ -86,7 +86,7 @@ fun ListContainer(
                         onLayoutDestinations = onLayoutDestinations
                     )
                     //If is not last then add a divider and not the first
-                    if (index != LandingDestination.entries.size - 1 && LandingDestination.entries.size ==1) {
+                    if (index != LandingDestination.entries.size - 1 && LandingDestination.entries.size == 1) {
                         HorizontalDivider()
                     }
                 }
@@ -100,7 +100,7 @@ private fun LayoutListItem(
     layoutDestination: LayoutDestination, onLayoutDestinations: (LayoutDestination) -> Unit
 ) {
     ListItem(
-        padding = PaddingValues(DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
+        padding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING,
         onClick = { onLayoutDestinations(layoutDestination) }
     ) {
         Text(text = stringResource(layoutDestination.labelRes))

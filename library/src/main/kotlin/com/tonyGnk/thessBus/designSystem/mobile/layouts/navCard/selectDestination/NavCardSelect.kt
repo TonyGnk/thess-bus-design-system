@@ -20,6 +20,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardSelectItem
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardSelectItemFakeData
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.overview.NavCardSelectQuickOptions
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.searchMode.NavCardSelectMode
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
@@ -30,32 +33,8 @@ fun NavCardSelect(
     query: String,
     isFocused: Boolean,
     historyItems: List<NavCardSelectItem> = emptyList(),
-    results: List<NavCardSelectItem> = listOf(
-        NavCardSelectItem(
-            id = 1,
-            elName = "Ξηροκρήνη",
-            enName = "Xirokrini",
-            elArea = "Θεσσαλονίκη",
-            enArea = "Thessaloniki",
-            x = 40.640063,
-            y = 21.935731
-        ),
-
-        NavCardSelectItem(
-            id = 2,
-            elName = "Ωραιοπούλου",
-            enName = "Oraiopoulou",
-            elArea = "Θεσσαλονίκη",
-            enArea = "Thessaloniki"
-        ),
-        NavCardSelectItem(
-            id = 3,
-            elName = "Ταβέρνα Άσυλο",
-            enName = "Taverna Asilo",
-            elArea = "Πανεπσιτημίου, Άγιος Παύλος",
-            enArea = "Panepistimiou, Agios Pavlos"
-        ),
-    ),
+    isDetailedResults: Boolean,
+    results: List<NavCardSelectItem> = NavCardSelectItemFakeData,
     searchEnabled: Boolean,
     onQueryChange: (String) -> Unit = {},
     onItemSelect: (NavCardSelectItem) -> Unit = {},
@@ -76,7 +55,7 @@ fun NavCardSelect(
         )
         AnimatedContent(targetState = searchEnabled, label = "") {
             when (it) {
-                true -> NavCardSelectSearch(results = results)
+                true -> NavCardSelectMode(results = results, detailedView = isDetailedResults)
                 false -> NavCardSelectOverview(
                     historyItems = historyItems
                 )
@@ -95,13 +74,13 @@ fun NavCardSelectOverview(
             .clip(RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp)),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item { HistoryList2() }
-        item { HistoryList() }
+        item { NavCardSelectQuickOptions() }
+        //item { HistoryList() }
     }
 }
 
 
-@AppPreview.Dark
+@AppPreview.ScaleAndFont
 @Composable
 private fun Preview() = ClpTheme {
     val query = remember { mutableStateOf("") }
@@ -116,7 +95,8 @@ private fun Preview() = ClpTheme {
             query = query.value,
             onQueryChange = { query.value = it },
             searchEnabled = searchEnabled,
-            isFocused = false
+            isFocused = false,
+            isDetailedResults = false
         )
     }
 }

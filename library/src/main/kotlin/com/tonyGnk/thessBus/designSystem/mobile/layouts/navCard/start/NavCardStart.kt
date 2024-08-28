@@ -32,7 +32,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 @Stable
 object NavCardProperties {
-    const val SEARCH_PADDING = 21
+    const val SEARCH_PADDING = 20
     const val LARGE_CORNERS = 35
     const val SEARCH_ARRANGEMENT = SEARCH_PADDING.div(1.5f)
     const val SMALL_CORNERS = LARGE_CORNERS - SEARCH_PADDING
@@ -100,13 +100,15 @@ fun NavigationListItem(
                 text = searchLabel,
                 style = searchStyle,
                 modifier = Modifier
-                    .mySharedElement("NavCardStartSelectText")
                     .weight(1f)
+                    .mySharedElement("NavCardStartSelectText")
             )
             Icon(
                 iconRes = AppIcon.search,
                 color = AppColor.onSurface,
-                modifier = Modifier.size(sizeInScreen.height)
+                modifier = Modifier
+                    .size(sizeInScreen.height)
+                    .mySharedElement("NavCardStartSelectMagnifier")
             )
         }
     }

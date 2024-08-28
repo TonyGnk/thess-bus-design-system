@@ -27,7 +27,7 @@ fun ListItem(
     containerColor: Color = Color.Transparent,
     shape: Shape = AppShape.round30,
     onClick: (() -> Unit)? = null,
-    padding: PaddingValues = PaddingValues(10.dp),
+    padding: Int = 10,
     headlineContent: @Composable () -> Unit = {},
 ) {
     Box(
@@ -42,7 +42,7 @@ fun ListItem(
             .then(
                 if (onClick != null) Modifier.clickable { onClick() } else Modifier
             )
-            .padding(padding),
+            .padding(padding.dp),
         content = { headlineContent() }
     )
 }

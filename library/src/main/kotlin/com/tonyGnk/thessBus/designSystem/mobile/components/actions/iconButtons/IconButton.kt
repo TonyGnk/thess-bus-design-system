@@ -24,7 +24,6 @@ import androidx.compose.material3.IconButton as MaterialIconButton
 fun IconButton(
     modifier: Modifier = Modifier,
     @DrawableRes iconRes: Int = 0,
-    buttonModifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     color: Color = AppColor.transparent,
     contentColor: Color = AppColor.onSurface,

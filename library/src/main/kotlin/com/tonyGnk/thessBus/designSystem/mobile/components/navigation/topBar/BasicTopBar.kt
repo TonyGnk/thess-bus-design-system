@@ -2,6 +2,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -37,11 +38,12 @@ fun BasicTopBar(
 ) {
     val labelStyle: TextStyle = AppTypo.topBar
     val textForCalculations = "Q"
-    val iconHeight = textForCalculations.findScreenSize(labelStyle).height -1.dp
+    val iconHeight = textForCalculations.findScreenSize(labelStyle).height - 1.dp
 
     Row(
-    verticalAlignment = Alignment.CenterVertically,
-        modifier=modifier.padding(horizontal =  DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+        modifier = modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)
     ) {
         if (backIcon != null) IconButton(
             iconRes = backIcon.iconRes,

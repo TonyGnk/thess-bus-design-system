@@ -1,6 +1,7 @@
 package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +31,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
@@ -49,7 +51,7 @@ fun SearchFieldContainer(
     onQueryChange: (String) -> Unit,
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
-    val sizeInScreen = searchLabel.findScreenSize(searchStyle)
+    val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
     SurfaceWithShadows(
         shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp),
@@ -58,24 +60,19 @@ fun SearchFieldContainer(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier,
+            horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+            modifier = modifier.padding(
+                start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
+                end = NavCardProperties.SEARCH_PADDING.dp
+            )
         ) {
             IconButton(
                 iconRes = AppIcon.back,
                 color = AppColor.transparent,
                 contentColor = AppColor.onSurface,
                 onClick = onBackClick,
-                buttonModifier = Modifier.padding(horizontal = 4.dp),
-                modifier = Modifier.size(sizeInScreen.height)
+                modifier = Modifier.size(sizeInScreen)
             )
-//            Text(
-//                text = searchLabel,
-//                style = textStyle,
-////                color = AppColor.onSurface,
-//                modifier = Modifier
-//
-//                    .weight(1f)
-//            )
             SearchField(
                 query = query,
                 onQueryChange = onQueryChange,
@@ -92,8 +89,14 @@ fun SearchFieldContainer(
                 iconRes = AppIcon.search,
                 color = AppColor.onSurface,
                 modifier = Modifier
-                    .padding(NavCardProperties.SEARCH_PADDING.dp)
-                    .size(sizeInScreen.height)
+                    .padding(
+                        top = NavCardProperties.SEARCH_PADDING.dp,
+                        bottom = NavCardProperties.SEARCH_PADDING.dp,
+                        //start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
+                        //end = NavCardProperties.SEARCH_PADDING.dp
+                    )
+                    .size(sizeInScreen)
+                    .mySharedElement("NavCardStartSelectMagnifier")
             )
         }
     }
