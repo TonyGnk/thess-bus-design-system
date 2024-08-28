@@ -5,12 +5,12 @@
     <string name="large_app_name">ThessBus Design System</string>
     <string name="app_desctiption">A collection of UI components for the upcoming ThessBus app. Only for demonstration purposes and internal feedback.</string>
     <string name="get_updates">Get Updates</string>
-    //Layout
-    <string name="landing_destinations_layout">Layout</string>
-    //Actions
+    <string name="landing_destinations_layout">Layouts</string>
     <string name="landing_destinations_actions">Actions</string>
-    //Navigation
     <string name="landing_destinations_navigation">Navigation</string>
+
+    <!-- Layouts -->
+    <string name="Layouts_nav_card">Navigation Card</string>
 
 
 </resources>
