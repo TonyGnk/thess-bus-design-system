@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination
+package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
