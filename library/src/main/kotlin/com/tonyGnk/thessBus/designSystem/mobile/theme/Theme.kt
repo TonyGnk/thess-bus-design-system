@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
 
@@ -24,7 +25,7 @@ fun ClpTheme(
 //        ThemeBrand.BLUE -> com.tonygnk.thessbus.designsystem.mobile.theme.themeBrand.BlueAppTheme
 //    }
     //if android sdk >=31
-    val appTheme = getDynamicTheme(LocalContext.current)
+    val appTheme = BlueAppTheme //getDynamicTheme(LocalContext.current)
 
     var colorScheme = when (darkTheme) {
         true -> appTheme.darkColorScheme

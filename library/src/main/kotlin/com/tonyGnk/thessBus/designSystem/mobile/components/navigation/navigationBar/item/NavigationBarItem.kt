@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.item
+package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.item
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope

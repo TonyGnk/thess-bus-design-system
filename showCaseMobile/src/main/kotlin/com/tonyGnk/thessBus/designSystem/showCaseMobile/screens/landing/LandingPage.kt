@@ -1,38 +1,27 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing
 
-import android.content.Intent
-import android.net.Uri
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material3.FilledTonalButton
-//import androidx.compose.material3.HorizontalDivider
-//import androidx.compose.material3.Scaffold
-//import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.FilledButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.SharedButtonContent
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -46,19 +35,25 @@ fun LandingPage(
 ) {
     Scaffold {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
+            verticalArrangement = Arrangement.spacedBy(MARGIN.dp),
+            modifier = Modifier.fillMaxSize()
         ) {
-            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
-            item { LandingPageAppBar() }
-            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
-            item { LandingPageAppBarDescription() }
-            item { Spacer(modifier = Modifier.padding(MARGIN.div(2).dp)) }
-            item { UpdateButton() }
-            item { Spacer(modifier = Modifier.padding(MARGIN.dp)) }
+            item { Spacer(modifier = Modifier.padding(it)) }
+            item { Header() }
             item { ListContainer(navigateToNavBar = navigateToDestination) }
         }
+    }
+}
+
+@Composable
+private fun Header() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(MARGIN.dp),
+        modifier = Modifier.padding(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
+    ) {
+        LandingPageAppBar()
+        LandingPageAppBarDescription()
+        UpdateButton()
     }
 }
 
@@ -70,13 +65,13 @@ fun ListContainer(
     Surface(
         modifier = modifier.fillMaxSize(),
         color = AppColor.surfaceContainerLowest,
-        shadowElevation = 4.dp,
-        shape = RoundedCornerShape(30.dp)
+        shadowElevation = 2.dp,
+        shape = AppShape.round30
     ) {
         Column {
             LandingDestination.entries.forEachIndexed { index, destination ->
                 Column {
-                    ListItem(
+                    LandingListItem(
                         destination = destination,
                         navigateToNavBar = { navigateToNavBar(destination) }
                     )
@@ -90,40 +85,15 @@ fun ListContainer(
     }
 }
 
-@Composable
-fun UpdateButton() {
-    val context = LocalContext.current
-
-    Box(
-        modifier = Modifier.padding(horizontal = 18.dp)
-    ) {
-        FilledButton(
-            padding = 10,
-            onClick = {
-                val intent =
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(
-                            "https://play.google.com/store/apps/details?id=com.tonyGnk.thessBus.designSystem.mobile"
-                        )
-                    )
-                context.startActivity(intent)
-            },
-            iconRes = R.drawable.play_store,
-            text = stringResource(id = R.string.get_updates),
-            modifier = Modifier
-        )
-    }
-}
-
 
 @Composable
-fun ListItem(
+private fun LandingListItem(
     destination: LandingDestination,
     navigateToNavBar: () -> Unit
 ) {
-    val paddingValues = 10
-    com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem(
-        shape = RoundedCornerShape(0.dp),
+    val paddingValues = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
+    ListItem(
+        shape = AppShape.rectangle,
         padding = PaddingValues(paddingValues.dp),
         onClick = navigateToNavBar,
     ) {

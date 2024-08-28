@@ -25,8 +25,10 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
 @Composable
 fun NavCardSelect(
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     query: String,
+    isFocused: Boolean,
     historyItems: List<NavCardSelectItem> = emptyList(),
     results: List<NavCardSelectItem> = listOf(
         NavCardSelectItem(
@@ -61,9 +63,7 @@ fun NavCardSelect(
     val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 4.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SearchFieldContainer(
@@ -71,7 +71,8 @@ fun NavCardSelect(
             onBackClick = onBackClick,
             onQueryChange = onQueryChange,
             searchEnabled = searchEnabled,
-            searchStyle = searchStyle
+            searchStyle = searchStyle,
+            isFocused = isFocused
         )
         AnimatedContent(targetState = searchEnabled, label = "") {
             when (it) {
@@ -114,7 +115,8 @@ private fun Preview() = ClpTheme {
         NavCardSelect(
             query = query.value,
             onQueryChange = { query.value = it },
-            searchEnabled = searchEnabled
+            searchEnabled = searchEnabled,
+            isFocused = false
         )
     }
 }

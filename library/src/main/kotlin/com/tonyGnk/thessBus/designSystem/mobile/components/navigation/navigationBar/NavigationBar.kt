@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.bar
+package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar
 
 import android.content.Context
 import android.os.Build
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.item.NavigationBarItem
+import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.item.NavigationBarItem
 import androidx.compose.material3.NavigationBar as MaterialNavigationBar
 
 @Composable

@@ -27,15 +27,10 @@ fun ListItem(
     containerColor: Color = Color.Transparent,
     shape: Shape = AppShape.round30,
     onClick: (() -> Unit)? = null,
-    tonalElevation: Dp = 0.dp,
     padding: PaddingValues = PaddingValues(10.dp),
-    overlineContent: @Composable (() -> Unit)? = null,
-    supportingContent: @Composable (() -> Unit)? = null,
-    leadingContent: @Composable (() -> Unit)? = null,
-    trailingContent: @Composable (() -> Unit)? = null,
     headlineContent: @Composable () -> Unit = {},
 ) {
-    MaterialListItem(
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .background(
@@ -48,16 +43,7 @@ fun ListItem(
                 if (onClick != null) Modifier.clickable { onClick() } else Modifier
             )
             .padding(padding),
-        headlineContent = headlineContent,
-        overlineContent = overlineContent,
-        supportingContent = supportingContent,
-        leadingContent = leadingContent,
-        trailingContent = trailingContent,
-        shadowElevation = 0.dp,
-        tonalElevation = tonalElevation,
-        colors = ListItemDefaults.colors(
-            containerColor = AppColor.transparent,
-        ),
+        content = { headlineContent() }
     )
 }
 

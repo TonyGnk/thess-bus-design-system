@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.item
+package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.item
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec

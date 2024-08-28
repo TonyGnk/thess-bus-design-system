@@ -45,6 +45,7 @@ fun SearchFieldContainer(
     searchEnabled: Boolean,
     onBackClick: () -> Unit,
     searchStyle: TextStyle,
+    isFocused: Boolean,
     onQueryChange: (String) -> Unit,
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
@@ -84,7 +85,8 @@ fun SearchFieldContainer(
                     .fillMaxWidth()
                     .weight(1f),
                 searchEnabled = searchEnabled,
-                searchLabel = searchLabel
+                searchLabel = searchLabel,
+                isFocused = isFocused
             )
             Icon(
                 iconRes = AppIcon.search,
@@ -105,6 +107,7 @@ fun SearchField(
     onQueryChange: (String) -> Unit,
     searchEnabled: Boolean,
     searchStyle: TextStyle,
+    isFocused: Boolean,
     searchLabel: String
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -162,7 +165,7 @@ fun SearchField(
         }
     )
 
-    LaunchedEffect(Unit) {
+    if (isFocused) LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
 }
@@ -181,6 +184,7 @@ private fun Preview() = ClpTheme {
         onBackClick = { },
         onQueryChange = { query.value = it },
         searchEnabled = searchEnabled,
-        searchStyle = AppTypo.titleSmall.copy(color = AppColor.onSurface)
+        searchStyle = AppTypo.titleSmall.copy(color = AppColor.onSurface),
+        isFocused = false
     )
 }

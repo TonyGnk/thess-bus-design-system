@@ -26,7 +26,7 @@ private enum class NavCardPreviewType {
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun <S> SharedTransitionWithAnimatedContentWrapper(
+fun <S> SharedTransitionWrapper(
     targetState: S, content: @Composable (S) -> Unit
 ) {
     SharedTransitionLayout {
@@ -46,16 +46,18 @@ fun <S> SharedTransitionWithAnimatedContentWrapper(
 }
 
 @Composable
-fun NavigationCardPreview() {
+fun NavigationCardPreview(
+    modifier: Modifier = Modifier
+) {
     val selected = remember { mutableStateOf(NavCardPreviewType.START) }
     val navigateToStart = { selected.value = NavCardPreviewType.START }
     val navigateToSelectDestination = { selected.value = NavCardPreviewType.SELECT_DESTINATION }
     val navigateToDestinationOverview = { selected.value = NavCardPreviewType.DESTINATION_OVERVIEW }
 
-    SharedTransitionWithAnimatedContentWrapper(selected.value) {
+    SharedTransitionWrapper(selected.value) {
         when (it) {
             NavCardPreviewType.START -> NavCardStart(
-                modifier = Modifier.padding(top = 80.dp),
+                modifier = modifier.padding(top = 80.dp),
                 onSearchClick = navigateToSelectDestination
             )
 
@@ -70,10 +72,12 @@ fun NavigationCardPreview() {
                 }
 
                 NavCardSelect(
+                    modifier = modifier,
                     onBackClick = { selected.value = NavCardPreviewType.START },
                     onQueryChange = onQueryChange,
                     query = query.value,
                     searchEnabled = searchEnabled,
+                    isFocused = true
                 )
             }
 
