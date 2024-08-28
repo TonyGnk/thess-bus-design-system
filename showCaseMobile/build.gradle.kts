@@ -61,8 +61,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.kotlinx.serialization.json)
-    //implementation(libs.androidx.ui)
+
 
     implementation(project(":library"))
-
 }

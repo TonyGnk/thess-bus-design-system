@@ -43,9 +43,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.animation)
     debugImplementation(libs.androidx.ui.tooling)
-
-    //implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.androidx.material3)
     implementation(libs.lottie.compose)
