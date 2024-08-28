@@ -67,10 +67,17 @@ object AppTypo {
         @Composable
         get() = MaterialTheme.typography.labelSmall
 
-    val topBar: TextStyle
+    val appBar: TextStyle
         @Composable
         get() = MaterialTheme.typography.headlineMedium.copy(
             fontWeight = FontWeight.Bold,
             fontSize = 26.sp
+        )
+
+    val topBar: TextStyle
+        @Composable
+        get() = MaterialTheme.typography.headlineMedium.copy(
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
         )
 }
