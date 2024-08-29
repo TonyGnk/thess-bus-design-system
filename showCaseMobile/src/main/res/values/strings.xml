@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">ThessBus UI</string>
+    <string name="app_name" translatable="false">ThessBus UI</string>
 
     <!-- Landing Page -->
-    <string name="large_app_name">ThessBus Design System</string>
-    <string name="app_desctiption">A collection of UI components for the upcoming ThessBus app. Only for demonstration purposes and internal feedback.</string>
-    <string name="get_updates">Get Updates</string>
-    <string name="landing_destinations_layout">Layouts</string>
-    <string name="landing_destinations_actions">Actions</string>
-    <string name="landing_destinations_navigation">Navigation</string>
+    <string name="large_app_name" translatable="false">ThessBus Design System</string>
+    <string name="app_desctiption" translatable="false">A collection of UI components for the upcoming ThessBus app. Only for demonstration purposes and internal feedback.</string>
+    <string name="get_updates" translatable="false">Get Updates</string>
+    <string name="landing_destinations_layout" translatable="false">Layouts</string>
+    <string name="landing_destinations_actions" translatable="false">Actions</string>
+    <string name="landing_destinations_navigation" translatable="false">Navigation</string>
 
     <!-- Layouts -->
-    <string name="Layouts_nav_card">Navigation Card</string>
+    <string name="Layouts_nav_card" translatable="false">Navigation Card</string>
 
 
 </resources>

@@ -4,5 +4,5 @@
     <string name="destination_lines">Lines</string>
     <string name="destination_alarms">Alarms</string>
 
-    <string name="back">Back</string>
+    <string name="back" translatable="false">Back</string>
 </resources>
