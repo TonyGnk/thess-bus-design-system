@@ -49,7 +49,6 @@ fun BasicTopBar(
             iconRes = backIcon.iconRes,
             onClick = backIcon.onBack,
             modifier = Modifier.size(iconHeight),
-            contentColor = AppColor.onSurface,
             contentDescription = stringResource(backIcon.contentDescription)
         )
         if (labelRes != 0) Text(

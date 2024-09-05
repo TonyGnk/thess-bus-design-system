@@ -23,14 +23,14 @@ fun TextButton(
     contentColor: Color = AppColor.primary,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(DefaultButtonValues.CORNER_RADIUS.dp),
-    padding: Int = DefaultButtonValues.PADDING,
+    padding: PaddingValues = PaddingValues(DefaultButtonValues.PADDING.dp),
 ) {
     MaterialTextButton(
         modifier = modifier,
         onClick = onClick,
         enabled = enabled,
         shape = shape,
-        contentPadding = PaddingValues(padding.dp),
+        contentPadding = padding,
         content = {
             SharedButtonContent(
                 text = text, iconRes = iconRes, contentColor = contentColor, padding = DefaultButtonValues.PADDING

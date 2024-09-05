@@ -27,9 +27,8 @@ fun FilledButton(
     color: Color = AppColor.primary,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(DefaultButtonValues.CORNER_RADIUS.dp),
-    padding: Int = DefaultButtonValues.PADDING,
+    padding: PaddingValues = PaddingValues(DefaultButtonValues.PADDING.dp),
 ) {
-
     val contentColor = contentColorFor(color)
 
     MaterialFilledButton(
@@ -45,10 +44,14 @@ fun FilledButton(
             color = Color.Black.copy(alpha = 0.1f)
         ),
         shape = shape,
-        contentPadding = PaddingValues(padding.dp),
+        contentPadding = padding,
         content = {
             SharedButtonContent(
-                text = text, iconRes = iconRes, contentColor = contentColor, padding = DefaultButtonValues.PADDING)
+                text = text,
+                iconRes = iconRes,
+                contentColor = contentColor,
+                padding = DefaultButtonValues.PADDING
+            )
         },
     )
 }

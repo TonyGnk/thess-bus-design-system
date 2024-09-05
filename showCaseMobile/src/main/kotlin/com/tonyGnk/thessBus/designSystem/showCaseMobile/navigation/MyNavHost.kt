@@ -24,7 +24,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation.Navig
 
 @Composable
 fun MyNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = LandingPageRoute) {
+    NavHost(navController = navController, startDestination = NavCardPreviewPageRoute) {
         val navigateToDestination: (LandingDestination) -> Unit = { destination ->
             when (destination) {
                 LandingDestination.Layouts -> navController.navigate(LayoutPageRoute)

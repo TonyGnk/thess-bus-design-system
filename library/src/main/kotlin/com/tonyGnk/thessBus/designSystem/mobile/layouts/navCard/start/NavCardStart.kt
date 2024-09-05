@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -32,8 +33,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 @Stable
 object NavCardProperties {
-    const val SEARCH_PADDING = 20
-    const val LARGE_CORNERS = 35
+    const val SEARCH_PADDING = 18
+    const val LARGE_CORNERS = 33
     const val SEARCH_ARRANGEMENT = SEARCH_PADDING.div(1.5f)
     const val SMALL_CORNERS = LARGE_CORNERS - SEARCH_PADDING
     const val SEARCH_LABEL = "Search here"
@@ -51,10 +52,12 @@ fun NavCardStart(
         verticalArrangement = Arrangement.spacedBy(NavCardProperties.SEARCH_ARRANGEMENT.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
+            .statusBarsPadding()
             .fillMaxWidth()
             .clip(RoundedCornerShape(NavCardProperties.LARGE_CORNERS.dp))
             .background(AppColor.primary)
-            .padding(NavCardProperties.SEARCH_PADDING.dp),
+            .padding(NavCardProperties.SEARCH_PADDING.dp)
+        ,
     ) {
         LargeLabel(largeLabel)
         NavigationListItem(

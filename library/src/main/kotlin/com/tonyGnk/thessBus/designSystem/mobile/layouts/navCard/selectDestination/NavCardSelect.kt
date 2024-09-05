@@ -16,46 +16,48 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardSelectItem
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardSelectItemFakeData
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardResult
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardResultFakeData
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.overview.NavCardSelectQuickOptions
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.searchMode.NavCardSelectMode
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.searchMode.NavCardSearchMode
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
 @Composable
 fun NavCardSelect(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit = {},
+    onBackClick: () -> Unit,
     query: String,
+    onSearchClick: () -> Unit = {},
     isFocused: Boolean,
-    historyItems: List<NavCardSelectItem> = emptyList(),
+    historyItems: List<NavCardResult> = emptyList(),
     isDetailedResults: Boolean,
-    results: List<NavCardSelectItem> = NavCardSelectItemFakeData,
+    results: List<NavCardResult> = NavCardResultFakeData,
     searchEnabled: Boolean,
     onQueryChange: (String) -> Unit = {},
-    onItemSelect: (NavCardSelectItem) -> Unit = {},
+    onResultClick: (Long, Boolean) -> Unit,
 ) {
-    val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
-
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        SearchFieldContainer(
+        SearchBar(
+            onSearchClick = onSearchClick,
             query = query,
             onBackClick = onBackClick,
             onQueryChange = onQueryChange,
             searchEnabled = searchEnabled,
-            searchStyle = searchStyle,
             isFocused = isFocused
         )
         AnimatedContent(targetState = searchEnabled, label = "") {
             when (it) {
-                true -> NavCardSelectMode(results = results, detailedView = isDetailedResults)
+                true -> NavCardSearchMode(
+                    results = results,
+                    detailedView = isDetailedResults,
+                    onResultClick = onResultClick
+                )
+
                 false -> NavCardSelectOverview(
                     historyItems = historyItems
                 )
@@ -66,7 +68,7 @@ fun NavCardSelect(
 
 @Composable
 fun NavCardSelectOverview(
-    historyItems: List<NavCardSelectItem>
+    historyItems: List<NavCardResult>
 ) {
     LazyColumn(
         modifier = Modifier
@@ -96,7 +98,9 @@ private fun Preview() = ClpTheme {
             onQueryChange = { query.value = it },
             searchEnabled = searchEnabled,
             isFocused = false,
-            isDetailedResults = false
+            isDetailedResults = false,
+            onResultClick = { _, _ -> },
+            onBackClick = { }
         )
     }
 }

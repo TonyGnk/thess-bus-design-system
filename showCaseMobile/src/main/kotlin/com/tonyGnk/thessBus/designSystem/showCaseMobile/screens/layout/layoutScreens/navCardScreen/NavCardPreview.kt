@@ -29,13 +29,13 @@ fun NavCardPreviewPage(
             verticalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.NORMAL_MARGIN.dp),
             modifier = Modifier.fillMaxSize()
         ) {
-            BasicTopBar(
-                modifier = Modifier.padding(it),
-                backIcon = TopBarBackIcon(
-                    iconRes = R.drawable.circle_xmark,
-                    onBack = onBack
-                )
-            )
+//            BasicTopBar(
+//                modifier = Modifier.padding(it),
+//                backIcon = TopBarBackIcon(
+//                    iconRes = R.drawable.circle_xmark,
+//                    onBack = onBack
+//                )
+//            )
 
             NavigationCardPreview(
                 modifier = Modifier

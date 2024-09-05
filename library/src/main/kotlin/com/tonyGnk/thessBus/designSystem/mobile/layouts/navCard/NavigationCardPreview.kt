@@ -12,7 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
+import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.destinationOverview.DestinationOverview
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.NavCardSelect
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -50,11 +53,17 @@ fun NavigationCardPreview(
     modifier: Modifier = Modifier,
     isDetailedResultView: Boolean
 ) {
-    val currentPhase = remember { mutableStateOf(NavCardPreviewType.START) }
+    val currentPhase = remember { mutableStateOf(NavCardPreviewType.DESTINATION_OVERVIEW) }
     val navigateToStart = { currentPhase.value = NavCardPreviewType.START }
     val navigateToSelectDestination = { currentPhase.value = NavCardPreviewType.SELECT_DESTINATION }
-    val navigateToDestinationOverview =
-        { currentPhase.value = NavCardPreviewType.DESTINATION_OVERVIEW }
+
+    val query = remember { mutableStateOf("") }
+    val onQueryChange: (String) -> Unit = { newValue ->
+        query.value = newValue
+    }
+    val searchEnabled by remember {
+        derivedStateOf { query.value.isNotBlank() }
+    }
 
     SharedTransitionWrapper(currentPhase.value) {
         when (it) {
@@ -63,28 +72,27 @@ fun NavigationCardPreview(
                 onSearchClick = navigateToSelectDestination
             )
 
-            NavCardPreviewType.SELECT_DESTINATION -> {
+            NavCardPreviewType.SELECT_DESTINATION -> NavCardSelect(
+                modifier = modifier,
+                onBackClick = { currentPhase.value = NavCardPreviewType.START },
+                onQueryChange = onQueryChange,
+                query = query.value,
+                searchEnabled = searchEnabled,
+                onSearchClick = {
+                    currentPhase.value = NavCardPreviewType.DESTINATION_OVERVIEW
+                },
+                isFocused = true,
+                isDetailedResults = isDetailedResultView,
+                onResultClick = { _, _ -> }
+            )
 
-                val query = remember { mutableStateOf("") }
-                val onQueryChange: (String) -> Unit = { newValue ->
-                    query.value = newValue
-                }
-                val searchEnabled by remember {
-                    derivedStateOf { query.value.isNotBlank() }
-                }
+            NavCardPreviewType.DESTINATION_OVERVIEW -> DestinationOverview(
+                query = query.value,
+                onBack = navigateToSelectDestination,
+                poiTitle = "Nova Store",
+                poiCategory = "Εταιρεία Τηλεπικοινωνιών"
+            )
 
-                NavCardSelect(
-                    modifier = modifier,
-                    onBackClick = { currentPhase.value = NavCardPreviewType.START },
-                    onQueryChange = onQueryChange,
-                    query = query.value,
-                    searchEnabled = searchEnabled,
-                    isFocused = true,
-                    isDetailedResults = isDetailedResultView
-                )
-            }
-
-            NavCardPreviewType.DESTINATION_OVERVIEW -> TODO()
             NavCardPreviewType.SELECT_FROM -> TODO()
             NavCardPreviewType.REVIEW_ROUTE -> TODO()
         }

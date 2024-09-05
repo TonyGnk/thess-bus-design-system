@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.contentColorFor
@@ -18,6 +19,7 @@ fun SurfaceWithShadows(
     shape: Shape = AppShape.round30,
     color: Color = Color.Transparent,
     shadowElevation: Int = 1,
+    padding: PaddingValues = PaddingValues(1.dp),
     content: @Composable () -> Unit,
 ) {
     Surface(
@@ -28,7 +30,7 @@ fun SurfaceWithShadows(
         shadowElevation = shadowElevation.dp,
         modifier = modifier
             .zIndex(1f)
-            .padding(1.dp),
+            .padding(padding),
         content = content
     )
 }

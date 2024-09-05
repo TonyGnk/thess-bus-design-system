@@ -1,38 +1,40 @@
 package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -41,22 +43,72 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 
 @Composable
-fun SearchFieldContainer(
+fun SearchBar(
     modifier: Modifier = Modifier,
     query: String,
+    onSearchClick: () -> Unit,
     searchEnabled: Boolean,
     onBackClick: () -> Unit,
-    searchStyle: TextStyle,
     isFocused: Boolean,
     onQueryChange: (String) -> Unit,
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
+    val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
+
     val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
+    SearchBarContainer(modifier = modifier) {
+        IconButton(
+            iconRes = AppIcon.back,
+            color = AppColor.transparent,
+            onClick = onBackClick,
+            modifier = Modifier.size(sizeInScreen)
+        )
+        SearchField(
+            query = query,
+            onQueryChange = onQueryChange,
+            searchStyle = searchStyle,
+            modifier = Modifier
+                .padding(vertical = NavCardProperties.SEARCH_PADDING.dp)
+                .fillMaxWidth()
+                .weight(1f)
+                .mySharedElement("DestinationOverviewLabelSearch"),
+            searchEnabled = searchEnabled,
+            searchLabel = searchLabel,
+            onSearchClick = onSearchClick,
+            isFocusedEnabled = isFocused
+        )
+        Icon(
+            iconRes = AppIcon.search,
+            color = AppColor.onSurface,
+            modifier = Modifier
+                .padding(
+                    top = NavCardProperties.SEARCH_PADDING.dp,
+                    bottom = NavCardProperties.SEARCH_PADDING.dp,
+                    //start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
+                    //end = NavCardProperties.SEARCH_PADDING.dp
+                )
+                .size(sizeInScreen)
+                .mySharedElement("NavCardStartSelectMagnifier")
+        )
+    }
+}
+
+
+@Composable
+fun SearchBarContainer(
+    modifier: Modifier = Modifier,
+    onTap: (() -> Unit)? = null,
+    content: @Composable RowScope.() -> Unit
+) {
     SurfaceWithShadows(
         shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
-        modifier = modifier.mySharedElement("NavCardStartSelect")
+        modifier = modifier
+            .statusBarsPadding()
+            .clip(RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp))
+            .clickable { onTap?.invoke() }
+            .mySharedElement("NavCardStartSelect")
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -66,55 +118,23 @@ fun SearchFieldContainer(
                 end = NavCardProperties.SEARCH_PADDING.dp
             )
         ) {
-            IconButton(
-                iconRes = AppIcon.back,
-                color = AppColor.transparent,
-                contentColor = AppColor.onSurface,
-                onClick = onBackClick,
-                modifier = Modifier.size(sizeInScreen)
-            )
-            SearchField(
-                query = query,
-                onQueryChange = onQueryChange,
-                searchStyle = searchStyle,
-                modifier = Modifier
-                    .padding(vertical = NavCardProperties.SEARCH_PADDING.dp)
-                    .fillMaxWidth()
-                    .weight(1f),
-                searchEnabled = searchEnabled,
-                searchLabel = searchLabel,
-                isFocused = isFocused
-            )
-            Icon(
-                iconRes = AppIcon.search,
-                color = AppColor.onSurface,
-                modifier = Modifier
-                    .padding(
-                        top = NavCardProperties.SEARCH_PADDING.dp,
-                        bottom = NavCardProperties.SEARCH_PADDING.dp,
-                        //start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
-                        //end = NavCardProperties.SEARCH_PADDING.dp
-                    )
-                    .size(sizeInScreen)
-                    .mySharedElement("NavCardStartSelectMagnifier")
-            )
+            content(this)
         }
     }
 }
-
 
 @Composable
 fun SearchField(
     modifier: Modifier = Modifier,
     query: String,
+    onSearchClick: () -> Unit,
     onQueryChange: (String) -> Unit,
     searchEnabled: Boolean,
     searchStyle: TextStyle,
-    isFocused: Boolean,
+    isFocusedEnabled: Boolean,
     searchLabel: String
 ) {
     val focusRequester = remember { FocusRequester() }
-    val sizeOfLabel = searchLabel.findScreenSize(searchStyle)
 
     BasicTextField(
         value = query,
@@ -123,52 +143,33 @@ fun SearchField(
         enabled = true,
         readOnly = false,
         textStyle = searchStyle,
-        keyboardOptions = KeyboardOptions(),
-        keyboardActions = KeyboardActions(),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = { onSearchClick() }
+        ),
         singleLine = true,
         visualTransformation = VisualTransformation.None,
         onTextLayout = {},
-        interactionSource = null,
         cursorBrush = SolidColor(searchStyle.color),
-        decorationBox =
-        {
+        decorationBox = {
             Box(
                 contentAlignment = Alignment.CenterStart,
                 modifier = Modifier
             ) {
                 it()
 
-                AnimatedContent(
-                    targetState = searchEnabled,
-                    label = "",
-                    modifier = Modifier.size(sizeOfLabel.width, sizeOfLabel.height),
-//                    transitionSpec = {
-//                        (fadeIn(animationSpec = tween(200, delayMillis = 60)) +
-//                                scaleIn(
-//                                    initialScale = 0.99f,
-//                                    animationSpec = tween(220, delayMillis = 90)
-//                                )
-//                                )
-//                            .togetherWith(
-//                                fadeOut(animationSpec = tween(200))
-//                            )
-                    //  },
-                ) {
-                    when (it) {
-                        true -> {}
-
-                        false -> Text(
-                            text = searchLabel,
-                            style = searchStyle,
-                            modifier = Modifier.mySharedElement("NavCardStartSelectText")
-                        )
-                    }
-                }
+                if (!searchEnabled) Text(
+                    text = searchLabel,
+                    style = searchStyle,
+                    modifier = Modifier.mySharedElement("NavCardStartSelectText")
+                )
             }
         }
     )
 
-    if (isFocused) LaunchedEffect(Unit) {
+    if (isFocusedEnabled) LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
 }
@@ -177,17 +178,12 @@ fun SearchField(
 @Composable
 @AppPreview.Brightness
 private fun Preview() = ClpTheme {
-    val query = remember { mutableStateOf("") }
-    val searchEnabled by remember {
-        derivedStateOf { query.value.isNotBlank() }
-    }
-
-    SearchFieldContainer(
-        query = query.value,
+    SearchBar(
+        query = "",
+        onQueryChange = { },
+        searchEnabled = false,
         onBackClick = { },
-        onQueryChange = { query.value = it },
-        searchEnabled = searchEnabled,
-        searchStyle = AppTypo.titleSmall.copy(color = AppColor.onSurface),
-        isFocused = false
+        isFocused = false,
+        onSearchClick = { }
     )
 }

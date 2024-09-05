@@ -10,6 +10,8 @@ kotlin = "2.0.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
+fragment = "1.8.2"
+fragment-compose = "1.8.2"
 espressoCore = "3.6.1"
 #noinspection GradleDependency
 lifecycleRuntimeKtx = "2.8.4"
@@ -20,6 +22,8 @@ composeBom = "2024.08.00"
 #noinspection GradleDependency
 androidxNavigation = "2.8.0-rc01"
 lottieCompose = "4.0.0"
+mapsCompose = "6.1.1"
+playServicesMaps = "19.0.0"
 
 [libraries]
 #For the Library & Showcase (Mobile)
@@ -38,6 +42,9 @@ androidx-compose-foundation-layout = { group = "androidx.compose.foundation", na
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 
 
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }

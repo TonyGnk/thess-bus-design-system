@@ -88,7 +88,9 @@ fun NavCardPage(
                     searchEnabled = false,
                     modifier = Modifier.height(256.dp),
                     isFocused = false,
-                    isDetailedResults = false
+                    isDetailedResults = false,
+                    onResultClick = { _, _ -> },
+                    onBackClick = {}
                 )
             }
 
@@ -97,7 +99,9 @@ fun NavCardPage(
                     query = "Αριστοτέλους",
                     searchEnabled = true,
                     isFocused = false,
-                    isDetailedResults = false
+                    isDetailedResults = false,
+                    onResultClick = { _, _ -> },
+                    onBackClick = {}
                 )
             }
 
