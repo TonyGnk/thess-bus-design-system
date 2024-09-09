@@ -1,6 +1,8 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavBackStackEntry
@@ -9,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
+import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPageRoute
@@ -79,8 +82,8 @@ inline fun <reified R : Any> NavGraphBuilder.route(
 ) {
     composable<R>(
         enterTransition = AppTransition.enter,
-        exitTransition = AppTransition.exitOnlyFade,
-        popEnterTransition = AppTransition.enter,
+        exitTransition = AppTransition.exit,
+        popEnterTransition = AppTransition.enterPop,
         popExitTransition = AppTransition.exitPop
     ) {
         CompositionLocalProvider(LocalAnimatedContentScope provides this) {

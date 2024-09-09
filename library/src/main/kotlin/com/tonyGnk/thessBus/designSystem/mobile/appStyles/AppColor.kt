@@ -114,6 +114,10 @@ object AppColor {
         @Composable
         get() = MaterialTheme.colorScheme.inversePrimary
 
+    val inverseSurface: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.inverseSurface
+
     val inverseOnSurface: Color
         @Composable
         get() = MaterialTheme.colorScheme.inverseOnSurface

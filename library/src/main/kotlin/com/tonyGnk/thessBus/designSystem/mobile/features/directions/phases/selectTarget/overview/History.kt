@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.overview
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,12 +11,12 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 
 @Composable
 fun HistoryList(modifier: Modifier = Modifier) {
     SurfaceWithShadows(
-        shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp),
+        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier.fillMaxWidth()
     ) {

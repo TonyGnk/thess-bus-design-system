@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.searchMode
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.searchMode
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
@@ -29,18 +28,16 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardResult
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.data.NavCardResultFakeData
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItemFakeData
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
-import com.tonyGnk.thessBus.designSystem.mobile.utils.isLanguageGreek
 
 @Composable
-fun NavCardSearchMode(
-    detailedView: Boolean,
-    onResultClick: (Long, Boolean) -> Unit,
-    results: List<NavCardResult>
+fun PickTargetTypingMode(
+    onResultClick: (Int, Boolean) -> Unit,
+    results: List<SelectTargetItem>
 ) {
     Column {
         LazyColumn(
@@ -62,7 +59,7 @@ fun NavCardSearchMode(
 
 @Composable
 private fun ResultLayout(
-    result: NavCardResult,
+    result: SelectTargetItem,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -74,7 +71,7 @@ private fun ResultLayout(
 
     val totalHeight =
         title.findScreenSize(titleStyle).height + subTitle.findScreenSize(subTitleStyle).height
-    val shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp)
+    val shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp)
 
     val paddingOfTheBackButtonInSearch = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp + 12.dp
     val paddingForTheIcon = 7.dp
@@ -133,9 +130,9 @@ private fun ResultLayout(
 @Composable
 @AppPreview.Brightness
 private fun Preview() = ClpTheme {
-    val results = NavCardResultFakeData
+    val results = SelectTargetItemFakeData
 
-    NavCardSearchMode(
-        results = results, detailedView = false, onResultClick = { _, _ -> }
+    PickTargetTypingMode(
+        results = results, onResultClick = { _, _ -> }
     )
 }

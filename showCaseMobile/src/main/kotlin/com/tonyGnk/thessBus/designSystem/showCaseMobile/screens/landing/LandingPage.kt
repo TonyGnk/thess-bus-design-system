@@ -22,6 +22,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -73,7 +74,7 @@ fun ListContainer(
                 Column {
                     LandingListItem(
                         destination = destination,
-                        navigateToNavBar = { navigateToNavBar(destination) }
+                        navigateToNavBar = { navigateToNavBar(destination) },
                     )
                     //If is not last then add a divider
                     if (index != LandingDestination.entries.size - 1) {
@@ -88,11 +89,13 @@ fun ListContainer(
 
 @Composable
 private fun LandingListItem(
+    modifier: Modifier = Modifier,
     destination: LandingDestination,
     navigateToNavBar: () -> Unit
 ) {
     val paddingValues = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
     ListItem(
+        modifier = modifier,
         shape = AppShape.rectangle,
         padding = paddingValues,
         onClick = navigateToNavBar,

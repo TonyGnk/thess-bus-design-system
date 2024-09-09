@@ -1,7 +1,6 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.destinationOverview
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
 
 import android.util.Log
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -12,14 +11,9 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.Polygon
-import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 
 
 @Composable

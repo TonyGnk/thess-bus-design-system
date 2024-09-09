@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.destinationOverview
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
@@ -28,9 +27,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.SearchBar
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.SearchBarContainer
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.SearchBarContainer
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
@@ -44,30 +43,18 @@ fun DestinationOverviewUiLayer(
     poiCategory: String,
     modifier: Modifier = Modifier,
 ) {
-    val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
-    val sizeInScreen = query.findScreenSize(searchStyle).height - 1.dp
-
     Column(
         modifier = modifier.fillMaxSize(),
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(modifier = Modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)) {
-            SearchBarContainer(
-                onTap = onBack,
-                modifier = Modifier.padding(vertical = NavCardProperties.SEARCH_PADDING.dp)
-            ) {
-                Text(
-                    text = query,
-                    style = AppTypo.titleMedium,
-                    modifier = Modifier
-                        .weight(1f)
-                        .mySharedElement("DestinationOverviewLabelSearch")
-                )
-                Icon(
-                    iconRes = AppIcon.search,
-                    modifier = Modifier.size(sizeInScreen)
-                )
-            }
+            SearchButton(
+                searchLabel = query,
+                onClick = onBack,
+                color = AppColor.surfaceContainerLowest,
+                rippleColor = AppColor.onSurface,
+            )
 
         }
         Spacer(Modifier.weight(1f))

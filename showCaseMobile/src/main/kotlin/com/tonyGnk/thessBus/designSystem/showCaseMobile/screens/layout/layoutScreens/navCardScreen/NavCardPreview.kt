@@ -10,11 +10,8 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.NavigationCardPreview
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.NavigationCardPreview
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.R
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,9 +1,9 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
@@ -11,19 +11,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapUiSettings
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.destinationOverview.DestinationOverview
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.NavCardSelect
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardStart
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTargetFunctions
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 
-private enum class NavCardPreviewType {
-    START, SELECT_DESTINATION, DESTINATION_OVERVIEW, SELECT_FROM, REVIEW_ROUTE
+enum class DirectionsModes {
+    START, PICK_TARGET, LOOK_TARGET
 }
 
 
@@ -53,48 +51,47 @@ fun NavigationCardPreview(
     modifier: Modifier = Modifier,
     isDetailedResultView: Boolean
 ) {
-    val currentPhase = remember { mutableStateOf(NavCardPreviewType.DESTINATION_OVERVIEW) }
-    val navigateToStart = { currentPhase.value = NavCardPreviewType.START }
-    val navigateToSelectDestination = { currentPhase.value = NavCardPreviewType.SELECT_DESTINATION }
+    val currentPhase = remember { mutableStateOf(DirectionsModes.START) }
+    val navigateToStart = { currentPhase.value = DirectionsModes.START }
+    val navigateToSelectDestination = { currentPhase.value = DirectionsModes.PICK_TARGET }
 
     val query = remember { mutableStateOf("") }
     val onQueryChange: (String) -> Unit = { newValue ->
         query.value = newValue
     }
-    val searchEnabled by remember {
-        derivedStateOf { query.value.isNotBlank() }
-    }
 
     SharedTransitionWrapper(currentPhase.value) {
         when (it) {
-            NavCardPreviewType.START -> NavCardStart(
-                modifier = modifier,
+            DirectionsModes.START -> DirectionsStart(
+                modifier = modifier.statusBarsPadding(),
                 onSearchClick = navigateToSelectDestination
             )
 
-            NavCardPreviewType.SELECT_DESTINATION -> NavCardSelect(
-                modifier = modifier,
-                onBackClick = { currentPhase.value = NavCardPreviewType.START },
-                onQueryChange = onQueryChange,
-                query = query.value,
-                searchEnabled = searchEnabled,
-                onSearchClick = {
-                    currentPhase.value = NavCardPreviewType.DESTINATION_OVERVIEW
-                },
-                isFocused = true,
-                isDetailedResults = isDetailedResultView,
-                onResultClick = { _, _ -> }
-            )
+            DirectionsModes.PICK_TARGET -> {
+                val functions = remember {
+                    DirectionsPickTargetFunctions(
+                        onBack = { currentPhase.value = DirectionsModes.START },
+                        onSearch = { currentPhase.value = DirectionsModes.LOOK_TARGET },
+                        onResult = { _, _ -> },
+                        onQueryChange = onQueryChange
+                    )
+                }
 
-            NavCardPreviewType.DESTINATION_OVERVIEW -> DestinationOverview(
+                DirectionsPickTarget(
+                    modifier = modifier.statusBarsPadding(),
+                    query = query.value,
+                    requestFocus = true,
+                    functions = functions
+                )
+            }
+
+            DirectionsModes.LOOK_TARGET -> DirectionsLookTarget(
+                modifier = Modifier.statusBarsPadding(),
                 query = query.value,
                 onBack = navigateToSelectDestination,
                 poiTitle = "Nova Store",
                 poiCategory = "Εταιρεία Τηλεπικοινωνιών"
             )
-
-            NavCardPreviewType.SELECT_FROM -> TODO()
-            NavCardPreviewType.REVIEW_ROUTE -> TODO()
         }
     }
 }

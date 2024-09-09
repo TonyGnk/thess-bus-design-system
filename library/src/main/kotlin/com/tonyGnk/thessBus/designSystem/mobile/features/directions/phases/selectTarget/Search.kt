@@ -1,19 +1,19 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -36,7 +36,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
@@ -47,9 +47,9 @@ fun SearchBar(
     modifier: Modifier = Modifier,
     query: String,
     onSearchClick: () -> Unit,
-    searchEnabled: Boolean,
+    isTypingMode: Boolean,
     onBackClick: () -> Unit,
-    isFocused: Boolean,
+    requestFocus: Boolean,
     onQueryChange: (String) -> Unit,
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
@@ -69,27 +69,27 @@ fun SearchBar(
             onQueryChange = onQueryChange,
             searchStyle = searchStyle,
             modifier = Modifier
-                .padding(vertical = NavCardProperties.SEARCH_PADDING.dp)
+                .padding(vertical = NavCardProperties.IN_PADDING.dp)
                 .fillMaxWidth()
                 .weight(1f)
-                .mySharedElement("DestinationOverviewLabelSearch"),
-            searchEnabled = searchEnabled,
+                .mySharedElement("SearchContainerText"),
+            searchEnabled = isTypingMode,
             searchLabel = searchLabel,
             onSearchClick = onSearchClick,
-            isFocusedEnabled = isFocused
+            isFocusedEnabled = requestFocus
         )
         Icon(
             iconRes = AppIcon.search,
             color = AppColor.onSurface,
             modifier = Modifier
                 .padding(
-                    top = NavCardProperties.SEARCH_PADDING.dp,
-                    bottom = NavCardProperties.SEARCH_PADDING.dp,
+                    top = NavCardProperties.IN_PADDING.dp,
+                    bottom = NavCardProperties.IN_PADDING.dp,
                     //start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
                     //end = NavCardProperties.SEARCH_PADDING.dp
                 )
                 .size(sizeInScreen)
-                .mySharedElement("NavCardStartSelectMagnifier")
+                .mySharedElement("SearchContainerMagnifier")
         )
     }
 }
@@ -98,24 +98,30 @@ fun SearchBar(
 @Composable
 fun SearchBarContainer(
     modifier: Modifier = Modifier,
-    onTap: (() -> Unit)? = null,
+    onTap: () -> Unit = {},
     content: @Composable RowScope.() -> Unit
 ) {
     SurfaceWithShadows(
-        shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp),
+        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier
-            .statusBarsPadding()
-            .clip(RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp))
-            .clickable { onTap?.invoke() }
-            .mySharedElement("NavCardStartSelect")
+            .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp))
+//            .clickable {
+//                onTap?.invoke()
+//            }
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(color = AppColor.onSurface),
+                onClick = onTap
+            )
+            .mySharedElement("SearchContainer")
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
             modifier = modifier.padding(
                 start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
-                end = NavCardProperties.SEARCH_PADDING.dp
+                end = NavCardProperties.IN_PADDING.dp
             )
         ) {
             content(this)
@@ -181,9 +187,9 @@ private fun Preview() = ClpTheme {
     SearchBar(
         query = "",
         onQueryChange = { },
-        searchEnabled = false,
+        isTypingMode = false,
         onBackClick = { },
-        isFocused = false,
+        requestFocus = false,
         onSearchClick = { }
     )
 }

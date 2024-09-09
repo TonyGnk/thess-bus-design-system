@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -24,61 +23,61 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItemSurface
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 @Stable
 object NavCardProperties {
-    const val SEARCH_PADDING = 18
-    const val LARGE_CORNERS = 33
-    const val SEARCH_ARRANGEMENT = SEARCH_PADDING.div(1.5f)
-    const val SMALL_CORNERS = LARGE_CORNERS - SEARCH_PADDING
+    const val OUTER_PADDING = 20
+    const val OUTER_CORNERS = 22//33
+
+    const val IN_PADDING = OUTER_PADDING.div(1.3f)  //18
+    const val IN_CORNERS = OUTER_CORNERS.div(1.3f)
+    const val SEARCH_ARRANGEMENT = OUTER_PADDING * 0.75f
     const val SEARCH_LABEL = "Search here"
+    val searchTextStyle: TextStyle
+        @Composable
+        get() = AppTypo.titleMedium.copy(color = AppColor.onSurface)
 }
 
 @Composable
-fun NavCardStart(
+fun DirectionsStart(
     modifier: Modifier = Modifier,
-    largeLabel: String = "Where are you going?",
     onSearchClick: () -> Unit = {},
 ) {
-    val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
-
     Column(
         verticalArrangement = Arrangement.spacedBy(NavCardProperties.SEARCH_ARRANGEMENT.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .statusBarsPadding()
             .fillMaxWidth()
-            .clip(RoundedCornerShape(NavCardProperties.LARGE_CORNERS.dp))
+            .clip(RoundedCornerShape(NavCardProperties.OUTER_CORNERS.dp))
             .background(AppColor.primary)
-            .padding(NavCardProperties.SEARCH_PADDING.dp)
-        ,
+            .padding(NavCardProperties.OUTER_PADDING.dp),
     ) {
-        LargeLabel(largeLabel)
-        NavigationListItem(
-            searchStyle = searchStyle,
+        LargeLabel()
+        SearchButton(
             searchLabel = NavCardProperties.SEARCH_LABEL,
             onClick = onSearchClick,
+            color = AppColor.inverseOnSurface,
+            rippleColor = AppColor.inverseSurface
         )
     }
 }
 
 @Composable
-private fun LargeLabel(largeLabel: String) {
-    Text(
-        text = largeLabel,
-        style = AppTypo.titleLarge,
-        weight = FontWeight.Black,
-        color = AppColor.onPrimary,
-        textAlign = TextAlign.Start,
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+private fun LargeLabel() = Text(
+    text = "Where are you going?",
+    style = AppTypo.titleLarge,
+    weight = FontWeight.Black,
+    color = AppColor.onPrimary,
+    textAlign = TextAlign.Start,
+    modifier = Modifier.fillMaxWidth()
+)
 
 @Composable
 fun NavigationListItem(
@@ -91,11 +90,11 @@ fun NavigationListItem(
 
     ListItemSurface(
         onClick = onClick,
-        shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp),
+        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
         tonalElevation = 0.dp,
         color = AppColor.inverseOnSurface,
         shadowElevation = 2.dp,
-        padding = PaddingValues(NavCardProperties.SEARCH_PADDING.dp),
+        padding = PaddingValues(NavCardProperties.IN_PADDING.dp),
         modifier = modifier.mySharedElement("NavCardStartSelect")
     ) {
         Row {
@@ -119,12 +118,12 @@ fun NavigationListItem(
 
 
 @Composable
-@AppPreview.Brightness
+@AppPreview.Dark
 private fun Preview() = ClpTheme {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.padding(8.dp)
     ) {
-        NavCardStart()
+        DirectionsStart()
     }
 }

@@ -26,6 +26,7 @@ fun IconButton(
     @DrawableRes iconRes: Int = 0,
     onClick: () -> Unit = {},
     color: Color = AppColor.transparent,
+    contentColor:Color = AppColor.onSurface,
     contentDescription: String = "",
 ) {
     if (iconRes != 0) Box(
@@ -40,7 +41,7 @@ fun IconButton(
     ) {
         Icon(
             iconRes = iconRes,
-            color = contentColorFor(color),
+            color = contentColor,
             contentDescription = contentDescription,
             modifier = modifier
         )
@@ -53,5 +54,6 @@ private fun Preview() = ClpTheme {
     IconButton(
         iconRes = AppIcon.search,
         color = AppColor.primary,
+        contentColor = AppColor.onPrimary
     )
 }

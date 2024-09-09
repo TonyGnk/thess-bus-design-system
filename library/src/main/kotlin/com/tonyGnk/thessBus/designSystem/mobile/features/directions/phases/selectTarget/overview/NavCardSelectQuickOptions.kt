@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.selectDestination.overview
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.layouts.navCard.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
@@ -28,7 +28,7 @@ internal fun NavCardSelectQuickOptions(
     val text = "Select in the map"
     val style = AppTypo.titleMedium
     val size = text.findScreenSize(style).height - 1.dp
-    val shape = RoundedCornerShape(NavCardProperties.SMALL_CORNERS.dp)
+    val shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp)
 
     SurfaceWithShadows(
         shape = shape,
@@ -41,8 +41,8 @@ internal fun NavCardSelectQuickOptions(
             .clickable { },
     ) {
         Row(
-            modifier = Modifier.padding(NavCardProperties.SEARCH_PADDING.dp),
-            horizontalArrangement = Arrangement.spacedBy(NavCardProperties.SEARCH_PADDING.dp),
+            modifier = Modifier.padding(NavCardProperties.IN_PADDING.dp),
+            horizontalArrangement = Arrangement.spacedBy(NavCardProperties.IN_PADDING.dp),
         ) {
             Icon(
                 iconRes = R.drawable.map_marker,
