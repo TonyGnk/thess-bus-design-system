@@ -15,8 +15,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object NavigationPageRoute
 
 @Composable
 fun NavigationPage(

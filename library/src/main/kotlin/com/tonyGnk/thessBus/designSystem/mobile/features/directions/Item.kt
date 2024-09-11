@@ -59,4 +59,11 @@ val SelectTargetItemFakeData = listOf(
         category = DirectionsCategory.CAFFE,
         isSinglePoint = true
     ),
+    SelectTargetItem(
+        id = 3,
+        title = "Σκλαβενίτης",
+        subTitle = "Σκλαβενίτης",
+        category = DirectionsCategory.SUPER_MARKET,
+        isSinglePoint = true
+    ),
 )

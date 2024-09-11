@@ -24,8 +24,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalD
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object LandingPageRoute
 
 private const val MARGIN = 18
 
@@ -96,6 +94,7 @@ private fun LandingListItem(
     SurfaceWithShadows(
         modifier = modifier.fillMaxWidth(),
         shape = AppShape.rectangle,
+        shadowElevation = 0,
         onClick = navigateToNavBar,
     ) {
         SharedButtonContent(

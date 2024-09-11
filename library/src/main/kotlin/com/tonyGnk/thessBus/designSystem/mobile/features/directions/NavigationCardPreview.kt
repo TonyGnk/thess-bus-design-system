@@ -3,12 +3,14 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTarget
@@ -17,8 +19,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
+import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
-enum class DirectionsModes {
+enum class DirectionPhases {
     START, PICK_TARGET, LOOK_TARGET
 }
 
@@ -47,47 +50,47 @@ fun <S> SharedTransitionWrapper(
 @Composable
 fun NavigationCardPreview(
     modifier: Modifier = Modifier,
-    isDetailedResultView: Boolean
 ) {
-    val currentPhase = remember { mutableStateOf(DirectionsModes.PICK_TARGET) }
-    val navigateToStart = { currentPhase.value = DirectionsModes.START }
-    val navigateToSelectDestination = { currentPhase.value = DirectionsModes.PICK_TARGET }
+    val phase = remember { mutableStateOf(DirectionPhases.PICK_TARGET) }
+    val goToStart = { phase.value = DirectionPhases.START }
+    val goToPickTarget = { phase.value = DirectionPhases.PICK_TARGET }
+    val goToLookTarget = { phase.value = DirectionPhases.LOOK_TARGET }
+
 
     val query = remember { mutableStateOf("") }
     val onQueryChange: (String) -> Unit = { newValue ->
         query.value = newValue
     }
 
-    SharedTransitionWrapper(currentPhase.value) {
+    SharedTransitionWrapper(phase.value) {
         when (it) {
-            DirectionsModes.START -> DirectionsStart(
-                modifier = modifier.statusBarsPadding(),
-                onSearchClick = navigateToSelectDestination
+            DirectionPhases.START -> DirectionsStart(
+                modifier = modifier.extendedStatusBarsPadding(),
+                onSearchClick = goToPickTarget
             )
 
-            DirectionsModes.PICK_TARGET -> {
+            DirectionPhases.PICK_TARGET -> {
                 val functions = remember {
                     DirectionsPickTargetFunctions(
-                        onBack = { currentPhase.value = DirectionsModes.START },
-                        onSearch = { currentPhase.value = DirectionsModes.LOOK_TARGET },
-                        onResult = { _, _ -> },
+                        onBack = goToStart,
+                        onSearch = goToLookTarget,
+                        onResult = { _, _ -> goToLookTarget() },
                         onQueryChange = onQueryChange
                     )
                 }
 
                 DirectionsPickTarget(
                     modifier = modifier,
-                    searchBarModifier = Modifier.statusBarsPadding(),
                     query = query.value,
                     requestFocus = true,
                     functions = functions
                 )
             }
 
-            DirectionsModes.LOOK_TARGET -> DirectionsLookTarget(
-                modifier = Modifier.statusBarsPadding(),
+            DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
+                modifier = modifier.extendedStatusBarsPadding(),
                 query = query.value,
-                onBack = navigateToSelectDestination,
+                onBack = goToPickTarget,
                 poiTitle = "Nova Store",
                 poiCategory = "Εταιρεία Τηλεπικοινωνιών"
             )
@@ -99,5 +102,5 @@ fun NavigationCardPreview(
 @AppPreview.Dark
 private
 fun Preview() = ClpTheme {
-    NavigationCardPreview(isDetailedResultView = false)
+    NavigationCardPreview()
 }

@@ -18,7 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
@@ -37,7 +39,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 @Composable
 fun PickTargetTypingMode(
     onResultClick: (Int, Boolean) -> Unit,
-    results: List<SelectTargetItem>
+    results: List<SelectTargetItem> = SelectTargetItemFakeData
 ) {
     Column {
         LazyColumn(
@@ -77,8 +79,36 @@ private fun ResultLayout(
     val paddingForTheIcon = 7.dp
     val padding = paddingOfTheBackButtonInSearch - paddingForTheIcon
 
+    ResultItem(
+        padding = padding,
+        modifier = modifier,
+        shape = shape,
+        onClick = onClick,
+        result = result,
+        title = title,
+        subTitle = subTitle,
+        titleStyle = titleStyle,
+        subTitleStyle = subTitleStyle,
+        totalHeight = totalHeight
+    )
+
+}
+
+@Composable
+fun ResultItem(
+    padding: Dp,
+    modifier: Modifier = Modifier,
+    shape: Shape,
+    onClick: () -> Unit,
+    result: SelectTargetItem,
+    title: String,
+    subTitle: String,
+    titleStyle: androidx.compose.ui.text.TextStyle,
+    subTitleStyle: androidx.compose.ui.text.TextStyle,
+    totalHeight: Dp
+){
     Row(
-        horizontalArrangement = Arrangement.spacedBy(padding),//23
+        horizontalArrangement = Arrangement.spacedBy(padding),
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
@@ -128,7 +158,7 @@ private fun ResultLayout(
 }
 
 @Composable
-@AppPreview.Brightness
+@AppPreview.Dark
 private fun Preview() = ClpTheme {
     val results = SelectTargetItemFakeData
 

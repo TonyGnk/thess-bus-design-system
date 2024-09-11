@@ -26,8 +26,6 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object LayoutPageRoute
 
 @Composable
 fun LayoutPage(

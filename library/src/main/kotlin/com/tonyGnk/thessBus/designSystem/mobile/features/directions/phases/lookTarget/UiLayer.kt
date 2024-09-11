@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.R
@@ -39,18 +40,17 @@ fun DestinationOverviewUiLayer(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(modifier = Modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)) {
+        Box(modifier = modifier) {
             SearchButton(
                 searchLabel = query,
                 onClick = onBack,
                 color = AppColor.surfaceContainerLowest,
                 rippleColor = AppColor.onSurface,
             )
-
         }
         Spacer(Modifier.weight(1f))
         PoiCard(

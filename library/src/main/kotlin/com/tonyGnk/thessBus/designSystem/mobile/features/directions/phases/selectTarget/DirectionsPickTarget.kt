@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,6 +27,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview.NavCardSelectQuickOptions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.searchMode.PickTargetTypingMode
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
 @Stable
 data class DirectionsPickTargetFunctions(
@@ -47,14 +49,12 @@ data class DirectionsPickTargetFunctions(
 @Composable
 fun DirectionsPickTarget(
     modifier: Modifier = Modifier,
-    searchBarModifier: Modifier = Modifier,
     functions: DirectionsPickTargetFunctions,
     query: String,
     requestFocus: Boolean,
     historyList: List<SelectTargetItem> = emptyList(),
     results: List<SelectTargetItem> = SelectTargetItemFakeData,
 ) {
-
     val isTypingModeMy = query.isNotBlank()
     val lazyListState = rememberLazyListState()
     val canScrollBackward by remember {
@@ -76,11 +76,11 @@ fun DirectionsPickTarget(
     LazyColumn(
         state = lazyListState,
         modifier = modifier,
+        contentPadding = PaddingValues(top = extendedStatusBarsPadding()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
             SearchBar(
-                modifier = searchBarModifier,
                 onSearchClick = functions.onSearch,
                 query = query,
                 onBackClick = functions.onBack,

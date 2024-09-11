@@ -99,7 +99,7 @@ internal fun NavCardSelectQuickOptions(
 }
 
 
-@AppPreview.Light
+@AppPreview.Dark
 @Composable
 private fun Preview() = ClpTheme {
     NavCardSelectQuickOptions(
@@ -117,7 +117,10 @@ fun MyItem(
     val size = text.findScreenSize(style).height - 1.dp
     val shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp)
 
-    Column {
+    Column(
+        modifier = Modifier.padding(bottom = 5.dp),
+        verticalArrangement = Arrangement.spacedBy(7.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -127,36 +130,32 @@ fun MyItem(
             // TextButton(text = "Επεξεργασία", padding = PaddingValues(9.dp))
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(0.dp),
+            verticalArrangement = Arrangement.spacedBy(7.dp),
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(10.dp)
+            // modifier = Modifier.padding(10.dp)
         ) {
-            SurfaceWithShadows(
-                shape = shape,
-                color = AppColor.surfaceContainerLowest,
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {},
-            ) {
-                Text("Τοποθεσία 1", modifier = Modifier.padding(17.dp))
-            }
-            SurfaceWithShadows(
-                shape = shape,
-                color = AppColor.surfaceContainerLowest,
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {},
-            ) {
-                Text("Τοποθεσία 1", modifier = Modifier.padding(17.dp))
+            MyBox()
+            MyBox()
+            MyBox()
+            MyBox()
+            MyBox()
+            MyBox()
+        }
 
-            }
-            SurfaceWithShadows(
-                shape = shape,
-                color = AppColor.surfaceContainerLowest,
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {},
-            ) {
-                Text("Τοποθεσία 1", modifier = Modifier.padding(17.dp))
+    }
+}
 
-            }
+
+@Composable
+private fun MyBox() {
+    SurfaceWithShadows(
+        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
+        color = AppColor.surfaceContainerLowest,
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {},
+    ) {
+        Column {
+            Text("Τοποθεσία 1", modifier = Modifier.padding(17.dp))
         }
 
     }

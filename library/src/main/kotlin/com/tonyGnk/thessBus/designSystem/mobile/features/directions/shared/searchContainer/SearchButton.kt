@@ -39,13 +39,13 @@ fun SearchButton(
         shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
         color = color,
         modifier = modifier
+            .mySharedElement("SearchContainer")
             .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp))
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(color = rippleColor),
                 onClick = onClick
             )
-            .mySharedElement("SearchContainer")
     ) {
         Row(
             modifier = modifier.padding(NavCardProperties.IN_PADDING.dp)

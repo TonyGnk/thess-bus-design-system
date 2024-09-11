@@ -29,13 +29,10 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selec
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object NavCardPageRoute
 
 @Composable
-fun NavCardPage(
+fun DirectionsFeatureList(
     onBack: () -> Unit = {},
     onNavCardPreview: () -> Unit = {}
 ) {
@@ -129,5 +126,5 @@ private fun navCardItem(
 @AppPreview.Brightness
 @Composable
 private fun Preview() = ClpTheme {
-    NavCardPage()
+    DirectionsFeatureList()
 }

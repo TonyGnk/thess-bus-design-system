@@ -3,15 +3,21 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor.background
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
@@ -24,18 +30,19 @@ fun IconButton(
     selectionModifier: Modifier = Modifier,
     @DrawableRes iconRes: Int = 0,
     onClick: () -> Unit = {},
-    color: Color = AppColor.transparent,
+    color: Color = AppColor.surfaceContainer,
     contentColor: Color = AppColor.onSurface,
     contentDescription: String = "",
 ) {
     if (iconRes != 0) Box(
         modifier = selectionModifier
             .clip(AppShape.round20)
-            .selectable(
-                selected = false,
+            .background(color)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(color = contentColor),
                 onClick = onClick
             )
-            .background(color)
             .padding(12.dp)
     ) {
         Icon(

@@ -15,6 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
@@ -48,8 +49,8 @@ fun BasicTopBar(
         if (backIcon != null) IconButton(
             iconRes = backIcon.iconRes,
             onClick = backIcon.onBack,
-            modifier = Modifier.size(iconHeight),
-            contentDescription = stringResource(backIcon.contentDescription)
+            contentDescription = stringResource(backIcon.contentDescription),
+            modifier = Modifier.size(iconHeight)
         )
         if (labelRes != 0) Text(
             text = stringResource(labelRes),

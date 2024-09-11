@@ -78,16 +78,11 @@ fun SearchBar(
             onSearchClick = onSearchClick,
             focusRequester = focusRequester
         )
-        Icon(
+        IconButton(
             iconRes = AppIcon.search,
-            color = AppColor.onSurface,
+            color = AppColor.transparent,
+            onClick = onSearchClick,
             modifier = Modifier
-                .padding(
-                    top = NavCardProperties.IN_PADDING.dp,
-                    bottom = NavCardProperties.IN_PADDING.dp,
-                    //start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
-                    //end = NavCardProperties.SEARCH_PADDING.dp
-                )
                 .size(sizeInScreen)
                 .mySharedElement("SearchContainerMagnifier")
         )
@@ -98,30 +93,21 @@ fun SearchBar(
 @Composable
 fun SearchBarContainer(
     modifier: Modifier = Modifier,
-    onTap: () -> Unit = {},
     content: @Composable RowScope.() -> Unit
 ) {
     SurfaceWithShadows(
         shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier
-            .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp))
-//            .clickable {
-//                onTap?.invoke()
-//            }
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(color = AppColor.onSurface),
-                onClick = onTap
-            )
             .mySharedElement("SearchContainer")
+            .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
             modifier = modifier.padding(
                 start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
-                end = NavCardProperties.IN_PADDING.dp
+                end = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
             )
         ) {
             content(this)

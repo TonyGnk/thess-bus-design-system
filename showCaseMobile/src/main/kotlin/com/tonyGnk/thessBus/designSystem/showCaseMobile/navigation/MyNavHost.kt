@@ -11,62 +11,80 @@ import androidx.navigation.compose.composable
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPageRoute
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.LayoutDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.LayoutPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.LayoutPageRoute
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.NavCardPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.NavCardPageRoute
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.NavCardPreviewPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.NavCardPreviewPageRoute
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.DirectionsFeatureList
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout.layoutScreens.navCardScreen.DirectionsPreviewFeatureScreen
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation.NavigationPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation.NavigationPageRoute
+import kotlinx.serialization.Serializable
+
+@Serializable
+private sealed interface Destination {
+    @Serializable
+    data object Landing : Destination
+
+    @Serializable
+    data object NavigationItems : Destination
+
+    @Serializable
+    data object LayoutItems : Destination
+
+    @Serializable
+    data object DirectionsFeatureList : Destination
+
+    @Serializable
+    data object DirectionsPreviewFeature : Destination
+}
+
 
 @Composable
 fun MyNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = LandingPageRoute) {
+    NavHost(
+        navController = navController,
+        startDestination = Destination.DirectionsPreviewFeature
+    ) {
         val navigateToDestination: (LandingDestination) -> Unit = { destination ->
             when (destination) {
-                LandingDestination.Layouts -> navController.navigate(LayoutPageRoute)
-                LandingDestination.Actions -> {}// navController.navigate("actions")
-                LandingDestination.Navigation -> navController.navigate(NavigationPageRoute)
+                LandingDestination.Layouts -> navController.navigate(Destination.LayoutItems)
+                LandingDestination.Actions -> {}
+                LandingDestination.Navigation -> navController.navigate(Destination.NavigationItems)
             }
         }
         val navigateToLayoutDestination: (LayoutDestination) -> Unit = { destination ->
             when (destination) {
-                LayoutDestination.NavCard -> navController.navigate(NavCardPageRoute)
+                LayoutDestination.NavCard -> navController.navigate(Destination.DirectionsFeatureList)
             }
         }
         val onBack: () -> Unit = { navController.navigateUp() }
 
-        route<LandingPageRoute> {
+        route<Destination.Landing> {
             LandingPage(
                 navigateToDestination = navigateToDestination
             )
         }
 
-        route<NavigationPageRoute> {
+        route<Destination.NavigationItems> {
             NavigationPage(
                 onBack = onBack
             )
         }
 
-        route<LayoutPageRoute> {
+        route<Destination.LayoutItems> {
             LayoutPage(
                 onBack = onBack,
                 onLayoutDestinations = navigateToLayoutDestination
             )
         }
 
-        route<NavCardPageRoute> {
-            NavCardPage(
-                onNavCardPreview = { navController.navigate(NavCardPreviewPageRoute) },
+        route<Destination.DirectionsFeatureList> {
+            DirectionsFeatureList(
+                onNavCardPreview = { navController.navigate(Destination.DirectionsPreviewFeature) },
                 onBack = onBack
             )
         }
 
-        route<NavCardPreviewPageRoute> {
-            NavCardPreviewPage(
+        route<Destination.DirectionsPreviewFeature> {
+            DirectionsPreviewFeatureScreen(
                 onBack = onBack
             )
         }
