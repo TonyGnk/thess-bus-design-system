@@ -25,14 +25,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.Tonal
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.SearchBarContainer
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 
 @Composable
@@ -73,13 +68,13 @@ private fun PoiCard(
     SurfaceWithShadows(
         shadowElevation = 20,
         shape = RoundedCornerShape(topStart = 33.dp, topEnd = 33.dp),
-        padding = PaddingValues(top = 10.dp),
         color = AppColor.surfaceContainerLowest,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 10.dp)
                 .padding(vertical = 20.dp)
         ) {
             PoiTextLabels(
@@ -93,7 +88,7 @@ private fun PoiCard(
                     FilledButton(
                         iconRes = AppIcon.navigate,
                         text = "Πλοήγηση",
-                        padding = PaddingValues(16.dp),
+                        padding = PaddingValues(18.dp),
                         modifier = Modifier.padding(start = 18.dp)
                     )
                 }

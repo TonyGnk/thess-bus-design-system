@@ -27,7 +27,7 @@ fun TonalButton(
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(DefaultButtonValues.CORNER_RADIUS.dp),
     padding: PaddingValues = PaddingValues(DefaultButtonValues.PADDING.dp),
-    ) {
+) {
     val contentColor = contentColorFor(color)
 
     MaterialTonalButton(
@@ -46,7 +46,8 @@ fun TonalButton(
         contentPadding = padding,
         content = {
             SharedButtonContent(
-                text = text, iconRes = iconRes, contentColor = contentColor, padding = DefaultButtonValues.PADDING
+                text = text, iconRes = iconRes,
+                contentColor = contentColor,
             )
         },
     )

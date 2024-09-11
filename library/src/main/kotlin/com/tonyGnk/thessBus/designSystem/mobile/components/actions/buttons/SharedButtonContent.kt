@@ -1,7 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons
 
 import androidx.annotation.DrawableRes
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -21,17 +20,18 @@ fun SharedButtonContent(
     text: String,
     @DrawableRes iconRes: Int,
     contentColor: Color,
-    padding: Int,
+    modifier: Modifier = Modifier,
     style: TextStyle = AppTypo.labelLarge
 ) {
     when (iconRes) {
         0 -> Text(
-            text = text, style = style, color = contentColor
+            text = text, style = style, color = contentColor, modifier = modifier
         )
 
         else -> {
             val size = text.findScreenSize(style)
             Row(
+                modifier = modifier,
                 horizontalArrangement = Arrangement.spacedBy(PADDING.dp),
             ) {
                 Icon(

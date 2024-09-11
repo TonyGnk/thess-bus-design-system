@@ -2,9 +2,9 @@ package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -17,12 +17,11 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.SharedButtonContent
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -94,10 +93,9 @@ private fun LandingListItem(
     navigateToNavBar: () -> Unit
 ) {
     val paddingValues = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
-    ListItem(
-        modifier = modifier,
+    SurfaceWithShadows(
+        modifier = modifier.fillMaxWidth(),
         shape = AppShape.rectangle,
-        padding = paddingValues,
         onClick = navigateToNavBar,
     ) {
         SharedButtonContent(
@@ -105,7 +103,7 @@ private fun LandingListItem(
             iconRes = destination.iconRes,
             contentColor = AppColor.onSurface,
             style = AppTypo.bodyLarge,
-            padding = paddingValues
+            modifier = Modifier.padding(paddingValues.dp)
         )
     }
 }

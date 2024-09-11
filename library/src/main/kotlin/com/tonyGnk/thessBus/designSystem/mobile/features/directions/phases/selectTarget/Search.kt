@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,8 +49,8 @@ fun SearchBar(
     onSearchClick: () -> Unit,
     isTypingMode: Boolean,
     onBackClick: () -> Unit,
-    requestFocus: Boolean,
     onQueryChange: (String) -> Unit,
+    focusRequester: FocusRequester
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
     val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
@@ -76,7 +76,7 @@ fun SearchBar(
             searchEnabled = isTypingMode,
             searchLabel = searchLabel,
             onSearchClick = onSearchClick,
-            isFocusedEnabled = requestFocus
+            focusRequester = focusRequester
         )
         Icon(
             iconRes = AppIcon.search,
@@ -129,6 +129,7 @@ fun SearchBarContainer(
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun SearchField(
     modifier: Modifier = Modifier,
@@ -137,11 +138,9 @@ fun SearchField(
     onQueryChange: (String) -> Unit,
     searchEnabled: Boolean,
     searchStyle: TextStyle,
-    isFocusedEnabled: Boolean,
-    searchLabel: String
+    searchLabel: String,
+    focusRequester: FocusRequester
 ) {
-    val focusRequester = remember { FocusRequester() }
-
     BasicTextField(
         value = query,
         onValueChange = onQueryChange,
@@ -174,10 +173,6 @@ fun SearchField(
             }
         }
     )
-
-    if (isFocusedEnabled) LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
 }
 
 
@@ -189,7 +184,7 @@ private fun Preview() = ClpTheme {
         onQueryChange = { },
         isTypingMode = false,
         onBackClick = { },
-        requestFocus = false,
-        onSearchClick = { }
+        onSearchClick = { },
+        focusRequester = remember { FocusRequester() }
     )
 }

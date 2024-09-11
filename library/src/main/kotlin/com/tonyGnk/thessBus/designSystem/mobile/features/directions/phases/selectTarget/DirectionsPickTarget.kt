@@ -7,24 +7,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItemFakeData
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview.NavCardSelectQuickOptions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.searchMode.PickTargetTypingMode
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 @Stable
 data class DirectionsPickTargetFunctions(
@@ -46,6 +47,7 @@ data class DirectionsPickTargetFunctions(
 @Composable
 fun DirectionsPickTarget(
     modifier: Modifier = Modifier,
+    searchBarModifier: Modifier = Modifier,
     functions: DirectionsPickTargetFunctions,
     query: String,
     requestFocus: Boolean,
@@ -54,30 +56,52 @@ fun DirectionsPickTarget(
 ) {
 
     val isTypingModeMy = query.isNotBlank()
+    val lazyListState = rememberLazyListState()
+    val canScrollBackward by remember {
+        derivedStateOf { lazyListState.canScrollBackward }
+    }
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
 
-    Column(
+    if (false) LaunchedEffect(
+        key1 = canScrollBackward,
+    ) {
+        if (lazyListState.canScrollBackward) {
+            focusManager.clearFocus()
+        } else {
+            focusRequester.requestFocus()
+        }
+    }
+
+    LazyColumn(
+        state = lazyListState,
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        SearchBar(
-            modifier = Modifier,
-            onSearchClick = functions.onSearch,
-            query = query,
-            onBackClick = functions.onBack,
-            onQueryChange = functions.onQueryChange,
-            isTypingMode = isTypingModeMy,
-            requestFocus = requestFocus
-        )
-        AnimatedContent(targetState = isTypingModeMy, label = "") {
-            when (it) {
-                true -> PickTargetTypingMode(
-                    results = results,
-                    onResultClick = functions.onResult
-                )
+        item {
+            SearchBar(
+                modifier = searchBarModifier,
+                onSearchClick = functions.onSearch,
+                query = query,
+                onBackClick = functions.onBack,
+                onQueryChange = functions.onQueryChange,
+                isTypingMode = isTypingModeMy,
+                focusRequester = focusRequester
+            )
+        }
+        item {
+            AnimatedContent(targetState = isTypingModeMy, label = "") {
+                when (it) {
+                    true -> PickTargetTypingMode(
+                        results = results,
+                        onResultClick = functions.onResult
+                    )
 
-                false -> PickTargetOverview(
-                    historyItems = historyList
-                )
+                    false -> PickTargetOverview(
+                        lazyListState = lazyListState,
+                        historyItems = historyList
+                    )
+                }
             }
         }
     }
@@ -85,15 +109,16 @@ fun DirectionsPickTarget(
 
 @Composable
 fun PickTargetOverview(
+    lazyListState: LazyListState,
     historyItems: List<SelectTargetItem>
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp)),
+    Column(
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item { NavCardSelectQuickOptions() }
+        NavCardSelectQuickOptions(
+            lazyListState = lazyListState
+        )
         //item { HistoryList() }
     }
 }

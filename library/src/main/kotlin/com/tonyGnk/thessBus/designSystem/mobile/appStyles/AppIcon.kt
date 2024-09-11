@@ -16,6 +16,8 @@ object AppIcon {
     val bookmark = R.drawable.bookmark
     val bookmarkFilled = R.drawable.bookmark_filled
     val share = R.drawable.share
+    val routes = R.drawable.routes
+    val category = R.drawable.category
 
     //Categories
     val catBank = R.drawable.bank

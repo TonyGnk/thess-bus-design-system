@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!--    &lt;!&ndash; Allows us to override night specific attributes in the-->
     <!--         values-night folder. &ndash;&gt;-->

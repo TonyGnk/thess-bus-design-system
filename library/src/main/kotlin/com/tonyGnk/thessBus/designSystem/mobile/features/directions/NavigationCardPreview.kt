@@ -6,8 +6,6 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -51,7 +49,7 @@ fun NavigationCardPreview(
     modifier: Modifier = Modifier,
     isDetailedResultView: Boolean
 ) {
-    val currentPhase = remember { mutableStateOf(DirectionsModes.START) }
+    val currentPhase = remember { mutableStateOf(DirectionsModes.PICK_TARGET) }
     val navigateToStart = { currentPhase.value = DirectionsModes.START }
     val navigateToSelectDestination = { currentPhase.value = DirectionsModes.PICK_TARGET }
 
@@ -78,7 +76,8 @@ fun NavigationCardPreview(
                 }
 
                 DirectionsPickTarget(
-                    modifier = modifier.statusBarsPadding(),
+                    modifier = modifier,
+                    searchBarModifier = Modifier.statusBarsPadding(),
                     query = query.value,
                     requestFocus = true,
                     functions = functions

@@ -33,8 +33,10 @@ fun TextButton(
         contentPadding = padding,
         content = {
             SharedButtonContent(
-                text = text, iconRes = iconRes, contentColor = contentColor, padding = DefaultButtonValues.PADDING
+                text = text, iconRes = iconRes,
+                contentColor = contentColor,
             )
+
         },
     )
 }

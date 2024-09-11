@@ -2,7 +2,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.material3.Surface as MaterialSurface
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +10,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
+import androidx.compose.material3.Surface as MaterialSurface
 
 
 @Composable

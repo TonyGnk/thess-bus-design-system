@@ -1,8 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation
 
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavBackStackEntry
@@ -11,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
-import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPageRoute
@@ -27,7 +24,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation.Navig
 
 @Composable
 fun MyNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = NavCardPreviewPageRoute) {
+    NavHost(navController = navController, startDestination = LandingPageRoute) {
         val navigateToDestination: (LandingDestination) -> Unit = { destination ->
             when (destination) {
                 LandingDestination.Layouts -> navController.navigate(LayoutPageRoute)

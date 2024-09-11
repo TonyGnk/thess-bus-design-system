@@ -2,9 +2,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.Wallpapers.BLUE_DOMINATED_EXAMPLE
 import androidx.compose.ui.tooling.preview.Wallpapers.GREEN_DOMINATED_EXAMPLE
 import androidx.compose.ui.tooling.preview.Wallpapers.RED_DOMINATED_EXAMPLE
@@ -186,7 +184,12 @@ private annotation class PreviewLight
 private annotation class PreviewLightGreek
 
 
-@Preview(name = "Dark", showBackground = true, uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL, locale = "en")
+@Preview(
+    name = "Dark",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
+    locale = "en"
+)
 private annotation class PreviewDark
 
 @Preview(name = "Dark", uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL, locale = "el")

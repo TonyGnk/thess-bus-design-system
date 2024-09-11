@@ -4,11 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -20,16 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItemSurface
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 @Stable
 object NavCardProperties {
@@ -78,43 +70,6 @@ private fun LargeLabel() = Text(
     textAlign = TextAlign.Start,
     modifier = Modifier.fillMaxWidth()
 )
-
-@Composable
-fun NavigationListItem(
-    searchLabel: String,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    searchStyle: TextStyle
-) {
-    val sizeInScreen = searchLabel.findScreenSize(searchStyle)
-
-    ListItemSurface(
-        onClick = onClick,
-        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
-        tonalElevation = 0.dp,
-        color = AppColor.inverseOnSurface,
-        shadowElevation = 2.dp,
-        padding = PaddingValues(NavCardProperties.IN_PADDING.dp),
-        modifier = modifier.mySharedElement("NavCardStartSelect")
-    ) {
-        Row {
-            Text(
-                text = searchLabel,
-                style = searchStyle,
-                modifier = Modifier
-                    .weight(1f)
-                    .mySharedElement("NavCardStartSelectText")
-            )
-            Icon(
-                iconRes = AppIcon.search,
-                color = AppColor.onSurface,
-                modifier = Modifier
-                    .size(sizeInScreen.height)
-                    .mySharedElement("NavCardStartSelectMagnifier")
-            )
-        }
-    }
-}
 
 
 @Composable

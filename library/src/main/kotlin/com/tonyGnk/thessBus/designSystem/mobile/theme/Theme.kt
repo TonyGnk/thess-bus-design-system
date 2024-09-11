@@ -5,9 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
-import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
 
 @Composable

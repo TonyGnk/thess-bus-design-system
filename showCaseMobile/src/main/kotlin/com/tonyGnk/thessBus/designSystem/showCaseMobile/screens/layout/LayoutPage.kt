@@ -1,14 +1,11 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.layout
 
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation.NavigationPage
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,16 +14,14 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.ListItem
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.NavigationBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import kotlinx.serialization.Serializable
@@ -98,13 +93,20 @@ fun ListContainer(
 
 @Composable
 private fun LayoutListItem(
-    layoutDestination: LayoutDestination, onLayoutDestinations: (LayoutDestination) -> Unit
+    modifier: Modifier = Modifier,
+    layoutDestination: LayoutDestination,
+    onLayoutDestinations: (LayoutDestination) -> Unit
 ) {
-    ListItem(
-        padding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING,
+    SurfaceWithShadows(
+        modifier = modifier.fillMaxWidth(),
+        color = AppColor.surfaceContainerLowest,
+        shape = AppShape.rectangle,
         onClick = { onLayoutDestinations(layoutDestination) }
     ) {
-        Text(text = stringResource(layoutDestination.labelRes))
+        Text(
+            text = stringResource(layoutDestination.labelRes),
+            modifier = Modifier.padding(DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
+        )
     }
 }
 

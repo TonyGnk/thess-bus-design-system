@@ -50,7 +50,6 @@ fun FilledButton(
                 text = text,
                 iconRes = iconRes,
                 contentColor = contentColor,
-                padding = DefaultButtonValues.PADDING
             )
         },
     )
