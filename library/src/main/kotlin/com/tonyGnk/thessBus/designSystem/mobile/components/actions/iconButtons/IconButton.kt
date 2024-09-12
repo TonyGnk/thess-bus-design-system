@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,7 +30,7 @@ fun IconButton(
     modifier: Modifier = Modifier,
     selectionModifier: Modifier = Modifier,
     @DrawableRes iconRes: Int = 0,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     color: Color = AppColor.surfaceContainer,
     contentColor: Color = AppColor.onSurface,
     contentDescription: String = "",
@@ -38,10 +39,12 @@ fun IconButton(
         modifier = selectionModifier
             .clip(AppShape.round20)
             .background(color)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(color = contentColor),
-                onClick = onClick
+            .then(
+                if (onClick != null) Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = ripple(color = contentColor),
+                    onClick = onClick
+                ) else Modifier
             )
             .padding(12.dp)
     ) {

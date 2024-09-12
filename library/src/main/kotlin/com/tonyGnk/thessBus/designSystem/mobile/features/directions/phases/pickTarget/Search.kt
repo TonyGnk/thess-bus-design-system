@@ -1,8 +1,6 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -12,10 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,9 +21,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
@@ -34,7 +32,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -53,7 +50,7 @@ fun SearchBar(
     focusRequester: FocusRequester
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
-    val searchStyle = AppTypo.titleMedium.copy(color = AppColor.onSurface)
+    val searchStyle = NavCardProperties.searchTextStyle
 
     val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
@@ -106,8 +103,7 @@ fun SearchBarContainer(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
             modifier = modifier.padding(
-                start = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
-                end = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
+                horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
             )
         ) {
             content(this)
@@ -127,9 +123,16 @@ fun SearchField(
     searchLabel: String,
     focusRequester: FocusRequester
 ) {
+    val textState = rememberTextFieldState(
+        initialText = query, initialSelection = TextRange(query.length),
+    )
+
+    LaunchedEffect(textState.text) {
+        onQueryChange(textState.text.toString())
+    }
+
     BasicTextField(
-        value = query,
-        onValueChange = onQueryChange,
+        state = textState,
         modifier = modifier.focusRequester(focusRequester),
         enabled = true,
         readOnly = false,
@@ -137,14 +140,12 @@ fun SearchField(
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Search
         ),
-        keyboardActions = KeyboardActions(
-            onSearch = { onSearchClick() }
-        ),
-        singleLine = true,
-        visualTransformation = VisualTransformation.None,
+        onKeyboardAction = {
+            onSearchClick()
+        },
         onTextLayout = {},
         cursorBrush = SolidColor(searchStyle.color),
-        decorationBox = {
+        decorator = {
             Box(
                 contentAlignment = Alignment.CenterStart,
                 modifier = Modifier

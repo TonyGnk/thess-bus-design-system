@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Status bar -->
     <color name="black30">#4D000000</color>
 
     <color name="ic_launcher_background_tint">#000000</color>
     <color name="ic_launcher_foreground_tint">#FCFCFC</color>
+
+    <color name="main_500" tools:targetApi="s">@android:color/system_accent1_100</color>
 </resources>

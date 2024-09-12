@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

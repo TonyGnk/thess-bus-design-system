@@ -15,7 +15,7 @@ fun DirectionsLookTarget(
     poiTitle: String,
     poiCategory: String,
 ) {
-    //DestinationOverviewMapLayer(latitude, longitude)
+    DestinationOverviewMapLayer(latitude, longitude)
     DestinationOverviewUiLayer(
         onBack = onBack,
         query = query,

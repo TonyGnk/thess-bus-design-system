@@ -24,8 +24,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTargetFunctions
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTargetFunctions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R

@@ -3,18 +3,15 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.DirectionsPickTargetFunctions
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTargetFunctions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
@@ -51,7 +48,7 @@ fun <S> SharedTransitionWrapper(
 fun NavigationCardPreview(
     modifier: Modifier = Modifier,
 ) {
-    val phase = remember { mutableStateOf(DirectionPhases.PICK_TARGET) }
+    val phase = remember { mutableStateOf(DirectionPhases.LOOK_TARGET) }
     val goToStart = { phase.value = DirectionPhases.START }
     val goToPickTarget = { phase.value = DirectionPhases.PICK_TARGET }
     val goToLookTarget = { phase.value = DirectionPhases.LOOK_TARGET }

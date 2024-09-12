@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,8 +25,9 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItemFakeData
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.overview.NavCardSelectQuickOptions
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.selectTarget.searchMode.PickTargetTypingMode
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.MyBox
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.NavCardSelectQuickOptions
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.ResultLayout
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
@@ -63,7 +65,7 @@ fun DirectionsPickTarget(
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
-    if (false) LaunchedEffect(
+    if (requestFocus) LaunchedEffect(
         key1 = canScrollBackward,
     ) {
         if (lazyListState.canScrollBackward) {
@@ -89,21 +91,86 @@ fun DirectionsPickTarget(
                 focusRequester = focusRequester
             )
         }
-        item {
-            AnimatedContent(targetState = isTypingModeMy, label = "") {
-                when (it) {
-                    true -> PickTargetTypingMode(
-                        results = results,
-                        onResultClick = functions.onResult
-                    )
+//        item {
+//            AnimatedContent(targetState = isTypingModeMy, label = "") {
+//                when (it) {
+//                    true -> PickTargetTypingMode(
+//                        results = results,
+//                        onResultClick = functions.onResult
+//                    )
+//
+//                    false -> PickTargetOverview(
+//                        lazyListState = lazyListState,
+//                        historyItems = historyList
+//                    )
+//                }
+//            }
+//        }
 
-                    false -> PickTargetOverview(
-                        lazyListState = lazyListState,
-                        historyItems = historyList
+//        if (isTypingModeMy) {
+//            // Show search results when typing mode is active
+//            items(
+//                items = results, key = { it.id }
+//            ) { result ->
+//                ResultLayout(
+//                    modifier = Modifier.animateItem(),
+//                    result = result,
+//                    onClick = {
+//                        functions.onResult(result.id, result.isSinglePoint)
+//                    }
+//                )
+//            }
+//        } else {
+//            // Show favorites when not in typing mode
+//            items(results, key = { -it.id }) { favorite ->
+//                MyBox(modifier = Modifier.animateItem())
+//            }
+//        }
+
+        items(
+            items = results + results,
+            //key = { it.id }
+        ) { item ->
+            AnimatedContent(
+                targetState = isTypingModeMy,
+                label = "item_transition"
+            ) { isSearching ->
+                if (isSearching && item in results) {
+                    ResultLayout(
+                        result = item,
+                        onClick = { functions.onResult(item.id, item.isSinglePoint) }
+                    )
+                } else if (!isSearching && item in results) {
+                    MyBox(
                     )
                 }
             }
         }
+
+
+//        items(items = results, key = { it.id }) { result ->
+//            AnimatedContent(targetState = isTypingModeMy, label = "") {
+//                when (it) {
+//                    true -> ResultLayout(
+//                        result = result,
+//                        onClick = {
+//                            functions.onResult(result.id, result.isSinglePoint)
+//                        }
+//                    )
+//
+//                    false -> {}
+//                }
+//            }
+//        }
+//        items(items = results, key = { -it.id }) { result ->
+//            AnimatedContent(targetState = isTypingModeMy, label = "") {
+//                when (it) {
+//                    true -> {}
+//
+//                    false -> MyBox()
+//                }
+//            }
+//        }
     }
 }
 

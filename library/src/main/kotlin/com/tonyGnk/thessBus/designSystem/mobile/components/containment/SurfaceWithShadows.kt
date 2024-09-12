@@ -2,6 +2,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -9,13 +10,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor.background
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -27,7 +31,7 @@ fun SurfaceWithShadows(
     color: Color = Color.Transparent,
     contentColor: Color = contentColorFor(color),
     shadowElevation: Int = 1,
-    tonalElevation: Dp = 0.dp,
+    tonalElevation: Int = 0,
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
@@ -35,16 +39,18 @@ fun SurfaceWithShadows(
         shape = shape,
         color = color,
         contentColor = contentColor,
-        tonalElevation = tonalElevation,
+        tonalElevation = tonalElevation.dp,
         shadowElevation = shadowElevation.dp,
         modifier = modifier
     ) {
         Box(
             modifier = Modifier
                 .then(
-                    if (onClick != null) Modifier.clickable {
-                        onClick()
-                    } else Modifier
+                    if (onClick != null) Modifier.clickable(
+                        onClick = { onClick() },
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = ripple(color = contentColor)
+                    ) else Modifier
                 )
                 .background(color = color)
         ) {

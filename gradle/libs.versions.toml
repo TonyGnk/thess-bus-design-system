@@ -1,26 +1,18 @@
 [versions]
-#noinspection GradleDependency
 agp = "8.5.2"
 androidxCoreSplashscreen = "1.0.1"
-#noinspection GradleDependency
-androidxComposeAlpha = "1.7.0-rc01"
-#noinspection GradleDependency
-animation = "1.7.0-rc01"
+androidxComposeAlpha = "1.7.1"
+animation = "1.7.1"
 kotlin = "2.0.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-fragment = "1.8.2"
-fragment-compose = "1.8.2"
 espressoCore = "3.6.1"
-#noinspection GradleDependency
-lifecycleRuntimeKtx = "2.8.4"
+lifecycleRuntimeKtx = "2.8.5"
 serialization = "1.7.1"
-activityCompose = "1.9.1"
-#noinspection GradleDependency
-composeBom = "2024.08.00"
-#noinspection GradleDependency
-androidxNavigation = "2.8.0-rc01"
+activityCompose = "1.9.2"
+composeBom = "2024.09.01"
+androidxNavigation = "2.8.0"
 lottieCompose = "4.0.0"
 mapsCompose = "6.1.1"
 playServicesMaps = "19.0.0"

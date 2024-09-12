@@ -18,8 +18,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 
 @Composable
 fun DestinationOverviewMapLayer(
-    latitude: Double = 40.63231,
-    longitude: Double = 22.96331
+    latitude: Double,
+    longitude: Double
 ) {
     val markerState = rememberMarkerState(
         position = LatLng(latitude, longitude)
@@ -91,4 +91,6 @@ fun DestinationOverviewMapLayer(
 @Composable
 @AppPreview.Dark
 private fun Preview() = DestinationOverviewMapLayer(
+    latitude = 40.63231,
+    longitude = 22.96331
 )
