@@ -35,8 +35,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 fun DestinationOverviewUiLayer(
     onBack: () -> Unit,
     query: String,
-    poiTitle: String,
-    poiCategory: String,
     horizontalPadding: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -57,8 +55,8 @@ fun DestinationOverviewUiLayer(
         }
         Spacer(Modifier.weight(1f))
         PoiCard(
-            poiTitle = poiTitle,
-            poiCategory = poiCategory
+            poiTitle = "",
+            poiCategory = ""
         )
     }
 }

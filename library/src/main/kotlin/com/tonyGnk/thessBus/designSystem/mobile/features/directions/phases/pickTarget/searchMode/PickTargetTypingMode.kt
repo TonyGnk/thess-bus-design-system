@@ -62,8 +62,8 @@ internal fun PickTargetResult(
     val title = result.title
     val subTitle = result.subTitle
 
-    val titleStyle = AppTypo.titleMedium
-    val subTitleStyle = AppTypo.bodyMedium
+    val titleStyle = AppTypo.bodyLarge
+    val subTitleStyle = AppTypo.labelMedium
 
     val totalHeight =
         title.findScreenSize(titleStyle).height + subTitle.findScreenSize(subTitleStyle).height

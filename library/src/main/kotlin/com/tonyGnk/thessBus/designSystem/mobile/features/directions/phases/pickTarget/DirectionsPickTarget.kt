@@ -1,11 +1,15 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.clearText
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -16,7 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetItem
@@ -29,16 +33,14 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 @Stable
 data class DirectionsPickTargetFunctions(
     val onBack: () -> Unit,
-    val onSearch: () -> Unit,
-    val onResult: (PickTargetItem) -> Unit,
-    val onQueryChange: (String) -> Unit
+    val onSearchIme: () -> Unit,
+    val onResultClick: (PickTargetItem) -> Unit,
 ) {
     companion object {
         val Empty = DirectionsPickTargetFunctions(
             onBack = {},
-            onSearch = {},
-            onResult = { _ -> },
-            onQueryChange = {}
+            onSearchIme = {},
+            onResultClick = { _ -> },
         )
     }
 }
@@ -47,13 +49,17 @@ data class DirectionsPickTargetFunctions(
 fun DirectionsPickTarget(
     modifier: Modifier = Modifier,
     functions: DirectionsPickTargetFunctions = DirectionsPickTargetFunctions.Empty,
-    query: String = "",
     requestFocus: Boolean = false,
     horizontalPadding: Int = 0,
+    textState: TextFieldState,
     historyList: List<PickTargetItem> = emptyList(),
     results: List<PickTargetItem> = PickTargetFakeResults,
 ) {
-    val isTypingModeMy = query.isNotBlank()
+    BackHandler(enabled = textState.text.isNotEmpty()) {
+        textState.clearText()
+    }
+    val isTypingModeMy = textState.text.isNotEmpty()
+
     val lazyListState = rememberLazyListState()
     val canScrollBackward by remember {
         derivedStateOf { lazyListState.canScrollBackward }
@@ -73,22 +79,21 @@ fun DirectionsPickTarget(
 
     Column(
         modifier = modifier.extendedStatusBarsPadding(),
-        verticalArrangement = Arrangement.spacedBy(0.dp)
     ) {
         SearchBar(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
-            onSearchClick = functions.onSearch,
-            query = query,
-            onBackClick = functions.onBack,
-            onQueryChange = functions.onQueryChange,
-            isTypingMode = isTypingModeMy,
+            onSearchClick = functions.onSearchIme,
+            onBackClick = {
+                if (isTypingModeMy) textState.clearText() else functions.onBack()
+            },
+            textState = textState,
             focusRequester = focusRequester
         )
         AnimatedContent(targetState = isTypingModeMy, label = "") {
             when (it) {
                 true -> LazyListOfPickTargetItems(
                     modifier = Modifier.padding(top = 8.dp),
-                    onClick = functions.onResult,
+                    onClick = functions.onResultClick,
                     horizontalPadding = horizontalPadding,
                     state = lazyListState,
                     items = results
@@ -97,31 +102,32 @@ fun DirectionsPickTarget(
                 false -> PickTargetOverview(
                     state = lazyListState,
                     horizontalPadding = horizontalPadding,
+                    onItemClick = functions.onResultClick,
                 )
             }
         }
     }
 }
 
-
 @AppPreview.Dark
 @Composable
 private fun Preview() = ClpTheme {
-    val query = remember { mutableStateOf("") }
+    val textState = rememberTextFieldState(
+        initialText = "", initialSelection = TextRange("".length),
+    )
 
     val functions = remember {
         DirectionsPickTargetFunctions(
             onBack = {},
-            onSearch = {},
-            onResult = { _ -> },
-            onQueryChange = { query.value = it }
+            onSearchIme = {},
+            onResultClick = { _ -> },
         )
     }
 
     Box(modifier = Modifier.padding(8.dp)) {
         DirectionsPickTarget(
-            query = query.value,
             functions = functions,
+            textState = textState
         )
     }
 }

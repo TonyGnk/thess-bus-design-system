@@ -24,7 +24,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTargetFunctions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -72,27 +71,25 @@ fun DirectionsFeatureList(
             }
 
             navCardItem(this) {
-                DirectionsPickTarget(
-                    query = "",
-                    modifier = Modifier.height(256.dp),
-                    requestFocus = false,
-                    functions = DirectionsPickTargetFunctions.Empty,
-                )
+//                DirectionsPickTarget(
+//                    query = "",
+//                    modifier = Modifier.height(256.dp),
+//                    requestFocus = false,
+//                    functions = DirectionsPickTargetFunctions.Empty,
+//                )
             }
 
             navCardItem(this) {
-                DirectionsPickTarget(
-                    query = "Αριστοτέλους",
-                    requestFocus = false,
-                    functions = DirectionsPickTargetFunctions.Empty,
-                )
+//                DirectionsPickTarget(
+//                    query = "Αριστοτέλους",
+//                    requestFocus = false,
+//                    functions = DirectionsPickTargetFunctions.Empty,
+//                )
             }
 
             navCardItem(this) {
                 DirectionsLookTarget(
                     query = "Nova Store",
-                    poiTitle = "Nova Store",
-                    poiCategory = "Εταιρεία Τηλεπικοινωνιών",
                     onBack = {}
                 )
             }

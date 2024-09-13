@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,11 +43,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    query: String,
     onSearchClick: () -> Unit,
-    isTypingMode: Boolean,
     onBackClick: () -> Unit,
-    onQueryChange: (String) -> Unit,
+    textState: TextFieldState,
     focusRequester: FocusRequester
 ) {
     val searchLabel = NavCardProperties.SEARCH_LABEL
@@ -62,17 +61,15 @@ fun SearchBar(
             modifier = Modifier.size(sizeInScreen)
         )
         SearchField(
-            query = query,
-            onQueryChange = onQueryChange,
             searchStyle = searchStyle,
             modifier = Modifier
                 .padding(vertical = NavCardProperties.IN_PADDING.dp)
                 .fillMaxWidth()
                 .weight(1f)
                 .mySharedElement("SearchContainerText"),
-            searchEnabled = isTypingMode,
             searchLabel = searchLabel,
             onSearchClick = onSearchClick,
+            textState = textState,
             focusRequester = focusRequester
         )
         IconButton(
@@ -114,21 +111,14 @@ fun SearchBarContainer(
 @Composable
 fun SearchField(
     modifier: Modifier = Modifier,
-    query: String,
     onSearchClick: () -> Unit,
-    onQueryChange: (String) -> Unit,
-    searchEnabled: Boolean,
     searchStyle: TextStyle,
     searchLabel: String,
+    textState: TextFieldState,
     focusRequester: FocusRequester
 ) {
-    val textState = rememberTextFieldState(
-        initialText = query, initialSelection = TextRange(query.length),
-    )
 
-    LaunchedEffect(textState.text) {
-        onQueryChange(textState.text.toString())
-    }
+    val isTypingModeMy = textState.text.isNotEmpty()
 
     BasicTextField(
         state = textState,
@@ -151,7 +141,7 @@ fun SearchField(
             ) {
                 it()
 
-                if (!searchEnabled) Text(
+                if (!isTypingModeMy) Text(
                     text = searchLabel,
                     style = searchStyle,
                     modifier = Modifier.mySharedElement("NavCardStartSelectText")
@@ -166,11 +156,9 @@ fun SearchField(
 @AppPreview.Brightness
 private fun Preview() = ClpTheme {
     SearchBar(
-        query = "",
-        onQueryChange = { },
-        isTypingMode = false,
         onBackClick = { },
         onSearchClick = { },
-        focusRequester = remember { FocusRequester() }
+        focusRequester = remember { FocusRequester() },
+        textState = rememberTextFieldState()
     )
 }

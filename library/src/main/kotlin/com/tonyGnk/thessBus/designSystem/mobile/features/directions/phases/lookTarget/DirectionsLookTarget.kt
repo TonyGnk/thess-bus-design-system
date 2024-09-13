@@ -2,26 +2,24 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.look
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsLookTargetType
 
 
 @Composable
 fun DirectionsLookTarget(
     modifier: Modifier = Modifier,
+    givenType: DirectionsLookTargetType = DirectionsLookTargetType.JustMap,
     query: String,
     onBack: () -> Unit,
     horizontalPadding: Int = 0,
     mapModifier: Modifier = Modifier,
-    latitude: Double = 40.63231,
-    longitude: Double = 22.96331,
-    poiTitle: String,
-    poiCategory: String,
 ) {
-    DestinationOverviewMapLayer(latitude, longitude)
+    DestinationOverviewMapLayer(
+        givenType = givenType,
+    )
     DestinationOverviewUiLayer(
         onBack = onBack,
         query = query,
-        poiTitle = poiTitle,
-        poiCategory = poiCategory,
         horizontalPadding = horizontalPadding,
         modifier = modifier
     )
