@@ -17,9 +17,7 @@ fun DirectionsPreviewFeatureScreen(
 ) {
     Scaffold {
         NavigationCardPreview(
-            modifier = Modifier.padding(
-                horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp,
-            ),
+            horizontalPadding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING,
         )
     }
 }

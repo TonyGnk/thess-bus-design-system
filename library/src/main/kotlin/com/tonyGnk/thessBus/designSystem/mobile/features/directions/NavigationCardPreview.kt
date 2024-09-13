@@ -8,6 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
@@ -47,8 +48,9 @@ fun <S> SharedTransitionWrapper(
 @Composable
 fun NavigationCardPreview(
     modifier: Modifier = Modifier,
+    horizontalPadding: Int = 0,
 ) {
-    val phase = remember { mutableStateOf(DirectionPhases.LOOK_TARGET) }
+    val phase = remember { mutableStateOf(DirectionPhases.PICK_TARGET) }
     val goToStart = { phase.value = DirectionPhases.START }
     val goToPickTarget = { phase.value = DirectionPhases.PICK_TARGET }
     val goToLookTarget = { phase.value = DirectionPhases.LOOK_TARGET }
@@ -63,6 +65,7 @@ fun NavigationCardPreview(
         when (it) {
             DirectionPhases.START -> DirectionsStart(
                 modifier = modifier.extendedStatusBarsPadding(),
+                horizontalPadding = horizontalPadding,
                 onSearchClick = goToPickTarget
             )
 
@@ -71,7 +74,7 @@ fun NavigationCardPreview(
                     DirectionsPickTargetFunctions(
                         onBack = goToStart,
                         onSearch = goToLookTarget,
-                        onResult = { _, _ -> goToLookTarget() },
+                        onResult = { _ -> goToLookTarget() },
                         onQueryChange = onQueryChange
                     )
                 }
@@ -80,11 +83,13 @@ fun NavigationCardPreview(
                     modifier = modifier,
                     query = query.value,
                     requestFocus = true,
+                    horizontalPadding = horizontalPadding,
                     functions = functions
                 )
             }
 
             DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
+                horizontalPadding = horizontalPadding,
                 modifier = modifier.extendedStatusBarsPadding(),
                 query = query.value,
                 onBack = goToPickTarget,

@@ -37,6 +37,7 @@ fun DestinationOverviewUiLayer(
     query: String,
     poiTitle: String,
     poiCategory: String,
+    horizontalPadding: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -44,7 +45,9 @@ fun DestinationOverviewUiLayer(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(modifier = modifier) {
+        Box(
+            modifier = modifier.padding(horizontal = horizontalPadding.dp)
+        ) {
             SearchButton(
                 searchLabel = query,
                 onClick = onBack,

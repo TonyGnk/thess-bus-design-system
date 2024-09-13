@@ -102,7 +102,7 @@ fun SearchBarContainer(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
-            modifier = modifier.padding(
+            modifier = Modifier.padding(
                 horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp,
             )
         ) {
@@ -111,7 +111,6 @@ fun SearchBarContainer(
     }
 }
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun SearchField(
     modifier: Modifier = Modifier,

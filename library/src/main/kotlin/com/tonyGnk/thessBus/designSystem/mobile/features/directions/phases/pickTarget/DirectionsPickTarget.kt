@@ -4,12 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,13 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItem
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.SelectTargetItemFakeData
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.MyBox
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.NavCardSelectQuickOptions
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.ResultLayout
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.PickTargetOverview
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.LazyListOfPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
@@ -35,14 +30,14 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 data class DirectionsPickTargetFunctions(
     val onBack: () -> Unit,
     val onSearch: () -> Unit,
-    val onResult: (Int, Boolean) -> Unit,
+    val onResult: (PickTargetItem) -> Unit,
     val onQueryChange: (String) -> Unit
 ) {
     companion object {
         val Empty = DirectionsPickTargetFunctions(
             onBack = {},
             onSearch = {},
-            onResult = { _, _ -> },
+            onResult = { _ -> },
             onQueryChange = {}
         )
     }
@@ -51,11 +46,12 @@ data class DirectionsPickTargetFunctions(
 @Composable
 fun DirectionsPickTarget(
     modifier: Modifier = Modifier,
-    functions: DirectionsPickTargetFunctions,
-    query: String,
-    requestFocus: Boolean,
-    historyList: List<SelectTargetItem> = emptyList(),
-    results: List<SelectTargetItem> = SelectTargetItemFakeData,
+    functions: DirectionsPickTargetFunctions = DirectionsPickTargetFunctions.Empty,
+    query: String = "",
+    requestFocus: Boolean = false,
+    horizontalPadding: Int = 0,
+    historyList: List<PickTargetItem> = emptyList(),
+    results: List<PickTargetItem> = PickTargetFakeResults,
 ) {
     val isTypingModeMy = query.isNotBlank()
     val lazyListState = rememberLazyListState()
@@ -75,118 +71,35 @@ fun DirectionsPickTarget(
         }
     }
 
-    LazyColumn(
-        state = lazyListState,
-        modifier = modifier,
-        contentPadding = PaddingValues(top = extendedStatusBarsPadding()),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    Column(
+        modifier = modifier.extendedStatusBarsPadding(),
+        verticalArrangement = Arrangement.spacedBy(0.dp)
     ) {
-        item {
-            SearchBar(
-                onSearchClick = functions.onSearch,
-                query = query,
-                onBackClick = functions.onBack,
-                onQueryChange = functions.onQueryChange,
-                isTypingMode = isTypingModeMy,
-                focusRequester = focusRequester
-            )
-        }
-//        item {
-//            AnimatedContent(targetState = isTypingModeMy, label = "") {
-//                when (it) {
-//                    true -> PickTargetTypingMode(
-//                        results = results,
-//                        onResultClick = functions.onResult
-//                    )
-//
-//                    false -> PickTargetOverview(
-//                        lazyListState = lazyListState,
-//                        historyItems = historyList
-//                    )
-//                }
-//            }
-//        }
+        SearchBar(
+            modifier = Modifier.padding(horizontal = horizontalPadding.dp),
+            onSearchClick = functions.onSearch,
+            query = query,
+            onBackClick = functions.onBack,
+            onQueryChange = functions.onQueryChange,
+            isTypingMode = isTypingModeMy,
+            focusRequester = focusRequester
+        )
+        AnimatedContent(targetState = isTypingModeMy, label = "") {
+            when (it) {
+                true -> LazyListOfPickTargetItems(
+                    modifier = Modifier.padding(top = 8.dp),
+                    onClick = functions.onResult,
+                    horizontalPadding = horizontalPadding,
+                    state = lazyListState,
+                    items = results
+                )
 
-//        if (isTypingModeMy) {
-//            // Show search results when typing mode is active
-//            items(
-//                items = results, key = { it.id }
-//            ) { result ->
-//                ResultLayout(
-//                    modifier = Modifier.animateItem(),
-//                    result = result,
-//                    onClick = {
-//                        functions.onResult(result.id, result.isSinglePoint)
-//                    }
-//                )
-//            }
-//        } else {
-//            // Show favorites when not in typing mode
-//            items(results, key = { -it.id }) { favorite ->
-//                MyBox(modifier = Modifier.animateItem())
-//            }
-//        }
-
-        items(
-            items = results + results,
-            //key = { it.id }
-        ) { item ->
-            AnimatedContent(
-                targetState = isTypingModeMy,
-                label = "item_transition"
-            ) { isSearching ->
-                if (isSearching && item in results) {
-                    ResultLayout(
-                        result = item,
-                        onClick = { functions.onResult(item.id, item.isSinglePoint) }
-                    )
-                } else if (!isSearching && item in results) {
-                    MyBox(
-                    )
-                }
+                false -> PickTargetOverview(
+                    state = lazyListState,
+                    horizontalPadding = horizontalPadding,
+                )
             }
         }
-
-
-//        items(items = results, key = { it.id }) { result ->
-//            AnimatedContent(targetState = isTypingModeMy, label = "") {
-//                when (it) {
-//                    true -> ResultLayout(
-//                        result = result,
-//                        onClick = {
-//                            functions.onResult(result.id, result.isSinglePoint)
-//                        }
-//                    )
-//
-//                    false -> {}
-//                }
-//            }
-//        }
-//        items(items = results, key = { -it.id }) { result ->
-//            AnimatedContent(targetState = isTypingModeMy, label = "") {
-//                when (it) {
-//                    true -> {}
-//
-//                    false -> MyBox()
-//                }
-//            }
-//        }
-    }
-}
-
-@Composable
-fun PickTargetOverview(
-    lazyListState: LazyListState,
-    historyItems: List<SelectTargetItem>
-) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        NavCardSelectQuickOptions(
-            lazyListState = lazyListState
-        )
-        //item { HistoryList() }
     }
 }
 
@@ -200,18 +113,15 @@ private fun Preview() = ClpTheme {
         DirectionsPickTargetFunctions(
             onBack = {},
             onSearch = {},
-            onResult = { _, _ -> },
+            onResult = { _ -> },
             onQueryChange = { query.value = it }
         )
     }
 
-    Box(
-        modifier = Modifier.padding(8.dp)
-    ) {
+    Box(modifier = Modifier.padding(8.dp)) {
         DirectionsPickTarget(
             query = query.value,
             functions = functions,
-            requestFocus = false,
         )
     }
 }

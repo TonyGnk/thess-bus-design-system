@@ -6,9 +6,10 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DirectionsLookTarget(
+    modifier: Modifier = Modifier,
     query: String,
     onBack: () -> Unit,
-    modifier: Modifier = Modifier,
+    horizontalPadding: Int = 0,
     mapModifier: Modifier = Modifier,
     latitude: Double = 40.63231,
     longitude: Double = 22.96331,
@@ -21,6 +22,7 @@ fun DirectionsLookTarget(
         query = query,
         poiTitle = poiTitle,
         poiCategory = poiCategory,
+        horizontalPadding = horizontalPadding,
         modifier = modifier
     )
 }
