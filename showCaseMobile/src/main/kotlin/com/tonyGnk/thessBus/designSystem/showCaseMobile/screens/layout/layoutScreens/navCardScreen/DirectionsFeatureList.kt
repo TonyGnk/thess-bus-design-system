@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTargetFunctions
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.DirectionsStart
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -71,20 +73,19 @@ fun DirectionsFeatureList(
             }
 
             navCardItem(this) {
-//                DirectionsPickTarget(
-//                    query = "",
-//                    modifier = Modifier.height(256.dp),
-//                    requestFocus = false,
-//                    functions = DirectionsPickTargetFunctions.Empty,
-//                )
+                DirectionsPickTarget(
+                    textState = rememberTextFieldState(),
+                    requestFocus = false,
+                    functions = DirectionsPickTargetFunctions.Empty,
+                )
             }
 
             navCardItem(this) {
-//                DirectionsPickTarget(
-//                    query = "Αριστοτέλους",
-//                    requestFocus = false,
-//                    functions = DirectionsPickTargetFunctions.Empty,
-//                )
+                DirectionsPickTarget(
+                    textState = rememberTextFieldState("Univer"),
+                    requestFocus = false,
+                    functions = DirectionsPickTargetFunctions.Empty,
+                )
             }
 
             navCardItem(this) {

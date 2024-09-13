@@ -41,7 +41,7 @@ private sealed interface Destination {
 fun MyNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Destination.DirectionsPreviewFeature
+        startDestination = Destination.Landing
     ) {
         val navigateToDestination: (LandingDestination) -> Unit = { destination ->
             when (destination) {

@@ -55,7 +55,7 @@ fun NavigationCardPreview(
     val selectedItem =
         remember { mutableStateOf<DirectionsLookTargetType>(DirectionsLookTargetType.JustMap) }
 
-    val phase = remember { mutableStateOf(DirectionPhases.PICK_TARGET) }
+    val phase = remember { mutableStateOf(DirectionPhases.START) }
     val goToStart = { phase.value = DirectionPhases.START }
     val goToPickTarget = { phase.value = DirectionPhases.PICK_TARGET }
     val goToLookTargetJustMap: (List<PickTargetItem>) -> Unit = { items ->
