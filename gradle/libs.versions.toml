@@ -18,6 +18,7 @@ mapsCompose = "6.1.1"
 playServicesMaps = "19.0.0"
 uiautomator = "2.3.0"
 benchmarkMacroJunit4 = "1.3.0"
+profileinstaller = "1.3.1"
 
 [libraries]
 #For the Library & Showcase (Mobile)
@@ -57,6 +58,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
+
+androidx-profileinstaller = { module = "androidx.profileinstaller:profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
