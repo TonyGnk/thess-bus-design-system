@@ -33,13 +33,13 @@ fun MyNavHost(navController: NavHostController) {
             ) {
                 val navigateToTopDestination: (LandingDestination) -> Unit = { destination ->
                     when (destination) {
-                        LandingDestination.Features -> navController.navigate(TopDestination.LayoutItems)
+                        LandingDestination.Features -> navController.navigate(TopDestination.FeatureList)
                         LandingDestination.Components -> navController.navigate(TopDestination.ComponentsGraph)
                     }
                 }
                 val navigateToLayoutTopDestination: (LayoutDestination) -> Unit = { destination ->
                     when (destination) {
-                        LayoutDestination.NavCard -> navController.navigate(TopDestination.DirectionsFeatureList)
+                        LayoutDestination.NavCard -> navController.navigate(TopDestination.DirectionsFeatureGraph)
                     }
                 }
                 val onBack: () -> Unit = { navController.navigateUp() }
@@ -50,7 +50,7 @@ fun MyNavHost(navController: NavHostController) {
                     )
                 }
 
-                route<TopDestination.LayoutItems> {
+                route<TopDestination.FeatureList> {
                     FeaturesList(
                         onBack = onBack,
                         onLayoutDestinations = navigateToLayoutTopDestination

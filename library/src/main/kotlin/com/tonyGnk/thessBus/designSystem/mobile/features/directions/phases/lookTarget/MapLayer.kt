@@ -1,36 +1,80 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
 
 import android.util.Log
+import androidx.compose.material3.ModalBottomSheetDefaults.properties
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.GoogleMapComposable
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polygon
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsLookTargetType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetPointsType
 
 
 @Composable
 fun DestinationOverviewMapLayer(
-    givenType: DirectionsLookTargetType = DirectionsLookTargetType.JustMap,
+    givenType: DirectionsFeatureItemType,
+    cameraPositionState: CameraPositionState,
+    setType: (DirectionsFeatureItemType) -> Unit
 ) {
-    when (givenType) {
-        is DirectionsLookTargetType.JustMap -> {}
-        is DirectionsLookTargetType.MultipleItems -> {}
-        is PickTargetItem -> when (givenType.points) {
-            is PickTargetPointsType.Multi -> MapMulti(givenType, givenType.points)
-            is PickTargetPointsType.Single -> MapSingle(givenType, givenType.points)
+    MyGoogleMap(
+        setType = setType,
+        cameraPositionState = cameraPositionState
+    ) {
+        when (givenType) {
+            is DirectionsFeatureItemType.JustMap -> {}
+
+            is DirectionsFeatureItemType.MultipleItems -> {}
+            is DirectionsFeatureItemType.SingleItem -> when (givenType.points) {
+                is PickTargetPointsType.Multi -> {
+                    val listOfPairs = givenType.points.points
+                    val center = findCenter(listOfPairs)
+                    val markerState = rememberMarkerState(
+                        position = LatLng(center.first, center.second)
+                    )
+
+                    Marker(
+                        state = markerState,
+                        draggable = false,
+                        flat = false,
+                        zIndex = 0f,
+                        icon = BitmapDescriptorFactory.defaultMarker(12f)
+                    )
+                    Polygon(
+                        points = listOfPairs.map { LatLng(it.first, it.second) },
+                        fillColor = AppColor.primary.copy(alpha = 0.5f),
+                        strokeColor = AppColor.primary,
+                        clickable = false,
+                        geodesic = true,
+                    )
+                }
+
+                is PickTargetPointsType.Single -> {
+                    val markerState = rememberMarkerState(
+                        position = LatLng(givenType.points.lat, givenType.points.lon)
+                    )
+
+                    Marker(
+                        state = markerState,
+                        draggable = false,
+                        flat = false,
+                        zIndex = 0f,
+                        icon = BitmapDescriptorFactory.defaultMarker(12f)
+                    )
+                }
+            }
         }
     }
 }
@@ -45,111 +89,63 @@ private fun findCenter(listOfPairs: List<Pair<Double, Double>>): Pair<Double, Do
     return Pair(sumLat / listOfPairs.size, sumLng / listOfPairs.size)
 }
 
-@Composable
-private fun MapMulti(
-    item: PickTargetItem,
-    points: PickTargetPointsType.Multi
-) {
-    val listOfPairs = points.points
-
-    //Find the center of the points and add marker
-    val center = findCenter(listOfPairs)
-    val markerState = rememberMarkerState(
-        position = LatLng(center.first, center.second)
-    )
-    val properties = MapProperties(
-        minZoomPreference = 10f,
-    )
-    val cameraPositionState: CameraPositionState = rememberCameraPositionState(
-        init = {
-            position = CameraPosition(
-                LatLng(center.first, center.second),
-                16f,
-                20f,
-                0f
-            )
-        }
-    )
-    val uiSettings = MapUiSettings(
-        myLocationButtonEnabled = false,
-        mapToolbarEnabled = false,
-        compassEnabled = false,
-        zoomControlsEnabled = false,
-    )
-
-    GoogleMap(
-        cameraPositionState = cameraPositionState,
-        uiSettings = uiSettings,
-        properties = properties,
-        mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
-    ) {
-        Marker(
-            state = markerState,
-            draggable = false,
-            flat = false,
-            zIndex = 0f,
-            icon = BitmapDescriptorFactory.defaultMarker(12f)
-        )
-        Polygon(
-            points = listOfPairs.map { LatLng(it.first, it.second) },
-            fillColor = AppColor.primary.copy(alpha = 0.5f),
-            strokeColor = AppColor.primary,
-            clickable = false,
-            geodesic = true,
-        )
-    }
-}
 
 @Composable
-private fun MapSingle(
-    item: PickTargetItem,
-    points: PickTargetPointsType.Single
+private fun MyGoogleMap(
+    modifier: Modifier = Modifier,
+    cameraPositionState: CameraPositionState,
+    setType: (DirectionsFeatureItemType) -> Unit,
+    content: @Composable @GoogleMapComposable () -> Unit = {},
 ) {
-
-    //Find the center of the points and add marker
-    val markerState = rememberMarkerState(
-        position = LatLng(points.lat, points.lon)
-    )
-    val properties = MapProperties(
-        minZoomPreference = 10f,
-    )
-    val cameraPositionState: CameraPositionState = rememberCameraPositionState(
-        init = {
-            position = CameraPosition(
-                LatLng(points.lat, points.lon),
-                16f,
-                20f,
-                0f
-            )
-        }
-    )
-    val uiSettings = MapUiSettings(
-        myLocationButtonEnabled = false,
-        mapToolbarEnabled = false,
-        compassEnabled = false,
-        zoomControlsEnabled = false,
-    )
-
     GoogleMap(
+        modifier = modifier,
         cameraPositionState = cameraPositionState,
-        uiSettings = uiSettings,
-        properties = properties,
+        uiSettings = MapUiSettings(
+            myLocationButtonEnabled = false,
+            mapToolbarEnabled = false,
+            compassEnabled = false,
+            zoomControlsEnabled = false,
+        ),
+        onPOIClick = { poi ->
+            setType(
+                DirectionsFeatureItemType.SingleItem(
+                    title = poi.name,
+                    id = poi.placeId,
+                    iconRes = 0,
+                    subTitle = "Σημείο στο χάρτη",
+                    points = PickTargetPointsType.Single(
+                        lat = poi.latLng.latitude,
+                        lon = poi.latLng.longitude
+                    )
+                )
+            )
+        },
+        onMapLongClick = { latLng: LatLng ->
+            setType(
+                DirectionsFeatureItemType.SingleItem(
+                    title = "Σημείο",
+                    id = "",
+                    iconRes = 0,
+                    subTitle = "",
+                    points = PickTargetPointsType.Single(
+                        lat = latLng.latitude,
+                        lon = latLng.longitude
+                    )
+                )
+            )
+        },
+        properties = MapProperties(
+            minZoomPreference = 10f,
+        ),
         mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
-    ) {
-        Marker(
-            state = markerState,
-            draggable = false,
-            flat = false,
-            zIndex = 0f,
-            icon = BitmapDescriptorFactory.defaultMarker(12f)
-        )
-    }
+        content = content
+    )
 }
 
 
 @Composable
 fun DestinationOverviewMapLayer2(
-    givenType: DirectionsLookTargetType? = null,
+    givenType: DirectionsFeatureItemType? = null,
 ) {
     val markerState = rememberMarkerState(
         // position = LatLng(latitude, longitude)

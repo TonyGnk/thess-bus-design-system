@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,29 +19,33 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.TonalButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeFavorites
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeHistory
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.PickTargetResult
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
 internal fun PickTargetOverview(
     modifier: Modifier = Modifier,
     state: LazyListState,
-    favorites: List<PickTargetItem> = PickTargetFakeFavorites,
-    history: List<PickTargetItem> = PickTargetFakeHistory,
+    onCategoriesClick: () -> Unit,
+    favorites: List<DirectionsFeatureItemType.SingleItem> = PickTargetFakeFavorites,
+    history: List<DirectionsFeatureItemType.SingleItem> = PickTargetFakeHistory,
     horizontalPadding: PaddingValues,
-    onItemClick: (PickTargetItem) -> Unit
+    onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit
 ) {
     LazyColumn(
         state = state,
         modifier = modifier.padding(top = 14.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        item { QuickActions(horizontalPadding = horizontalPadding) }
+        item {
+            QuickActions(
+                onCategoriesClick = onCategoriesClick,
+                horizontalPadding = horizontalPadding
+            )
+        }
         item {
             Favorites(
                 modifier = Modifier.padding(horizontalPadding),
@@ -65,6 +68,7 @@ internal fun PickTargetOverview(
 @Composable
 fun QuickActions(
     modifier: Modifier = Modifier,
+    onCategoriesClick: () -> Unit,
     horizontalPadding: PaddingValues
 ) {
     LazyRow(
@@ -96,6 +100,7 @@ fun QuickActions(
             TonalButton(
                 iconRes = AppIcon.category,
                 text = "Κατηγορίες",
+                onClick = onCategoriesClick,
                 padding = PaddingValues(18.dp),
             )
         }
@@ -106,8 +111,8 @@ fun QuickActions(
 fun Favorites(
     modifier: Modifier = Modifier,
     label: String,
-    items: List<PickTargetItem>,
-    onItemClick: (PickTargetItem) -> Unit = {}
+    items: List<DirectionsFeatureItemType.SingleItem>,
+    onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit = {}
 ) {
 
     Column(
@@ -142,6 +147,7 @@ private fun Preview() = ClpTheme {
     PickTargetOverview(
         horizontalPadding = PaddingValues(0.dp),
         state = rememberLazyListState(),
-        onItemClick = {}
+        onItemClick = {},
+        onCategoriesClick = {}
     )
 }

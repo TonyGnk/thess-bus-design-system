@@ -3,8 +3,8 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pick
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,7 +24,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -33,14 +33,13 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 @Composable
 internal fun LazyListOfPickTargetItems(
     modifier: Modifier = Modifier,
-    onClick: (PickTargetItem) -> Unit,
+    onClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
     state: LazyListState,
-    horizontalPadding: PaddingValues,
-    items: List<PickTargetItem>
+    items: List<DirectionsFeatureItemType.SingleItem>
 ) {
     LazyColumn(
         state = state,
-        modifier = modifier.padding(horizontalPadding),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         items(items = items, key = { it.id }) { result ->
@@ -56,7 +55,7 @@ internal fun LazyListOfPickTargetItems(
 
 @Composable
 internal fun PickTargetResult(
-    result: PickTargetItem,
+    result: DirectionsFeatureItemType.SingleItem,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -76,7 +75,7 @@ internal fun PickTargetResult(
 
     SurfaceWithShadows(
         color = AppColor.surfaceContainerLowest,
-        shadowElevation = 1,
+        shadowElevation = 0,
         modifier = modifier.padding(vertical = 2.dp),
         onClick = onClick,
         shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
@@ -128,6 +127,5 @@ private fun Preview() = ClpTheme {
         items = results,
         onClick = { _ -> },
         state = rememberLazyListState(),
-        horizontalPadding = PaddingValues(0.dp)
     )
 }

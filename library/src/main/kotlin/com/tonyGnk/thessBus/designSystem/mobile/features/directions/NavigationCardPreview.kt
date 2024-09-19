@@ -23,7 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 enum class DirectionPhases {
-    START, PICK_TARGET, LOOK_TARGET
+    START, PICK_TARGET, PICK_CATEGORY, LOOK_TARGET
 }
 
 
@@ -46,83 +46,4 @@ fun <S> SharedTransitionWrapper(
             }
         }
     }
-}
-
-@Composable
-fun NavigationCardPreview(
-    modifier: Modifier = Modifier,
-    includeStatusBarPadding: Boolean = true,
-) {
-    val selectedItem =
-        remember { mutableStateOf<DirectionsLookTargetType>(DirectionsLookTargetType.JustMap) }
-
-    val phase = remember { mutableStateOf(DirectionPhases.START) }
-    val goToStart = { phase.value = DirectionPhases.START }
-    val goToPickTarget = { phase.value = DirectionPhases.PICK_TARGET }
-    val goToLookTargetJustMap: (List<PickTargetItem>) -> Unit = { items ->
-        selectedItem.value = DirectionsLookTargetType.MultipleItems(items)
-        phase.value = DirectionPhases.LOOK_TARGET
-    }
-    val goToLookTarget: (PickTargetItem) -> Unit = { item ->
-        selectedItem.value = item
-        phase.value = DirectionPhases.LOOK_TARGET
-    }
-
-    val searchResults: (String) -> Unit = { _ -> }
-
-    val textState = rememberTextFieldState(
-        initialText = "", initialSelection = TextRange("".length),
-    )
-
-    LaunchedEffect(textState.text) {
-        searchResults(textState.text.toString())
-    }
-
-    SharedTransitionWrapper(phase.value) {
-        when (it) {
-            DirectionPhases.START -> DirectionsStart(
-                modifier = modifier
-                    .then(
-                        if (includeStatusBarPadding) Modifier.extendedStatusBarsPadding() else Modifier
-                    )
-                    .mySharedElement("zoom"),
-
-                //  padding = horizontalPaddingStart,
-                onSearchClick = goToPickTarget
-            )
-
-            DirectionPhases.PICK_TARGET -> {
-                val functions = remember {
-                    DirectionsPickTargetFunctions(
-                        onBack = goToStart,
-                        onSearchIme = { goToLookTargetJustMap(emptyList()) },
-                        onResultClick = { item -> goToLookTarget(item) },
-                    )
-                }
-
-                DirectionsPickTarget(
-                    modifier = modifier,
-                    requestFocus = true,
-                    functions = functions,
-                    textState = textState
-                )
-            }
-
-            DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
-                givenType = selectedItem.value,
-                modifier = modifier.then(
-                    if (includeStatusBarPadding) Modifier.extendedStatusBarsPadding() else Modifier
-                ),
-                query = textState.text.toString(),
-                onBack = goToPickTarget,
-            )
-        }
-    }
-}
-
-@Composable
-@AppPreview.Dark
-private
-fun Preview() = ClpTheme {
-    NavigationCardPreview()
 }

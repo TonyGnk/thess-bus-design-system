@@ -13,8 +13,8 @@ android {
         applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "0.0.12"
+        versionCode = 15
+        versionName = "0.0.15"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

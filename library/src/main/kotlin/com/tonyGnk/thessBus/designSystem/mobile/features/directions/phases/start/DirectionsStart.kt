@@ -41,14 +41,12 @@ object NavCardProperties {
 @Composable
 fun DirectionsStart(
     modifier: Modifier = Modifier,
-    padding: PaddingValues = PaddingValues(0.dp),
     onSearchClick: () -> Unit = {},
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(NavCardProperties.SEARCH_ARRANGEMENT.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .padding(padding)
             .fillMaxWidth()
             .clip(RoundedCornerShape(NavCardProperties.OUTER_CORNERS.dp))
             .background(AppColor.primary)

@@ -1,5 +1,8 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
 
+import android.content.Intent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ShareCompat
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
@@ -27,24 +33,37 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
 
 @Composable
 fun DestinationOverviewUiLayer(
     onBack: () -> Unit,
+    givenType: DirectionsFeatureItemType,
+    setType: (DirectionsFeatureItemType) -> Unit,
     query: String,
-    horizontalPadding: Int,
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
+    applySystemBarPadding: Boolean = true,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .then(
+                if (applySystemBarPadding) Modifier
+                    .extendedStatusBarsPadding() else Modifier
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
-            modifier = modifier.padding(horizontal = horizontalPadding.dp)
+            modifier = modifier.padding(
+                horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+            )
         ) {
             SearchButton(
                 searchLabel = query,
@@ -54,33 +73,54 @@ fun DestinationOverviewUiLayer(
             )
         }
         Spacer(Modifier.weight(1f))
-        PoiCard(
-            poiTitle = "",
-            poiCategory = ""
-        )
+        AnimatedContent(
+            givenType, label = "",
+        ) {
+            when (it) {
+                DirectionsFeatureItemType.JustMap -> {}
+                is DirectionsFeatureItemType.MultipleItems -> {}
+                is DirectionsFeatureItemType.SingleItem -> {
+                    PoiCard(
+                        onClose = { setType(DirectionsFeatureItemType.JustMap) },
+                        poiTitle = it.title,
+                        poiCategory = it.subTitle
+                    )
+                }
+            }
+        }
     }
 }
 
 @Composable
 private fun PoiCard(
+    onClose: () -> Unit,
     poiTitle: String = "Nova Store",
     poiCategory: String = "Εταιρεία Τηλεπικοινωνιών"
 ) {
+    val context = LocalContext.current
+
     SurfaceWithShadows(
+        modifier = Modifier.padding(10.dp),
         shadowElevation = 20,
-        shape = RoundedCornerShape(topStart = 33.dp, topEnd = 33.dp),
+        shape = RoundedCornerShape(
+            33.dp
+            //topStart = 33.dp, topEnd = 33.dp
+        ),
         color = AppColor.surfaceContainerLowest,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 10.dp)
-                .padding(vertical = 20.dp)
+                .padding(
+                    vertical = 20.dp
+                    //top = 28.dp, bottom = 22.dp
+                )
         ) {
             PoiTextLabels(
                 poiTitle = poiTitle,
-                poiCategory = poiCategory
+                poiCategory = poiCategory,
+                onClose = onClose
             )
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -89,15 +129,15 @@ private fun PoiCard(
                     FilledButton(
                         iconRes = AppIcon.navigate,
                         text = "Πλοήγηση",
-                        padding = PaddingValues(18.dp),
-                        modifier = Modifier.padding(start = 18.dp)
+                        padding = PaddingValues(17.dp),
+                        modifier = Modifier.padding(start = 20.dp)
                     )
                 }
                 item {
                     TonalButton(
                         iconRes = R.drawable.bookmark,
                         text = "Αποθήκευση",
-                        padding = PaddingValues(18.dp),
+                        padding = PaddingValues(17.dp),
                         modifier = Modifier
                     )
                 }
@@ -105,8 +145,17 @@ private fun PoiCard(
                     TonalButton(
                         iconRes = AppIcon.share,
                         text = "Κοινοποίηση",
-                        padding = PaddingValues(18.dp),
-                        modifier = Modifier.padding(end = 18.dp)
+                        onClick = {
+                            val sendIntent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Δες το $poiTitle στο ThessBus!")
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            context.startActivity(shareIntent)
+                        },
+                        padding = PaddingValues(17.dp),
+                        modifier = Modifier.padding(end = 20.dp)
                     )
                 }
             }
@@ -117,30 +166,34 @@ private fun PoiCard(
 @Composable
 private fun PoiTextLabels(
     poiTitle: String,
+    onClose: () -> Unit,
     poiCategory: String
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 18.dp),
+            .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(7.dp)
         ) {
             Text(
                 text = poiTitle,
-                style = AppTypo.headlineSmall,
+                style = AppTypo.titleLarge,
+                weight = FontWeight.Black
             )
             Text(
                 text = poiCategory,
-                style = AppTypo.bodyLarge,
+                style = AppTypo.bodyMedium,
             )
         }
         IconButton(
+            onClick = onClose,
             color = AppColor.surfaceContainer,
             iconRes = AppIcon.cross,
-            modifier = Modifier.size(13.dp)
+            modifier = Modifier.size(15.dp)
         )
     }
 }
@@ -148,5 +201,5 @@ private fun PoiTextLabels(
 @Composable
 @AppPreview.Dark
 private fun Preview() = ClpTheme {
-    PoiCard()
+    // PoiCard()
 }

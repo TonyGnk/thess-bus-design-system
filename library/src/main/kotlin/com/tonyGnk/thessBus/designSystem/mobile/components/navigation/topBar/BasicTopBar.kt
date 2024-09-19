@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -24,11 +25,13 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
+sealed interface TopBarAreaType
+
 data class TopBarBackIcon(
     @DrawableRes val iconRes: Int = R.drawable.back,
     @StringRes val contentDescription: Int = R.string.back,
     val onBack: () -> Unit = {}
-)
+) : TopBarAreaType
 
 
 @Composable
@@ -36,6 +39,7 @@ fun BasicTopBar(
     modifier: Modifier = Modifier,
     @StringRes labelRes: Int = 0,
     backIcon: TopBarBackIcon? = null,
+    rightContent: TopBarAreaType? = null
 ) {
     val labelStyle: TextStyle = AppTypo.topBar
     val textForCalculations = "Q"
@@ -57,6 +61,17 @@ fun BasicTopBar(
             style = labelStyle,
             color = AppColor.onSurface
         )
+        Spacer(modifier = Modifier.weight(1f))
+        when (rightContent) {
+            is TopBarBackIcon -> IconButton(
+                iconRes = rightContent.iconRes,
+                onClick = rightContent.onBack,
+                contentDescription = stringResource(rightContent.contentDescription),
+                modifier = Modifier.size(iconHeight)
+            )
+
+            null -> {}
+        }
     }
 }
 
