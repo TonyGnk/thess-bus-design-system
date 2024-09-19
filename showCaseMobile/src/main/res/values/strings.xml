@@ -3,14 +3,15 @@
 
     <!-- Landing Page -->
     <string name="large_app_name" translatable="false">ThessBus Design System</string>
-    <string name="app_desctiption" translatable="false">A collection of UI components for the upcoming ThessBus app. Only for demonstration purposes and internal feedback.</string>
+    <string name="app_description" translatable="false">A collection of UI components for ThessBus, with previews for each feature. For internal feedback and demonstration only.</string>
     <string name="get_updates" translatable="false">Get Updates</string>
-    <string name="landing_destinations_layout" translatable="false">Layouts</string>
-    <string name="landing_destinations_actions" translatable="false">Actions</string>
+    <string name="landing_destinations_features" translatable="false">Features</string>
+    <string name="landing_destinations_components" translatable="false">Components</string>
     <string name="landing_destinations_navigation" translatable="false">Navigation</string>
 
-    <!-- Layouts -->
-    <string name="Layouts_nav_card" translatable="false">Navigation Card</string>
-
+    <!-- Features -->
+    <string name="Layouts_directions" translatable="false">Directions</string>
+    <string name="components_navigation_bar" translatable="false">Navigation Bar</string>
+    <string name="Directions_label_pager" translatable="false">Directions Feature</string>
 
 </resources>

@@ -23,6 +23,7 @@ object AppIcon {
     val mapMarker = R.drawable.map_marker
     val sign = R.drawable.sign
 
+
     //Categories
     val catBank = R.drawable.bank
     val catBarberShop = R.drawable.barber_shop
