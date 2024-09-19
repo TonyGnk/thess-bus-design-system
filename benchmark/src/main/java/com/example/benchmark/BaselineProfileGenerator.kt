@@ -31,26 +31,21 @@ class BaselineProfileGenerator {
             SystemClock.sleep(1500)
         }
 
-        findAndClick("Navigation")
+        findAndClick("Components")
+        findAndClick("Navigation Bar")
+        device.pressBack()
+        SystemClock.sleep(1500)
         device.pressBack()
         SystemClock.sleep(1500)
 
-        findAndClick("Layouts")
-        findAndClick("Navigation Card")
+        findAndClick("Features")
 
-        SystemClock.sleep(5000)
-        findAndClick("Preview")
-        findAndClick("Search here")
-        findAndClick("Σπίτι")
-
-        // A google map is loading
-        SystemClock.sleep(5000)
-        device.pressBack()
-
+        SystemClock.sleep(1500)
+        findAndClick("Directions")
 
         // Scroll at the center of the screen
         val scrollable = UiScrollable(UiSelector().scrollable(true))
-        scrollable.setAsVerticalList()
+        scrollable.setAsHorizontalList()
 
         // Scroll to the end as per original logic
         scrollable.flingToEnd(50)
