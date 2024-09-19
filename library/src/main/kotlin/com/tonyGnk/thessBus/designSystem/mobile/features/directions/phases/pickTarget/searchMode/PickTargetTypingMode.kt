@@ -3,6 +3,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pick
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,12 +35,12 @@ internal fun LazyListOfPickTargetItems(
     modifier: Modifier = Modifier,
     onClick: (PickTargetItem) -> Unit,
     state: LazyListState,
-    horizontalPadding: Int,
+    horizontalPadding: PaddingValues,
     items: List<PickTargetItem>
 ) {
     LazyColumn(
         state = state,
-        modifier = modifier.padding(horizontal = horizontalPadding.dp),
+        modifier = modifier.padding(horizontalPadding),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         items(items = items, key = { it.id }) { result ->
@@ -127,6 +128,6 @@ private fun Preview() = ClpTheme {
         items = results,
         onClick = { _ -> },
         state = rememberLazyListState(),
-        horizontalPadding = 0
+        horizontalPadding = PaddingValues(0.dp)
     )
 }

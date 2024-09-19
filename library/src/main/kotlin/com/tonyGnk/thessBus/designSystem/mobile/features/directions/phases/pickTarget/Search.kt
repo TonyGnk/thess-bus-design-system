@@ -144,7 +144,11 @@ fun SearchField(
                 if (!isTypingModeMy) Text(
                     text = searchLabel,
                     style = searchStyle,
-                    modifier = Modifier.mySharedElement("NavCardStartSelectText")
+                    modifier = Modifier.mySharedElement(
+                        "NavCardStartSelectText",
+                        skipLookaheadSize = true
+                    )
+
                 )
             }
         }

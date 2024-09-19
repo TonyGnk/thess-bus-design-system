@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.navigation
+package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,11 +13,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.Bas
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
-import kotlinx.serialization.Serializable
-
 
 @Composable
-fun NavigationPage(
+fun NavigationBarPage(
     onBack: () -> Unit = {}
 ) {
     Scaffold {
@@ -41,5 +39,5 @@ fun NavigationPage(
 @AppPreview.Brightness
 @Composable
 fun LandingPagePreview() = ClpTheme {
-    NavigationPage()
+    NavigationBarPage()
 }

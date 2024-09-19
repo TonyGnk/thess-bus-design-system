@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.input.TextFieldState
@@ -32,9 +33,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 
 @Stable
 data class DirectionsPickTargetFunctions(
-    val onBack: () -> Unit,
-    val onSearchIme: () -> Unit,
-    val onResultClick: (PickTargetItem) -> Unit,
+    val onBack: () -> Unit = {},
+    val onSearchIme: () -> Unit = {},
+    val onResultClick: (PickTargetItem) -> Unit = {},
 ) {
     companion object {
         val Empty = DirectionsPickTargetFunctions(
@@ -45,12 +46,14 @@ data class DirectionsPickTargetFunctions(
     }
 }
 
+
 @Composable
 fun DirectionsPickTarget(
     modifier: Modifier = Modifier,
     functions: DirectionsPickTargetFunctions = DirectionsPickTargetFunctions.Empty,
     requestFocus: Boolean = false,
-    horizontalPadding: Int = 0,
+    horizontalPadding: PaddingValues = PaddingValues(0.dp),
+    verticalPadding: PaddingValues = PaddingValues(0.dp),
     textState: TextFieldState,
     historyList: List<PickTargetItem> = emptyList(),
     results: List<PickTargetItem> = PickTargetFakeResults,
@@ -77,14 +80,19 @@ fun DirectionsPickTarget(
         }
     }
 
+
+
     Column(
-        modifier = modifier.extendedStatusBarsPadding(),
+        modifier = modifier.padding(verticalPadding),
     ) {
         SearchBar(
-            modifier = Modifier.padding(horizontal = horizontalPadding.dp),
+            modifier = Modifier.padding(horizontalPadding),
             onSearchClick = functions.onSearchIme,
             onBackClick = {
-                if (isTypingModeMy) textState.clearText() else functions.onBack()
+                if (isTypingModeMy) textState.clearText() else {
+                    functions.onBack()
+                    focusManager.clearFocus()
+                }
             },
             textState = textState,
             focusRequester = focusRequester

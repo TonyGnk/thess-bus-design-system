@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,14 +41,14 @@ object NavCardProperties {
 @Composable
 fun DirectionsStart(
     modifier: Modifier = Modifier,
-    horizontalPadding: Int = 0,
+    padding: PaddingValues = PaddingValues(0.dp),
     onSearchClick: () -> Unit = {},
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(NavCardProperties.SEARCH_ARRANGEMENT.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .padding(horizontal = horizontalPadding.dp)
+            .padding(padding)
             .fillMaxWidth()
             .clip(RoundedCornerShape(NavCardProperties.OUTER_CORNERS.dp))
             .background(AppColor.primary)

@@ -44,3 +44,34 @@ fun SharedButtonContent(
         }
     }
 }
+
+@Composable
+fun IconWithTextRow(
+    text: String,
+    @DrawableRes iconRes: Int,
+    contentColor: Color,
+    modifier: Modifier = Modifier,
+    arrangement: Arrangement.Horizontal = Arrangement.Start,
+    style: TextStyle = AppTypo.labelLarge
+) {
+    when (iconRes) {
+        0 -> Text(
+            text = text, style = style, color = contentColor, modifier = modifier
+        )
+
+        else -> {
+            val size = text.findScreenSize(style)
+            Row(
+                modifier = modifier,
+                horizontalArrangement = arrangement,
+            ) {
+                Icon(
+                    iconRes = iconRes, color = contentColor, modifier = Modifier.size(size.height)
+                )
+                Text(
+                    text = text, style = style, color = contentColor
+                )
+            }
+        }
+    }
+}

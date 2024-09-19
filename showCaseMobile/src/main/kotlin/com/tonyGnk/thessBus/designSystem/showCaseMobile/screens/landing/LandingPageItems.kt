@@ -25,7 +25,7 @@ fun LandingPageAppBar() {
 @Composable
 fun LandingPageAppBarDescription() {
     Text(
-        text = stringResource(id = R.string.app_desctiption),
+        text = stringResource(id = R.string.app_description),
         style = AppTypo.bodyMedium,
     )
 }

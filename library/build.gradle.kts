@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.maps.compose)
-    implementation(libs.play.services.maps)
+    //implementation(libs.play.services.maps)
 
 
 //    androidTestImplementation(libs.androidx.junit)

@@ -34,18 +34,18 @@ internal fun PickTargetOverview(
     state: LazyListState,
     favorites: List<PickTargetItem> = PickTargetFakeFavorites,
     history: List<PickTargetItem> = PickTargetFakeHistory,
-    horizontalPadding: Int,
+    horizontalPadding: PaddingValues,
     onItemClick: (PickTargetItem) -> Unit
 ) {
     LazyColumn(
         state = state,
-        modifier = modifier.padding(vertical = 14.dp),
+        modifier = modifier.padding(top = 14.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item { QuickActions(horizontalPadding = horizontalPadding) }
         item {
             Favorites(
-                modifier = Modifier.padding(horizontal = horizontalPadding.dp),
+                modifier = Modifier.padding(horizontalPadding),
                 label = "Saved Places",
                 items = favorites,
                 onItemClick = onItemClick
@@ -53,7 +53,7 @@ internal fun PickTargetOverview(
         }
         item {
             Favorites(
-                modifier = Modifier.padding(horizontal = horizontalPadding.dp),
+                modifier = Modifier.padding(horizontalPadding),
                 label = "Recent", items = history,
                 onItemClick = onItemClick,
             )
@@ -65,10 +65,10 @@ internal fun PickTargetOverview(
 @Composable
 fun QuickActions(
     modifier: Modifier = Modifier,
-    horizontalPadding: Int
+    horizontalPadding: PaddingValues
 ) {
     LazyRow(
-        contentPadding = PaddingValues(horizontal = horizontalPadding.dp),
+        contentPadding = horizontalPadding,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
@@ -140,7 +140,7 @@ fun Favorites(
 @Composable
 private fun Preview() = ClpTheme {
     PickTargetOverview(
-        horizontalPadding = 0,
+        horizontalPadding = PaddingValues(0.dp),
         state = rememberLazyListState(),
         onItemClick = {}
     )

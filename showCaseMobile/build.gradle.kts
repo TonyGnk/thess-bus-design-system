@@ -73,7 +73,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.maps.compose)
-    implementation(libs.play.services.maps)
+    //implementation(libs.play.services.maps)
 
 
     implementation(project(":library"))

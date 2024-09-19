@@ -20,6 +20,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
+import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
 enum class DirectionPhases {
     START, PICK_TARGET, LOOK_TARGET
@@ -50,7 +51,7 @@ fun <S> SharedTransitionWrapper(
 @Composable
 fun NavigationCardPreview(
     modifier: Modifier = Modifier,
-    horizontalPadding: Int = 0,
+    includeStatusBarPadding: Boolean = true,
 ) {
     val selectedItem =
         remember { mutableStateOf<DirectionsLookTargetType>(DirectionsLookTargetType.JustMap) }
@@ -80,8 +81,13 @@ fun NavigationCardPreview(
     SharedTransitionWrapper(phase.value) {
         when (it) {
             DirectionPhases.START -> DirectionsStart(
-                modifier = modifier.extendedStatusBarsPadding(),
-                horizontalPadding = horizontalPadding,
+                modifier = modifier
+                    .then(
+                        if (includeStatusBarPadding) Modifier.extendedStatusBarsPadding() else Modifier
+                    )
+                    .mySharedElement("zoom"),
+
+                //  padding = horizontalPaddingStart,
                 onSearchClick = goToPickTarget
             )
 
@@ -97,7 +103,6 @@ fun NavigationCardPreview(
                 DirectionsPickTarget(
                     modifier = modifier,
                     requestFocus = true,
-                    horizontalPadding = horizontalPadding,
                     functions = functions,
                     textState = textState
                 )
@@ -105,8 +110,9 @@ fun NavigationCardPreview(
 
             DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
                 givenType = selectedItem.value,
-                horizontalPadding = horizontalPadding,
-                modifier = modifier.extendedStatusBarsPadding(),
+                modifier = modifier.then(
+                    if (includeStatusBarPadding) Modifier.extendedStatusBarsPadding() else Modifier
+                ),
                 query = textState.text.toString(),
                 onBack = goToPickTarget,
             )

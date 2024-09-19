@@ -9,25 +9,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.DisposableEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 internal class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
+        splashScreen.setKeepOnScreenCondition { false }
 
-        var keepSplashScreenOn = true
-        splashScreen.setKeepOnScreenCondition { keepSplashScreenOn }
-        lifecycleScope.launch {
-            delay(1)
-            keepSplashScreenOn = false
-        }
+//        var keepSplashScreenOn = true
+//        splashScreen.setKeepOnScreenCondition { keepSplashScreenOn }
+//        lifecycleScope.launch {
+//            delay(1)
+//            keepSplashScreenOn = false
+//        }
 
         enableEdgeToEdge()
         setContent {
