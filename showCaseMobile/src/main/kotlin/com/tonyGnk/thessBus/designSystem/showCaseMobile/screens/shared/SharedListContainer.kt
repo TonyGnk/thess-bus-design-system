@@ -23,11 +23,11 @@ fun SharedListContainer(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Surface(
+    SurfaceWithShadows(
         color = AppColor.surfaceContainerLowest,
-        shadowElevation = 1.dp,
+        shadowElevation = 1,
         shape = AppShape.round30,
-        modifier = modifier.padding(1.dp)
+        modifier = modifier.padding(0.dp)
     ) {
         Column {
             content()

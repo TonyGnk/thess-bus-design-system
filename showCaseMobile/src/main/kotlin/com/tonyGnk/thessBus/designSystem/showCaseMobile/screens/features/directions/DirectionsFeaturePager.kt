@@ -46,6 +46,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.OptimizedPixel4Phone
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.Pixel4Phone
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -68,97 +69,97 @@ fun DirectionsFeaturePager(
         }
     }
 
-    CompositionLocalProvider(value = LocalSharedTransitionScope provides null) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .extendedStatusBarsPadding()
-        ) {
-            BasicTopBar(
-                modifier = Modifier.fillMaxWidth(),
-                labelRes = R.string.Directions_label_pager,
-                backIcon = TopBarBackIcon(
-                    iconRes = AppIcon.back,
-                    onBack = onBack
-                ),
-                rightContent = TopBarBackIcon(
-                    iconRes = R.drawable.expand,
-                    onBack = {
-                        onNavCardPreview()
-                    }
-                )
-            )
-
-            FeaturePager(
-                modifier = Modifier
-                    .weight(4f)
-                    .fillMaxWidth(),
-                pagerState = state.pagerState,
-            ) { page ->
-                val type = DirectionPhases.entries[page]
-                when (type) {
-                    DirectionPhases.START -> Column(
-                        modifier = Modifier.padding(
-                            DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-                        ),
-                    ) {
-                        DirectionsStart(
-                            onSearchClick = { navigateTo(DirectionPhases.PICK_TARGET) }
-                        )
-                    }
-
-                    DirectionPhases.PICK_TARGET -> DirectionsPickTarget(
-                        modifier = Modifier.padding(
-                            vertical = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-                        ),
-                        applySystemBarPadding = false,
-                        onCategoriesClick = { navigateTo(DirectionPhases.PICK_CATEGORY) },
-                        functions = DirectionsPickTargetFunctions(
-                            onResultClick = { navigateTo(DirectionPhases.LOOK_TARGET) },
-                            onSearchIme = { navigateTo(DirectionPhases.LOOK_TARGET) },
-                            onBack = { navigateTo(DirectionPhases.START) }
-                        ),
-                        textState = state.textState
-                    )
-
-                    DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
-                        modifier = Modifier.padding(
-                            vertical = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-                        ),
-                        applySystemBarPadding = false,
-                        givenType = state.givenType,
-                        setType = model::setGivenType,
-                        cameraPositionState = rememberCameraPositionState(
-                            init = {
-                                CameraPosition(
-                                    LatLng(40.63231, 22.96331),
-                                    16f,
-                                    20f,
-                                    0f
-                                )
-                            }
-
-                        ),
-                        onBack = { navigateTo(DirectionPhases.PICK_TARGET) },
-                        query = "Search here",
-                        paddingValues = PaddingValues(
-                            top = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-                        )
-                    )
-
-                    DirectionPhases.PICK_CATEGORY -> {
-                    }
-                }
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            )
-        }
-    }
+//    CompositionLocalProvider(value = LocalSharedTransitionScope provides null) {
+//        Column(
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .extendedStatusBarsPadding()
+//        ) {
+//            BasicTopBar(
+//                modifier = Modifier.fillMaxWidth(),
+//                labelRes = R.string.Directions_label_pager,
+//                backIcon = TopBarBackIcon(
+//                    iconRes = AppIcon.back,
+//                    onBack = onBack
+//                ),
+//                rightContent = TopBarBackIcon(
+//                    iconRes = R.drawable.expand,
+//                    onBack = {
+//                        onNavCardPreview()
+//                    }
+//                )
+//            )
+//
+//            FeaturePager(
+//                modifier = Modifier
+//                    .weight(4f)
+//                    .fillMaxWidth(),
+//                pagerState = state.pagerState,
+//            ) { page ->
+//                val type = DirectionPhases.entries[page]
+//                when (type) {
+//                    DirectionPhases.START -> Column(
+//                        modifier = Modifier.padding(
+//                            DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
+//                        ),
+//                    ) {
+//                        DirectionsStart(
+//                            onSearchClick = { navigateTo(DirectionPhases.PICK_TARGET) }
+//                        )
+//                    }
+//
+//                    DirectionPhases.PICK_TARGET -> DirectionsPickTarget(
+//                        modifier = Modifier.padding(
+//                            vertical = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+//                        ),
+//                        applySystemBarPadding = false,
+//                        onCategoriesClick = { navigateTo(DirectionPhases.PICK_CATEGORY) },
+//                        functions = DirectionsPickTargetFunctions(
+//                            onResultClick = { navigateTo(DirectionPhases.LOOK_TARGET) },
+//                            onSearchIme = { navigateTo(DirectionPhases.LOOK_TARGET) },
+//                            onBack = { navigateTo(DirectionPhases.START) }
+//                        ),
+//                        textState = state.textState
+//                    )
+//
+//                    DirectionPhases.LOOK_TARGET -> DirectionsLookTarget(
+//                        modifier = Modifier.padding(
+//                            vertical = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
+//                        ),
+//                        applySystemBarPadding = false,
+//                        givenType = state.givenType,
+//                        setType = model::setGivenType,
+//                        cameraPositionState = rememberCameraPositionState(
+//                            init = {
+//                                CameraPosition(
+//                                    LatLng(40.63231, 22.96331),
+//                                    16f,
+//                                    20f,
+//                                    0f
+//                                )
+//                            }
+//
+//                        ),
+//                        onBack = { navigateTo(DirectionPhases.PICK_TARGET) },
+//                        query = "Search here",
+//                        paddingValues = PaddingValues(
+//                            top = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+//                        )
+//                    )
+//
+//                    DirectionPhases.PICK_CATEGORY -> {
+//                    }
+//                }
+//            }
+//
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .weight(1f)
+//            )
+//        }
+//    }
 }
 
 
@@ -174,6 +175,7 @@ fun FeaturePager(
     )
 
     HorizontalPager(
+        key = { it },
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 80.dp),
         pageSpacing = 2.dp,

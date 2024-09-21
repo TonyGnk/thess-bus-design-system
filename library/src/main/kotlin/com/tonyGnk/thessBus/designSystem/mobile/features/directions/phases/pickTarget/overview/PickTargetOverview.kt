@@ -37,7 +37,7 @@ internal fun PickTargetOverview(
 ) {
     LazyColumn(
         state = state,
-        modifier = modifier.padding(top = 14.dp),
+        modifier = modifier.padding(top = 0.dp),//14
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
@@ -57,8 +57,9 @@ internal fun PickTargetOverview(
         item {
             Favorites(
                 modifier = Modifier.padding(horizontalPadding),
-                label = "Recent", items = history,
-                onItemClick = onItemClick,
+                label = "Saved Places",
+                items = favorites,
+                onItemClick = onItemClick
             )
         }
     }

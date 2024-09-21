@@ -3,10 +3,12 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.look
 import android.util.Log
 import androidx.compose.material3.ModalBottomSheetDefaults.properties
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.PointOfInterest
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
@@ -91,22 +93,29 @@ private fun findCenter(listOfPairs: List<Pair<Double, Double>>): Pair<Double, Do
 
 
 @Composable
-private fun MyGoogleMap(
+fun MyGoogleMap(
     modifier: Modifier = Modifier,
     cameraPositionState: CameraPositionState,
     setType: (DirectionsFeatureItemType) -> Unit,
     content: @Composable @GoogleMapComposable () -> Unit = {},
 ) {
-    GoogleMap(
-        modifier = modifier,
-        cameraPositionState = cameraPositionState,
-        uiSettings = MapUiSettings(
+    val mapUiSettings = remember {
+        MapUiSettings(
             myLocationButtonEnabled = false,
             mapToolbarEnabled = false,
             compassEnabled = false,
             zoomControlsEnabled = false,
-        ),
-        onPOIClick = { poi ->
+        )
+    }
+
+    val mapProperties = remember {
+        MapProperties(
+            //  minZoomPreference = 10f,
+        )
+    }
+
+    val onPOIClick = remember {
+        { poi: PointOfInterest ->
             setType(
                 DirectionsFeatureItemType.SingleItem(
                     title = poi.name,
@@ -119,8 +128,11 @@ private fun MyGoogleMap(
                     )
                 )
             )
-        },
-        onMapLongClick = { latLng: LatLng ->
+        }
+    }
+
+    val onMapLongClick = remember {
+        { latLng: LatLng ->
             setType(
                 DirectionsFeatureItemType.SingleItem(
                     title = "Σημείο",
@@ -133,13 +145,63 @@ private fun MyGoogleMap(
                     )
                 )
             )
-        },
-        properties = MapProperties(
-            minZoomPreference = 10f,
-        ),
+        }
+    }
+
+    GoogleMap(
+        modifier = modifier,
+        cameraPositionState = cameraPositionState,
+        uiSettings = mapUiSettings,
+        onPOIClick = onPOIClick,
+        onMapLongClick = onMapLongClick,
+        properties = mapProperties,
         mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
         content = content
     )
+
+//    GoogleMap(
+//        modifier = modifier,
+//        cameraPositionState = cameraPositionState,
+//        uiSettings = MapUiSettings(
+//            myLocationButtonEnabled = false,
+//            mapToolbarEnabled = false,
+//            compassEnabled = false,
+//            zoomControlsEnabled = false,
+//        ),
+//        onPOIClick = { poi ->
+//            setType(
+//                DirectionsFeatureItemType.SingleItem(
+//                    title = poi.name,
+//                    id = poi.placeId,
+//                    iconRes = 0,
+//                    subTitle = "Σημείο στο χάρτη",
+//                    points = PickTargetPointsType.Single(
+//                        lat = poi.latLng.latitude,
+//                        lon = poi.latLng.longitude
+//                    )
+//                )
+//            )
+//        },
+//        onMapLongClick = { latLng: LatLng ->
+//            setType(
+//                DirectionsFeatureItemType.SingleItem(
+//                    title = "Σημείο",
+//                    id = "",
+//                    iconRes = 0,
+//                    subTitle = "",
+//                    points = PickTargetPointsType.Single(
+//                        lat = latLng.latitude,
+//                        lon = latLng.longitude
+//                    )
+//                )
+//            )
+//        },
+//        properties = MapProperties(
+//            minZoomPreference = 10f,
+//        ),
+//        mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
+//        content = content
+//    )
 }
 
 
@@ -171,7 +233,6 @@ fun DestinationOverviewMapLayer2(
     )
 
     GoogleMap(
-        // cameraPositionState = cameraPositionState,
         uiSettings = uiSettings,
         properties = properties,
         onMapLoaded = {

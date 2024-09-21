@@ -9,6 +9,10 @@ android {
     namespace = "com.tonyGnk.thessBus.designSystem.mobile"
     compileSdk = 34
 
+    defaultConfig {
+        minSdk = 21
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

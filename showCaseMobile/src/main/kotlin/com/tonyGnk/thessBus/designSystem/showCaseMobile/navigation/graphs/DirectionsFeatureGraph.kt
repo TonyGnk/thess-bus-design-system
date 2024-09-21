@@ -4,7 +4,6 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.toRoute
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.DirectionDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
@@ -18,7 +17,7 @@ fun NavGraphBuilder.directionsFeatureGraph(
     val onBack: () -> Unit = { navController.navigateUp() }
 
     graph<TopDestination.DirectionsFeatureGraph>(
-        startDestination = DirectionDestination.Pager
+        startDestination = DirectionDestination.Preview
     ) {
         route<DirectionDestination.Pager> {
             val parentEntry = remember(it) {
