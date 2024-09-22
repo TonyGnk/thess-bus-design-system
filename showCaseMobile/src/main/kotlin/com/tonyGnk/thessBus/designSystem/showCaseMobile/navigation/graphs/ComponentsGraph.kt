@@ -2,7 +2,7 @@ package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.ComponentsDestination
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.ComponentDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
@@ -17,21 +17,21 @@ fun NavGraphBuilder.componentGraph(
 
     val onComponentPick: (Components) -> Unit = { destination ->
         when (destination) {
-            Components.NavigationBar -> navController.navigate(ComponentsDestination.NavigationBar)
+            Components.NavigationBar -> navController.navigate(ComponentDestination.NavigationBar)
         }
     }
 
     graph<TopDestination.ComponentsGraph>(
-        startDestination = ComponentsDestination.Select
+        startDestination = ComponentDestination.Select
     ) {
-        route<ComponentsDestination.Select> {
+        route<ComponentDestination.Select> {
             ComponentsList(
                 onComponentPick = onComponentPick,
                 onBack = onBack
             )
         }
 
-        route<ComponentsDestination.NavigationBar> {
+        route<ComponentDestination.NavigationBar> {
             NavigationBarPage(
                 onBack = onBack
             )

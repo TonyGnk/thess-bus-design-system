@@ -2,7 +2,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.look
 
 import android.content.Intent
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ShareCompat
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
@@ -34,9 +32,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.shared.searchContainer.SearchButton
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedStatusBarsPadding
+import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 
 
 @Composable
@@ -55,7 +53,7 @@ fun DestinationOverviewUiLayer(
             .padding(paddingValues)
             .then(
                 if (applySystemBarPadding) Modifier
-                    .extendedStatusBarsPadding() else Modifier
+                    .extendedWindowInsets() else Modifier
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
@@ -70,6 +68,8 @@ fun DestinationOverviewUiLayer(
                 onClick = onBack,
                 color = AppColor.surfaceContainerLowest,
                 rippleColor = AppColor.onSurface,
+                sharedElementTag = "",
+                sharedElementTextTag = "",
             )
         }
         Spacer(Modifier.weight(1f))

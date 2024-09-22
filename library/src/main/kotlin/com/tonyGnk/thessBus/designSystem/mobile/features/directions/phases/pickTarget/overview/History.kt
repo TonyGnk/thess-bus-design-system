@@ -11,12 +11,12 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
 
 @Composable
 fun HistoryList(modifier: Modifier = Modifier) {
     SurfaceWithShadows(
-        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
+        shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier.fillMaxWidth()
     ) {

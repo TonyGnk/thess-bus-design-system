@@ -8,9 +8,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.tonyGnk.thessBus.designSystem.mobile.features.topDestinations.explore.landing.ExploreMainPage
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
 
@@ -27,6 +28,7 @@ internal class MainActivity : ComponentActivity() {
 //            delay(1)
 //            keepSplashScreenOn = false
 //        }
+
 
         enableEdgeToEdge()
         setContent {
@@ -46,9 +48,8 @@ internal class MainActivity : ComponentActivity() {
             }
 
             ClpTheme {
-                rememberNavController()
-                //MyNavHost(navController)
-                ExploreMainPage()
+                val navController = rememberNavController()
+                MyNavHost(navController)
             }
         }
     }

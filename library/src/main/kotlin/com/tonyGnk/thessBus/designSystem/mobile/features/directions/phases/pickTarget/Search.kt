@@ -30,7 +30,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
@@ -42,10 +42,12 @@ fun SearchBar(
     onSearchClick: () -> Unit,
     onBackClick: () -> Unit,
     textState: TextFieldState,
+    sharedElementTextTag: String = "",
+    sharedElementIconTag: String = "",
     focusRequester: FocusRequester
 ) {
-    val searchLabel = NavCardProperties.SEARCH_LABEL
-    val searchStyle = NavCardProperties.searchTextStyle
+    val searchLabel = LocationsProperties.SEARCH_LABEL
+    val searchStyle = LocationsProperties.searchTextStyle
 
     val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
@@ -59,10 +61,10 @@ fun SearchBar(
         SearchField(
             searchStyle = searchStyle,
             modifier = Modifier
-                .padding(vertical = NavCardProperties.IN_PADDING.dp)
+                .padding(vertical = LocationsProperties.IN_PADDING.dp)
                 .fillMaxWidth()
                 .weight(1f)
-                .mySharedElement("SearchContainerText"),
+                .mySharedElement(sharedElementTextTag),
             searchLabel = searchLabel,
             onSearchClick = onSearchClick,
             textState = textState,
@@ -74,7 +76,7 @@ fun SearchBar(
             onClick = onSearchClick,
             modifier = Modifier
                 .size(sizeInScreen)
-                .mySharedElement("SearchContainerMagnifier")
+                .mySharedElement(sharedElementIconTag)
         )
     }
 }
@@ -86,11 +88,11 @@ fun SearchBarContainer(
     content: @Composable RowScope.() -> Unit
 ) {
     SurfaceWithShadows(
-        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
+        shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier
             .mySharedElement("SearchContainer")
-            .clip(RoundedCornerShape(NavCardProperties.IN_CORNERS.dp))
+            .clip(RoundedCornerShape(LocationsProperties.IN_CORNERS.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

@@ -1,6 +1,5 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation
 
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionPhases
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,29 +8,40 @@ sealed interface TopDestination {
     data object Landing : TopDestination
 
     @Serializable
-    data object FeatureList : TopDestination
-
-    @Serializable
-    data object DirectionsFeatureGraph : TopDestination
+    data object FeaturesGraph : TopDestination
 
     @Serializable
     data object ComponentsGraph : TopDestination
 }
 
 @Serializable
-sealed interface DirectionDestination {
+sealed interface FeatureDestination {
     @Serializable
-    data object Pager : DirectionDestination
+    data object List : FeatureDestination
 
     @Serializable
-    data object Preview : DirectionDestination
+    data object LocationsGraph : FeatureDestination
 }
 
 @Serializable
-sealed interface ComponentsDestination {
-    @Serializable
-    data object Select : DirectionDestination
+sealed interface ComponentDestination {
 
     @Serializable
-    data object NavigationBar : DirectionDestination
+    data object Select : ComponentDestination
+
+    @Serializable
+    data object NavigationBar : ComponentDestination
+}
+
+@Serializable
+sealed interface FeatureLocationsDestination {
+    @Serializable
+    data object Info : FeatureLocationsDestination
+
+    @Serializable
+    data object Card : FeatureLocationsDestination
+
+    @Serializable
+    data object PickTarget : FeatureLocationsDestination
+
 }

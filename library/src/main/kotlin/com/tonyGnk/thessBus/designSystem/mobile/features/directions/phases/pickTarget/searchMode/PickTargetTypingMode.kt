@@ -26,7 +26,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.NavCardProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
@@ -34,15 +34,13 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 internal fun LazyListOfPickTargetItems(
     modifier: Modifier = Modifier,
     onClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
-    state: LazyListState,
     items: List<DirectionsFeatureItemType.SingleItem>
 ) {
-    LazyColumn(
-        state = state,
+    Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
-        items(items = items, key = { it.id }) { result ->
+        items.forEach { result ->
             PickTargetResult(
                 result = result,
                 onClick = {
@@ -78,7 +76,7 @@ internal fun PickTargetResult(
         shadowElevation = 0,
         modifier = modifier.padding(vertical = 2.dp),
         onClick = onClick,
-        shape = RoundedCornerShape(NavCardProperties.IN_CORNERS.dp),
+        shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(padding),
@@ -126,6 +124,5 @@ private fun Preview() = ClpTheme {
     LazyListOfPickTargetItems(
         items = results,
         onClick = { _ -> },
-        state = rememberLazyListState(),
     )
 }

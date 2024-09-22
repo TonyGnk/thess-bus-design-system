@@ -15,11 +15,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.directionsFeatureGraph
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.featuresGraph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LayoutDestination
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.FeaturesList
 
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -29,20 +27,14 @@ fun MyNavHost(navController: NavHostController) {
         CompositionLocalProvider(value = LocalSharedTransitionScope provides this) {
             NavHost(
                 navController = navController,
-                startDestination = TopDestination.DirectionsFeatureGraph
+                startDestination = TopDestination.FeaturesGraph
             ) {
                 val navigateToTopDestination: (LandingDestination) -> Unit = { destination ->
                     when (destination) {
-                        LandingDestination.Features -> navController.navigate(TopDestination.FeatureList)
+                        LandingDestination.Features -> navController.navigate(TopDestination.FeaturesGraph)
                         LandingDestination.Components -> navController.navigate(TopDestination.ComponentsGraph)
                     }
                 }
-                val navigateToLayoutTopDestination: (LayoutDestination) -> Unit = { destination ->
-                    when (destination) {
-                        LayoutDestination.NavCard -> navController.navigate(TopDestination.DirectionsFeatureGraph)
-                    }
-                }
-                val onBack: () -> Unit = { navController.navigateUp() }
 
                 route<TopDestination.Landing> {
                     LandingPage(
@@ -50,14 +42,7 @@ fun MyNavHost(navController: NavHostController) {
                     )
                 }
 
-                route<TopDestination.FeatureList> {
-                    FeaturesList(
-                        onBack = onBack,
-                        onLayoutDestinations = navigateToLayoutTopDestination
-                    )
-                }
-
-                directionsFeatureGraph(navController)
+                featuresGraph(navController)
                 componentGraph(navController)
             }
         }
