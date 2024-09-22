@@ -211,14 +211,14 @@ private fun FavoriteItem(
                 color = Color.White
             )
         }
-        Spacer(modifier = Modifier.height(11.dp))
+        Spacer(modifier = Modifier.height(9.dp))
         Text(
             text = item.name,
             softWrap = true,
             maxLines = 1,
             style = AppTypo.bodySmall
         )
-        Spacer(modifier = Modifier.height(3.dp))
+        Spacer(modifier = Modifier.height(1.dp))
         Text(
             text = "Προσθήκη",
             softWrap = true,

@@ -76,7 +76,7 @@ fun DirectionsPickTarget(
         key1 = canScrollBackward,
     ) {
         if (lazyListState.canScrollBackward) {
-            // focusManager.clearFocus()
+            focusManager.clearFocus()
         } else {
             focusRequester.requestFocus()
         }
