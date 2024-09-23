@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -23,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
@@ -37,19 +35,17 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFa
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeHistory
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
 @Stable
-data class DirectionsPickTargetOverviewItems(
+data class LocationsPickTargetOverviewItems(
     val onCategoriesClick: () -> Unit,
     val favorites: List<DirectionsFeatureItemType.SingleItem>,
     val history: List<DirectionsFeatureItemType.SingleItem>,
     val horizontalPadding: PaddingValues,
     val onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit
-
 ) {
     companion object {
-        val preview = DirectionsPickTargetOverviewItems(
+        val preview = LocationsPickTargetOverviewItems(
             onCategoriesClick = {},
             favorites = PickTargetFakeFavorites,
             history = PickTargetFakeHistory,
@@ -60,32 +56,32 @@ data class DirectionsPickTargetOverviewItems(
 }
 
 @Composable
-internal fun DirectionsPickTargetOverview(
+internal fun LocationsPickTargetOverview(
     modifier: Modifier = Modifier,
-    items: DirectionsPickTargetOverviewItems = DirectionsPickTargetOverviewItems.preview,
+    items: LocationsPickTargetOverviewItems = LocationsPickTargetOverviewItems.preview,
 ) {
     Column(
         modifier = modifier.padding(top = 0.dp),//14
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        QuickActions(
-            onCategoriesClick = items.onCategoriesClick,
-            horizontalPadding = items.horizontalPadding
-        )
+//        QuickActions(
+//            onCategoriesClick = items.onCategoriesClick,
+//            horizontalPadding = items.horizontalPadding
+//        )
 
         Favorites()
 
-        FavoritesOld(
-            modifier = Modifier.padding(items.horizontalPadding),
-            label = "Saved Places",
-            items = items.favorites,
-            onItemClick = items.onItemClick
-        )
+//        FavoritesOld(
+//            modifier = Modifier.padding(items.horizontalPadding),
+//            label = "Saved Places",
+//            items = items.favorites,
+//            onItemClick = items.onItemClick
+//        )
 
 
         FavoritesOld(
             modifier = Modifier.padding(items.horizontalPadding),
-            label = "Saved Places",
+            label = "Recent",
             items = items.history,
             onItemClick = items.onItemClick
         )
@@ -168,7 +164,8 @@ private fun Favorites(modifier: Modifier = Modifier) {
         }
         items(items = favorites) {
             FavoriteItem(
-                modifier = Modifier.width(70.dp),
+                modifier = Modifier
+                    .width(70.dp),
                 item = it
             )
         }

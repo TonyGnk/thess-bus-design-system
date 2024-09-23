@@ -112,8 +112,6 @@ internal fun PickTargetResult(
             }
         }
     }
-
-
 }
 
 @Composable

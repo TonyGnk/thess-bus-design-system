@@ -1,52 +1,33 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.DirectionsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.LocationsLookTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.LocationsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsCard
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsCardItems
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.preview.DirectionsPreviewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Composable
-fun DirectionsPreStartWrapper(
+fun LocationsStartPre(
     modifier: Modifier = Modifier,
     goToPickTarget: () -> Unit,
 ) {
     val items = LocationsCardItems(
-        sharedElementCard = "a",
-        sharedElementText = "b",
-        sharedElementMagnifier = "c",
+        sharedElementCard = "card",
+        sharedElementText = "text",
+        sharedElementMagnifier = "icon",
         onSearchClick = goToPickTarget,
     )
     LazyColumn(
@@ -67,31 +48,59 @@ fun DirectionsPreStartWrapper(
 }
 
 @Composable
-fun DirectionsPrePickWrapper(
+fun LocationsPickTargetPre(
     modifier: Modifier = Modifier,
     model: DirectionsPreviewModel,
     onBack: () -> Unit,
+    goToLookTarget: () -> Unit,
     goToCategories: () -> Unit,
 ) {
     val state by model.state.collectAsStateWithLifecycle()
 
-    val items = DirectionsPickTargetItems(
+    val items = LocationsPickTargetItems(
         onBack = onBack,
         requestFocus = true,
         applySystemBarPadding = true,
         textState = state.textState,
         onCategoriesClick = goToCategories,
-        onResultClick = {},
+        onResultClick = {
+            goToLookTarget()
+            model.setGivenType(it)
+        },
         onSearchIme = {},
         clearText = model::clearText,
         results = emptyList(),
+        sharedElementCard = "card",
+        sharedElementText = "text",
+        sharedElementMagnifier = "icon",
     )
 
-    DirectionsPickTarget(
+    LocationsPickTarget(
         modifier = modifier.fillMaxSize(),
         items = items
     )
 }
 
 @Composable
-fun Float.toDp() = with(LocalDensity.current) { this@toDp.toDp() }
+fun LocationsLookTargetPre(
+    modifier: Modifier = Modifier,
+    onBack: () -> Unit,
+    model: DirectionsPreviewModel,
+) {
+    val state by model.state.collectAsStateWithLifecycle()
+
+    val items = DirectionsLookTargetItems(
+        applySystemBarPadding = true,
+        query = state.textState.text.toString(),
+        setType = { model.setGivenType(it) },
+        cameraPositionState = state.cameraPositionState,
+        paddingValues = PaddingValues(),
+        onBack = onBack,
+        givenType = state.givenType,
+    )
+
+    LocationsLookTarget(
+        modifier = modifier,
+        items = items
+    )
+}

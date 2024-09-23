@@ -83,7 +83,7 @@ fun DirectionsFeaturePager(
         ) { page ->
             val type = LocationsPhases.entries[page]
             when (type) {
-                LocationsPhases.CARD -> DirectionsPreStartWrapper(
+                LocationsPhases.CARD -> LocationsStartPre(
                     modifier = Modifier.padding(
                         vertical = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
                     ),

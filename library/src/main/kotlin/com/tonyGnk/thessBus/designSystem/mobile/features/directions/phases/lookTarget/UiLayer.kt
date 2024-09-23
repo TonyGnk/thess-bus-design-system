@@ -39,20 +39,15 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 
 @Composable
 fun DestinationOverviewUiLayer(
-    onBack: () -> Unit,
-    givenType: DirectionsFeatureItemType,
-    setType: (DirectionsFeatureItemType) -> Unit,
-    query: String,
-    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
-    applySystemBarPadding: Boolean = true,
+    items: DirectionsLookTargetItems
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
+            .padding(items.paddingValues)
             .then(
-                if (applySystemBarPadding) Modifier
+                if (items.applySystemBarPadding) Modifier
                     .extendedWindowInsets() else Modifier
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -64,8 +59,8 @@ fun DestinationOverviewUiLayer(
             )
         ) {
             SearchButton(
-                searchLabel = query,
-                onClick = onBack,
+                searchLabel = items.query,
+                onClick = items.onBack,
                 color = AppColor.surfaceContainerLowest,
                 rippleColor = AppColor.onSurface,
                 sharedElementTag = "",
@@ -74,14 +69,14 @@ fun DestinationOverviewUiLayer(
         }
         Spacer(Modifier.weight(1f))
         AnimatedContent(
-            givenType, label = "",
+            items.givenType, label = "",
         ) {
             when (it) {
                 DirectionsFeatureItemType.JustMap -> {}
                 is DirectionsFeatureItemType.MultipleItems -> {}
                 is DirectionsFeatureItemType.SingleItem -> {
                     PoiCard(
-                        onClose = { setType(DirectionsFeatureItemType.JustMap) },
+                        onClose = { items.setType(DirectionsFeatureItemType.JustMap) },
                         poiTitle = it.title,
                         poiCategory = it.subTitle
                     )

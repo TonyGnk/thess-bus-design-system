@@ -44,4 +44,7 @@ sealed interface FeatureLocationsDestination {
     @Serializable
     data object PickTarget : FeatureLocationsDestination
 
+    @Serializable
+    data object LookTarget : FeatureLocationsDestination
+
 }

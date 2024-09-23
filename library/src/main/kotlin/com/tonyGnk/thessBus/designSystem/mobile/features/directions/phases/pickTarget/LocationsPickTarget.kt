@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -24,16 +23,17 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues.NORMAL_BEZEL_PADDING
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeHistory
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.DirectionsPickTargetOverview
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.DirectionsPickTargetOverviewItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.LocationsPickTargetOverview
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.LocationsPickTargetOverviewItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.LazyListOfPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 
 
 @Stable
-data class DirectionsPickTargetItems(
+data class LocationsPickTargetItems(
     val onBack: () -> Unit,
     val onSearchIme: () -> Unit,
     val onResultClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
@@ -43,9 +43,12 @@ data class DirectionsPickTargetItems(
     val applySystemBarPadding: Boolean,
     val textState: TextFieldState,
     val results: List<DirectionsFeatureItemType.SingleItem>,
+    val sharedElementText: String,
+    val sharedElementCard: String,
+    val sharedElementMagnifier: String,
 ) {
     companion object {
-        val preview = DirectionsPickTargetItems(
+        val preview = LocationsPickTargetItems(
             onBack = {},
             onSearchIme = {},
             onResultClick = {},
@@ -55,17 +58,23 @@ data class DirectionsPickTargetItems(
             applySystemBarPadding = true,
             textState = TextFieldState(),
             results = PickTargetFakeResults,
+            sharedElementText = "",
+            sharedElementMagnifier = "",
+            sharedElementCard = ""
         )
     }
 }
 
 
 @Composable
-fun DirectionsPickTarget(
+fun LocationsPickTarget(
     modifier: Modifier = Modifier,
-    items: DirectionsPickTargetItems = DirectionsPickTargetItems.preview,
+    items: LocationsPickTargetItems = LocationsPickTargetItems.preview,
 ) {
     val lazyListState = rememberLazyListState()
+    LaunchedEffect(true) {
+        lazyListState.scrollToItem(0)
+    }
     val canScrollBackward by remember {
         derivedStateOf { lazyListState.canScrollBackward }
     }
@@ -82,9 +91,8 @@ fun DirectionsPickTarget(
         }
     }
 
-    val padding = NORMAL_BEZEL_PADDING.dp
-
     val query = items.textState.text.toString()
+    val padding = NORMAL_BEZEL_PADDING.dp
     val emptyQuery = query.isEmpty()
 
     if (items.requestFocus && !emptyQuery) ClearTextOnBackPress(items.clearText)
@@ -109,7 +117,10 @@ fun DirectionsPickTarget(
                     }
                 },
                 textState = items.textState,
-                focusRequester = focusRequester
+                focusRequester = focusRequester,
+                sharedElementTextTag = items.sharedElementText,
+                sharedElementIconTag = items.sharedElementMagnifier,
+                sharedElementCard = items.sharedElementCard
             )
         }
         item {
@@ -127,6 +138,7 @@ fun DirectionsPickTarget(
     }
 }
 
+
 @Composable
 private fun AnimatedColumnPart(
     emptyQuery: Boolean,
@@ -138,11 +150,11 @@ private fun AnimatedColumnPart(
     AnimatedContent(targetState = emptyQuery, label = "") {
         when (it) {
             true ->
-                DirectionsPickTargetOverview(
-                    items = DirectionsPickTargetOverviewItems(
+                LocationsPickTargetOverview(
+                    items = LocationsPickTargetOverviewItems(
                         onCategoriesClick = onCategoriesClick,
                         favorites = PickTargetFakeResults,
-                        history = PickTargetFakeResults,
+                        history = PickTargetFakeHistory,
                         horizontalPadding = PaddingValues(horizontal = padding),
                         onItemClick = onResultClick
                     )
@@ -169,6 +181,6 @@ private fun ClearTextOnBackPress(clearText: () -> Unit) {
 @Composable
 private fun Preview() = ClpTheme {
     Box(modifier = Modifier.padding(8.dp)) {
-        DirectionsPickTarget()
+        LocationsPickTarget()
     }
 }

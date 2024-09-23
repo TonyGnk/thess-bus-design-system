@@ -27,21 +27,19 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetPo
 
 @Composable
 fun DestinationOverviewMapLayer(
-    givenType: DirectionsFeatureItemType,
-    cameraPositionState: CameraPositionState,
-    setType: (DirectionsFeatureItemType) -> Unit
+    items: DirectionsLookTargetItems
 ) {
     MyGoogleMap(
-        setType = setType,
-        cameraPositionState = cameraPositionState
+        setType = items.setType,
+        cameraPositionState = items.cameraPositionState
     ) {
-        when (givenType) {
+        when (items.givenType) {
             is DirectionsFeatureItemType.JustMap -> {}
 
             is DirectionsFeatureItemType.MultipleItems -> {}
-            is DirectionsFeatureItemType.SingleItem -> when (givenType.points) {
+            is DirectionsFeatureItemType.SingleItem -> when (items.givenType.points) {
                 is PickTargetPointsType.Multi -> {
-                    val listOfPairs = givenType.points.points
+                    val listOfPairs = items.givenType.points.points
                     val center = findCenter(listOfPairs)
                     val markerState = rememberMarkerState(
                         position = LatLng(center.first, center.second)
@@ -65,7 +63,7 @@ fun DestinationOverviewMapLayer(
 
                 is PickTargetPointsType.Single -> {
                     val markerState = rememberMarkerState(
-                        position = LatLng(givenType.points.lat, givenType.points.lon)
+                        position = LatLng(items.givenType.points.lat, items.givenType.points.lon)
                     )
 
                     Marker(

@@ -42,8 +42,9 @@ fun SearchBar(
     onSearchClick: () -> Unit,
     onBackClick: () -> Unit,
     textState: TextFieldState,
-    sharedElementTextTag: String = "",
-    sharedElementIconTag: String = "",
+    sharedElementTextTag: String,
+    sharedElementIconTag: String,
+    sharedElementCard: String,
     focusRequester: FocusRequester
 ) {
     val searchLabel = LocationsProperties.SEARCH_LABEL
@@ -51,7 +52,7 @@ fun SearchBar(
 
     val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
-    SearchBarContainer(modifier = modifier) {
+    SearchBarContainer(modifier = modifier, sharedElementCard = sharedElementCard) {
         IconButton(
             iconRes = AppIcon.back,
             color = AppColor.transparent,
@@ -85,13 +86,14 @@ fun SearchBar(
 @Composable
 fun SearchBarContainer(
     modifier: Modifier = Modifier,
+    sharedElementCard: String,
     content: @Composable RowScope.() -> Unit
 ) {
     SurfaceWithShadows(
         shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
         color = AppColor.surfaceContainerLowest,
         modifier = modifier
-            .mySharedElement("SearchContainer")
+            .mySharedElement(sharedElementCard)
             .clip(RoundedCornerShape(LocationsProperties.IN_CORNERS.dp))
     ) {
         Row(
@@ -161,6 +163,9 @@ private fun Preview() = ClpTheme {
         onBackClick = { },
         onSearchClick = { },
         focusRequester = remember { FocusRequester() },
-        textState = rememberTextFieldState()
+        textState = rememberTextFieldState(),
+        sharedElementTextTag = "SearchBarText",
+        sharedElementIconTag = "SearchBarIcon",
+        sharedElementCard = "SearchBarCard"
     )
 }
