@@ -91,7 +91,7 @@ fun SearchBarContainer(
 ) {
     SurfaceWithShadows(
         shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
-        color = AppColor.surfaceContainerLowest,
+        color = AppColor.surfaceLowest,
         modifier = modifier
             .mySharedElement(sharedElementCard)
             .clip(RoundedCornerShape(LocationsProperties.IN_CORNERS.dp))

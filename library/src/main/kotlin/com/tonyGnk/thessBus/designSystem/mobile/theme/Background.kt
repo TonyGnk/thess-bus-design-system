@@ -10,14 +10,10 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 @Composable
 fun ClsBackground(
     modifier: Modifier = Modifier,
-    //fillMaxSize: Boolean = true,
     content: @Composable () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            //  .then(if (fillMaxSize) Modifier.fillMaxSize() else Modifier)
-
-            .background(AppColor.surfaceContainer)
+        modifier = modifier.background(AppColor.background)
     ) {
         content()
     }

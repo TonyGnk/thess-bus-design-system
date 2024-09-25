@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -56,8 +57,8 @@ fun FloatingActionButtonAnimated(
                 Text(
                     text = text,
                     softWrap = false,
+                    style = AppTypo.bodyLarge.copy(color = contentColorFor(containerColor)),
                     maxLines = 1,
-                    color = contentColorFor(containerColor),
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }

@@ -14,7 +14,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconWithTextRow
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Surface
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 
 
@@ -24,7 +23,7 @@ fun SharedListContainer(
     content: @Composable ColumnScope.() -> Unit
 ) {
     SurfaceWithShadows(
-        color = AppColor.surfaceContainerLowest,
+        color = AppColor.surfaceLowest,
         shadowElevation = 1,
         shape = AppShape.round30,
         modifier = modifier.padding(0.dp)

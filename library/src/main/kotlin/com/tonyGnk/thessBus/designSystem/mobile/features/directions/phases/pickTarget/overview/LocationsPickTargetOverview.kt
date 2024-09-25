@@ -21,20 +21,23 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.TonalButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeFavorites
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeHistory
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetPointsType
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
 @Stable
 data class LocationsPickTargetOverviewItems(
@@ -42,15 +45,19 @@ data class LocationsPickTargetOverviewItems(
     val favorites: List<DirectionsFeatureItemType.SingleItem>,
     val history: List<DirectionsFeatureItemType.SingleItem>,
     val horizontalPadding: PaddingValues,
-    val onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit
+    val onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
+    val itemArrangementDp: Dp,
+    val onAddCollectionClick: () -> Unit
 ) {
     companion object {
         val preview = LocationsPickTargetOverviewItems(
             onCategoriesClick = {},
             favorites = PickTargetFakeFavorites,
             history = PickTargetFakeHistory,
-            horizontalPadding = PaddingValues(0.dp),
-            onItemClick = {}
+            horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
+            onItemClick = {},
+            itemArrangementDp = 6.dp,
+            onAddCollectionClick = {}
         )
     }
 }
@@ -60,24 +67,21 @@ internal fun LocationsPickTargetOverview(
     modifier: Modifier = Modifier,
     items: LocationsPickTargetOverviewItems = LocationsPickTargetOverviewItems.preview,
 ) {
+    val labelStyle = AppTypo.titleMedium.copy(
+        color = AppColor.onSurface.copy(alpha = 0.8f)
+    )
+
     Column(
-        modifier = modifier.padding(top = 0.dp),//14
+        modifier = modifier.padding(top = 0.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-//        QuickActions(
-//            onCategoriesClick = items.onCategoriesClick,
-//            horizontalPadding = items.horizontalPadding
-//        )
-
-        Favorites()
-
-//        FavoritesOld(
-//            modifier = Modifier.padding(items.horizontalPadding),
-//            label = "Saved Places",
-//            items = items.favorites,
-//            onItemClick = items.onItemClick
-//        )
-
+        Favorites(
+            modifier = Modifier.fillMaxWidth(),
+            outerHorizontalPadding = items.horizontalPadding,
+            itemArrangementDp = items.itemArrangementDp,
+            labelStyle = labelStyle,
+            onAddCollectionClick = items.onAddCollectionClick
+        )
 
         FavoritesOld(
             modifier = Modifier.padding(items.horizontalPadding),
@@ -88,109 +92,106 @@ internal fun LocationsPickTargetOverview(
     }
 }
 
-val favorites = listOf(
-    FavoriteItem(iconRes = AppIcon.house, name = "Σπίτι", color = Color(0xFF005C8F)),
-    FavoriteItem(iconRes = AppIcon.routes, name = "Δουλειά", color = Color(0xFF8F005C)),
-    FavoriteItem(iconRes = AppIcon.sign, name = "Μασούτης", color = Color(0xFF5C8F00)),
-    //Προσθήκη
-    FavoriteItem(iconRes = AppIcon.add, name = "Προσθήκη", color = Color(0xFF2F2F2F)),
-)
-
 
 @Composable
-private fun QuickActions(
+private fun Favorites(
     modifier: Modifier = Modifier,
-    onCategoriesClick: () -> Unit,
-    horizontalPadding: PaddingValues
+    outerHorizontalPadding: PaddingValues,
+    labelStyle: TextStyle,
+    itemArrangementDp: Dp,
+    onAddCollectionClick: () -> Unit
 ) {
-    LazyRow(
-        contentPadding = horizontalPadding,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(itemArrangementDp),
+        modifier = Modifier.padding(outerHorizontalPadding)
     ) {
-        item {
-            TonalButton(
-                iconRes = AppIcon.mapMarker,
-                text = "Επιλέξτε",
-                padding = PaddingValues(18.dp),
-            )
+        Spacer(Modifier.height(200.dp))
+        Text(text = "Collection", style = labelStyle)
+        LazyRow(
+            modifier = modifier
+                .background(
+                    color = AppColor.surfaceLowest,
+                    shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp)
+                )
+                .padding(vertical = LocationsProperties.IN_PADDING.dp),
+            contentPadding = PaddingValues(horizontal = LocationsProperties.IN_PADDING.dp),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(LocationsProperties.SEARCH_ARRANGEMENT.dp)
+        ) {
+            items(items = favorites) {
+                FavoriteItem(
+                    modifier = Modifier.width(70.dp),
+                    color = it.color ?: AppColor.primary,
+                    iconColor = it.iconColor ?: AppColor.primary,
+                    iconRes = it.customIconRes ?: it.item?.iconRes ?: AppIcon.question,
+                    firstRowLabel = it.name,
+                    isAddButton = false,
+                    secondRowLabel = it.item?.subTitle
+                )
+            }
+            item {
+                FavoriteItem(
+                    modifier = Modifier.width(70.dp),
+                    color = Color(0xFF1A1A1A),
+                    iconColor = AppColor.primary,
+                    firstRowLabel = "Προσθήκη",
+                    isAddButton = true,
+                    iconRes = AppIcon.add,
+                )
+            }
         }
-        item {
-            TonalButton(
-                iconRes = AppIcon.routes,
-                text = "Διαδρομές",
-                padding = PaddingValues(18.dp),
-            )
-        }
-        item {
-            TonalButton(
-                iconRes = AppIcon.sign,
-                text = "Στάσεις",
-                padding = PaddingValues(18.dp),
-            )
-        }
-        item {
-            TonalButton(
-                iconRes = AppIcon.category,
-                text = "Κατηγορίες",
-                onClick = onCategoriesClick,
-                padding = PaddingValues(18.dp),
-            )
-        }
-    }
-}
-
-@Composable
-@AppPreview.Dark
-private fun Favorites(modifier: Modifier = Modifier) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
-            .background(
-                color = AppColor.surfaceContainerLowest,
-                shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp)
-            )
-            .padding(
-                14.dp
-            ),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(13.dp)
-    ) {
-        items(items = favorites) {
-            FavoriteItem(
-                modifier = Modifier.width(70.dp),
-                item = it
-            )
-        }
-        items(items = favorites) {
-            FavoriteItem(
-                modifier = Modifier
-                    .width(70.dp),
-                item = it
-            )
-        }
+        Spacer(Modifier.height(200.dp))
     }
 
 }
 
 data class FavoriteItem(
-    val iconRes: Int,
+    val customIconRes: Int? = null,
     val name: String,
-    val color: Color,
+    val color: Color? = null,
+    val iconColor: Color? = null,
+    val item: DirectionsFeatureItemType.SingleItem? = null
+)
+
+
+val item = DirectionsFeatureItemType.SingleItem(
+    id = "1",
+    iconRes = AppIcon.clockFive,
+    title = "Πρόσφατα",
+    subTitle = "Πρόσφατα",
+    points = PickTargetPointsType.Single(
+        lat = 0.0, lon = 0.0
+    )
+)
+
+val favorites = listOf(
+    FavoriteItem(
+        customIconRes = AppIcon.house, name = "Σπίτι", color = Color(0xFF005C8F), item = item
+    ),
+    FavoriteItem(
+        customIconRes = AppIcon.routes, name = "Δουλειά", item = item
+    ),
+    FavoriteItem(
+        name = "Μασούτης", color = Color(0xFF5C8F00), item = item
+    ),
+    FavoriteItem(
+        name = "Στάσεις", item = item
+    ),
 )
 
 @Composable
-@AppPreview.Dark
 private fun FavoriteItem(
     modifier: Modifier = Modifier,
-    item: FavoriteItem = FavoriteItem(
-        iconRes = AppIcon.mapMarker, name = "Σπίτι", color = Color(
-            0xFF005C8F
-        )
-    )
+    color: Color,
+    iconColor: Color,
+    iconRes: Int,
+    firstRowLabel: String,
+    isAddButton: Boolean,
+    secondRowLabel: String? = null
 ) {
     Column(
         modifier = modifier,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
@@ -199,34 +200,43 @@ private fun FavoriteItem(
                 .padding(horizontal = 7.dp)
                 .aspectRatio(1f)
                 .background(
-                    color = item.color,
+                    color = color,
                     shape = CircleShape
                 )
         ) {
             Icon(
-                iconRes = item.iconRes,
-                color = Color.White
+                iconRes = iconRes,
+                color = iconColor
             )
         }
         Spacer(modifier = Modifier.height(9.dp))
-        Text(
-            text = item.name,
-            softWrap = true,
-            maxLines = 1,
-            style = AppTypo.bodySmall
-        )
-        Spacer(modifier = Modifier.height(1.dp))
-        Text(
-            text = "Προσθήκη",
-            softWrap = true,
-            maxLines = 1,
-            color = AppColor.primary,
-            style = AppTypo.bodySmall.copy(
-                fontSize = AppTypo.bodySmall.fontSize.div(1.2f)
+        if (!isAddButton) {
+            Text(
+                text = firstRowLabel,
+                softWrap = true,
+                maxLines = 1,
+                style = AppTypo.bodySmall
             )
-        )
-    }
+            Spacer(modifier = Modifier.height(1.dp))
+            if (secondRowLabel != null) Text(
+                text = secondRowLabel,
+                softWrap = true,
+                maxLines = 1,
+                style = AppTypo.bodySmall.copy(
+                    color = AppColor.primary,
+                    fontSize = AppTypo.bodySmall.fontSize.div(1.2f)
+                )
+            )
+        } else {
+            Text(
+                text = firstRowLabel,
+                softWrap = true,
+                maxLines = 1,
+                style = AppTypo.bodySmall
+            )
+        }
 
+    }
 }
 
 @Composable
@@ -263,8 +273,8 @@ private fun FavoritesOld(
     }
 }
 
-//@AppPreview.Dark
-//@Composable
-//private fun Preview() = ClpTheme {
-//    DirectionsPickTargetOverview()
-//}
+@AppPreview.Light
+@Composable
+private fun Preview() = ClpTheme {
+    LocationsPickTargetOverview()
+}

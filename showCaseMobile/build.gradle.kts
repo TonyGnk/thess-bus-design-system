@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
+        applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"
         minSdk = 24
         targetSdk = 34
         versionCode = 15

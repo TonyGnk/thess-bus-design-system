@@ -16,10 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor.background
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -64,12 +62,12 @@ fun SurfaceWithShadows(
 private fun Preview() = ClpTheme {
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.background(AppColor.surfaceContainerLowest)
+        modifier = Modifier.background(AppColor.surfaceLowest)
     ) {
         SurfaceWithShadows(
             shape = AppShape.round10,
             shadowElevation = 11,
-            color = AppColor.surfaceContainerLowest,
+            color = AppColor.surfaceLowest,
             onClick = {},
         ) {
             Text("Hello", modifier = Modifier.padding(4.dp))

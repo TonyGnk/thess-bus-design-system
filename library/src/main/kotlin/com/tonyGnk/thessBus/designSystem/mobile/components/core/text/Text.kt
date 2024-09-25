@@ -22,9 +22,7 @@ fun Text(
     text: String,
     modifier: Modifier = Modifier,
     style: TextStyle = LocalTextStyle.current,
-    color: Color = AppColor.onSurface,
     weight: FontWeight? = null,
-    size: TextUnit = TextUnit.Unspecified,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     textAlign: TextAlign? = null,
@@ -34,15 +32,16 @@ fun Text(
         text = text,
         modifier = modifier,
         style = style,
-        color = color,
+        color = style.color,
         fontWeight = weight,
-        fontSize = size,
+        fontSize = style.fontSize,
         maxLines = maxLines,
         softWrap = softWrap,
         textAlign = textAlign,
         fontStyle = fontStyle,
     )
 }
+
 
 @Composable
 fun Text(

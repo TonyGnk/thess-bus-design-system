@@ -117,7 +117,7 @@ fun Pixel4Phone(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(20f)
-                .background(AppColor.surfaceContainer, RoundedCornerShape(8))
+                .background(AppColor.background, RoundedCornerShape(8))
                 .clip(RoundedCornerShape(8))
         ) { content(Modifier) }
         //Bottom Bezel

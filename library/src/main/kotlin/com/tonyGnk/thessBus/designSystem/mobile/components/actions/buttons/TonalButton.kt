@@ -23,7 +23,7 @@ fun TonalButton(
     text: String = "Text Button",
     onClick: () -> Unit = { Log.d("Design System", text) },
     @DrawableRes iconRes: Int = 0,
-    color: Color = AppColor.surfaceContainerLowest,
+    color: Color = AppColor.surfaceLowest,
     enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(DefaultButtonValues.CORNER_RADIUS.dp),
     padding: PaddingValues = PaddingValues(DefaultButtonValues.PADDING.dp),

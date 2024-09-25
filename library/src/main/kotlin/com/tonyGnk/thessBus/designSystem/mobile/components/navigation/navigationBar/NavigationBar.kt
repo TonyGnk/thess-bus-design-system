@@ -27,7 +27,7 @@ fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
 
     MaterialNavigationBar(
         modifier = Modifier.clip(RoundedCornerShape(topStart = topCorners, topEnd = topCorners)),
-        containerColor = AppColor.surfaceContainerLowest,
+        containerColor = AppColor.surfaceLowest,
     ) {
         if (enabledItems.first) NavigationBarItem(
             itemLabel = stringResource(R.string.destination_home),

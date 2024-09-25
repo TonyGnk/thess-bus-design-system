@@ -17,7 +17,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start
 fun HistoryList(modifier: Modifier = Modifier) {
     SurfaceWithShadows(
         shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
-        color = AppColor.surfaceContainerLowest,
+        color = AppColor.surfaceLowest,
         modifier = modifier.fillMaxWidth()
     ) {
         Column(

@@ -8,10 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -72,7 +68,7 @@ internal fun PickTargetResult(
     val padding = paddingOfTheBackButtonInSearch - paddingForTheIcon
 
     SurfaceWithShadows(
-        color = AppColor.surfaceContainerLowest,
+        color = AppColor.surfaceLowest,
         shadowElevation = 0,
         modifier = modifier.padding(vertical = 2.dp),
         onClick = onClick,
@@ -101,13 +97,15 @@ internal fun PickTargetResult(
             ) {
                 Text(
                     text = title,
-                    style = titleStyle,
-                    color = AppColor.onSurface
+                    style = titleStyle.copy(
+                        color = AppColor.onSurface
+                    )
                 )
                 if (subTitle.isNotBlank()) Text(
                     text = subTitle,
-                    style = subTitleStyle,
-                    color = AppColor.onSurface.copy(alpha = 0.7f)
+                    style = subTitleStyle.copy(
+                        color = AppColor.onSurface.copy(alpha = 0.7f)
+                    )
                 )
             }
         }

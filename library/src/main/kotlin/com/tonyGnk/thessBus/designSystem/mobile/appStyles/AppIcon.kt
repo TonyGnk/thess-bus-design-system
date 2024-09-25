@@ -22,6 +22,7 @@ object AppIcon {
     val house = R.drawable.house
     val mapMarker = R.drawable.map_marker
     val sign = R.drawable.sign
+    val question = R.drawable.question
 
 
     //Categories

@@ -21,12 +21,10 @@ fun SharedButtonContent(
     @DrawableRes iconRes: Int,
     contentColor: Color,
     modifier: Modifier = Modifier,
-    style: TextStyle = AppTypo.labelLarge
+    style: TextStyle = AppTypo.labelLarge.copy(color = contentColor)
 ) {
     when (iconRes) {
-        0 -> Text(
-            text = text, style = style, color = contentColor, modifier = modifier
-        )
+        0 -> Text(text = text, style = style, modifier = modifier)
 
         else -> {
             val size = text.findScreenSize(style)
@@ -37,9 +35,7 @@ fun SharedButtonContent(
                 Icon(
                     iconRes = iconRes, color = contentColor, modifier = Modifier.size(size.height)
                 )
-                Text(
-                    text = text, style = style, color = contentColor
-                )
+                Text(text = text, style = style)
             }
         }
     }
@@ -52,12 +48,10 @@ fun IconWithTextRow(
     contentColor: Color,
     modifier: Modifier = Modifier,
     arrangement: Arrangement.Horizontal = Arrangement.Start,
-    style: TextStyle = AppTypo.labelLarge
+    style: TextStyle = AppTypo.labelLarge.copy(color = contentColor)
 ) {
     when (iconRes) {
-        0 -> Text(
-            text = text, style = style, color = contentColor, modifier = modifier
-        )
+        0 -> Text(text = text, style = style, modifier = modifier)
 
         else -> {
             val size = text.findScreenSize(style)
@@ -68,9 +62,7 @@ fun IconWithTextRow(
                 Icon(
                     iconRes = iconRes, color = contentColor, modifier = Modifier.size(size.height)
                 )
-                Text(
-                    text = text, style = style, color = contentColor
-                )
+                Text(text = text, style = style)
             }
         }
     }

@@ -91,9 +91,8 @@ fun LocationsCard(
 @Composable
 private fun LargeLabel() = Text(
     text = "Where are you going?",
-    style = AppTypo.titleLarge,
+    style = AppTypo.titleLarge.copy(color = AppColor.onPrimary),
     weight = FontWeight.Black,
-    color = AppColor.onPrimary,
     textAlign = TextAlign.Start,
     modifier = Modifier.fillMaxWidth()
 )

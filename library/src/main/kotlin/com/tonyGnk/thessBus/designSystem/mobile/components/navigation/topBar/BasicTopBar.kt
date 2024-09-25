@@ -58,8 +58,7 @@ fun BasicTopBar(
         )
         if (labelRes != 0) Text(
             text = stringResource(labelRes),
-            style = labelStyle,
-            color = AppColor.onSurface
+            style = labelStyle.copy(color = AppColor.onSurface)
         )
         Spacer(modifier = Modifier.weight(1f))
         when (rightContent) {

@@ -174,15 +174,17 @@ private fun CoolGradientBox(
     ) {
         Text(
             text = feature.name,
-            style = AppTypo.headlineMedium,
+            style = AppTypo.headlineMedium.copy(
+                color = contentColor
+            ),
             weight = FontWeight.Black,
-            color = contentColor
         )
         Text(
             text = feature.subtitle,
-            style = AppTypo.bodyMedium,
+            style = AppTypo.bodyMedium.copy(
+                color = contentColor
+            ),
             weight = FontWeight.Black,
-            color = contentColor
         )
     }
 }

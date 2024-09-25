@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import androidx.compose.material3.ExtendedFloatingActionButton as MaterialExtendedFloatingActionButton
@@ -21,7 +22,12 @@ fun FloatingActionButtonText(
         onClick = onClick,
         modifier = modifier,
         containerColor = containerColor,
-        content = { Text(text = text, color = contentColorFor(containerColor)) },
+        content = {
+            Text(
+                text = text,
+                style = AppTypo.bodyLarge.copy(color = contentColorFor(containerColor))
+            )
+        },
     )
 }
 

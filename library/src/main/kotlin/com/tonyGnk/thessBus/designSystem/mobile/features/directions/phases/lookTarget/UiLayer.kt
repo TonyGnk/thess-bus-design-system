@@ -61,7 +61,7 @@ fun DestinationOverviewUiLayer(
             SearchButton(
                 searchLabel = items.query,
                 onClick = items.onBack,
-                color = AppColor.surfaceContainerLowest,
+                color = AppColor.surfaceLowest,
                 rippleColor = AppColor.onSurface,
                 sharedElementTag = "",
                 sharedElementTextTag = "",
@@ -101,7 +101,7 @@ private fun PoiCard(
             33.dp
             //topStart = 33.dp, topEnd = 33.dp
         ),
-        color = AppColor.surfaceContainerLowest,
+        color = AppColor.surfaceLowest,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -186,7 +186,7 @@ private fun PoiTextLabels(
         }
         IconButton(
             onClick = onClose,
-            color = AppColor.surfaceContainer,
+            color = AppColor.background,
             iconRes = AppIcon.cross,
             modifier = Modifier.size(15.dp)
         )

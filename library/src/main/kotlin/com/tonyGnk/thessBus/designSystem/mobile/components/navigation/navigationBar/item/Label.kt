@@ -33,7 +33,7 @@ private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 13
 internal fun NavigationBarItemLabel(
     modifier: Modifier = Modifier,
     label: String = "Label",
-    color: Color = AppColor.onBackground,
+    color: Color = AppColor.onSurface,
     selected: Boolean,
 ) {
     val textStyle = if (selected) {
@@ -57,9 +57,10 @@ internal fun NavigationBarItemLabel(
 
     Text(
         text = label,
-        size = TextUnit.Unspecified, // This prevents scaling based on system settings
-        style = animatedTextStyle,
-        color = color,
+        style = animatedTextStyle.copy(
+            fontSize = TextUnit.Unspecified,// This prevents scaling based on system settings
+            color = color
+        ),
         modifier = modifier
     )
 }

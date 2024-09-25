@@ -8,9 +8,11 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
 
 @Composable
@@ -35,16 +37,52 @@ fun ClpTheme(
         false -> appTheme.lightColorScheme
     }
 
-    if (darkTheme) {
-        colorScheme = colorScheme.copy(
-            surfaceContainerLowest = colorScheme.surfaceContainer
-        )
+    when (darkTheme) {
+        true -> {
+            colorScheme = colorScheme.copy(
+                //Ignore the real surfaceContainerHighest
+                surfaceContainerLowest = averageColor(
+                    colorScheme.surfaceContainerHighest,
+                    colorScheme.surfaceContainerHigh,
+                ),
+                surfaceContainerLow = averageColor(
+                    colorScheme.surfaceContainerHigh,
+                    colorScheme.surfaceContainer,
+                ),
+                surfaceContainer = averageColor(colorScheme.surfaceContainer, colorScheme.surface),
 
+                background = averageColor(colorScheme.surface, colorScheme.surfaceContainerLow),
+            )
+        }
+
+        false -> {
+            colorScheme = colorScheme.copy(
+                //Ignore the real surfaceContainerHighest
+                surfaceContainerLowest = averageColor(
+                    colorScheme.surfaceContainerLowest, colorScheme.surface
+                ),
+                surfaceContainerLow = averageColor(
+                    colorScheme.surface, colorScheme.surfaceContainerLow
+                ),
+                surfaceContainer = averageColor(
+                    colorScheme.surfaceContainerLow,
+                    colorScheme.surfaceContainer
+                ),
+
+                background = averageColor(
+                    colorScheme.surfaceContainer,
+                    colorScheme.surfaceContainerHigh
+                )
+            )
+        }
+    }
+
+    if (darkTheme && useTotalBlack) {
         colorScheme = colorScheme.copy(
-            surfaceContainer = when (useTotalBlack) {
-                true -> Color.Black
-                false -> colorScheme.background
-            }
+            surfaceContainerLowest = colorScheme.surfaceContainerLow,
+            surfaceContainerLow = colorScheme.surfaceContainer,
+            surfaceContainer = colorScheme.background,
+            background = Color.Black,
         )
     }
 
@@ -67,4 +105,26 @@ fun ClpTheme(
     ) {
         ClsBackground(content = content, modifier = modifier)
     }
+}
+
+fun averageColor(color1: Color, color2: Color): Color {
+    // Extract ARGB components from the two colors
+    val alpha1 = color1.alpha
+    val red1 = color1.red
+    val green1 = color1.green
+    val blue1 = color1.blue
+
+    val alpha2 = color2.alpha
+    val red2 = color2.red
+    val green2 = color2.green
+    val blue2 = color2.blue
+
+    // Compute the average of each component
+    val avgAlpha = (alpha1 + alpha2) / 2
+    val avgRed = (red1 + red2) / 2
+    val avgGreen = (green1 + green2) / 2
+    val avgBlue = (blue1 + blue2) / 2
+
+    // Combine the averaged components back into a single color
+    return Color(avgRed, avgGreen, avgBlue, avgAlpha)
 }

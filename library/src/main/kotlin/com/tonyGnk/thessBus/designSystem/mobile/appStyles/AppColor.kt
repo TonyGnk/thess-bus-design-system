@@ -70,33 +70,25 @@ object AppColor {
         @Composable
         get() = MaterialTheme.colorScheme.onErrorContainer
 
-    val background: Color
-        @Composable
-        get() = MaterialTheme.colorScheme.background
-
-    val onBackground: Color
-        @Composable
-        get() = MaterialTheme.colorScheme.onBackground
-
-    val surface: Color
-        @Composable
-        get() = MaterialTheme.colorScheme.surface
-
     val onSurface: Color
         @Composable
         get() = MaterialTheme.colorScheme.onSurface
 
-    val surfaceContainerLowest: Color
+    val surfaceLowest: Color
         @Composable
         get() = MaterialTheme.colorScheme.surfaceContainerLowest
 
-    val surfaceContainerLow: Color
+    val surfaceLow: Color
         @Composable
         get() = MaterialTheme.colorScheme.surfaceContainerLow
 
-    val surfaceContainer: Color
+    val surface: Color
         @Composable
         get() = MaterialTheme.colorScheme.surfaceContainer
+
+    val background: Color
+        @Composable
+        get() = MaterialTheme.colorScheme.background
 
     val outline: Color
         @Composable
@@ -105,10 +97,6 @@ object AppColor {
     val scrim: Color
         @Composable
         get() = MaterialTheme.colorScheme.scrim
-
-    val surfaceBright: Color
-        @Composable
-        get() = MaterialTheme.colorScheme.surfaceBright
 
     val inversePrimary: Color
         @Composable
@@ -121,10 +109,6 @@ object AppColor {
     val inverseOnSurface: Color
         @Composable
         get() = MaterialTheme.colorScheme.inverseOnSurface
-
-    val surfaceContainerHighest: Color
-        @Composable
-        get() = MaterialTheme.colorScheme.surfaceContainerHighest
 
     val transparent: Color
         @Composable

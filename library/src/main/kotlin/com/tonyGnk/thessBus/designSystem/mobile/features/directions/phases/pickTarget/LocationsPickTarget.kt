@@ -124,53 +124,39 @@ fun LocationsPickTarget(
             )
         }
         item {
-            AnimatedColumnPart(
-                emptyQuery = emptyQuery,
-                onCategoriesClick = items.onCategoriesClick,
-                padding = padding,
-                onResultClick = { item ->
-                    focusManager.clearFocus()
-                    items.onResultClick(item)
-                },
-                results = items.results
-            )
-        }
-    }
-}
-
-
-@Composable
-private fun AnimatedColumnPart(
-    emptyQuery: Boolean,
-    onCategoriesClick: () -> Unit,
-    padding: Dp,
-    onResultClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
-    results: List<DirectionsFeatureItemType.SingleItem>,
-) {
-    AnimatedContent(targetState = emptyQuery, label = "") {
-        when (it) {
-            true ->
-                LocationsPickTargetOverview(
-                    items = LocationsPickTargetOverviewItems(
-                        onCategoriesClick = onCategoriesClick,
-                        favorites = PickTargetFakeResults,
-                        history = PickTargetFakeHistory,
-                        horizontalPadding = PaddingValues(horizontal = padding),
-                        onItemClick = onResultClick
+            AnimatedContent(targetState = emptyQuery, label = "") {
+                when (it) {
+                    true -> LocationsPickTargetOverview(
+                        items = LocationsPickTargetOverviewItems(
+                            onCategoriesClick = items.onCategoriesClick,
+                            favorites = PickTargetFakeResults,
+                            history = PickTargetFakeHistory,
+                            horizontalPadding = PaddingValues(horizontal = padding),
+                            itemArrangementDp = 8.dp,
+                            onAddCollectionClick = {},
+                            onItemClick = { item ->
+                                focusManager.clearFocus()
+                                items.onResultClick(item)
+                            },
+                        )
                     )
-                )
 
-
-            false -> LazyListOfPickTargetItems(
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .padding(horizontal = padding),
-                onClick = onResultClick,
-                items = results
-            )
+                    false -> LazyListOfPickTargetItems(
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .padding(horizontal = padding),
+                        onClick = { item ->
+                            focusManager.clearFocus()
+                            items.onResultClick(item)
+                        },
+                        items = items.results
+                    )
+                }
+            }
         }
     }
 }
+
 
 @Composable
 private fun ClearTextOnBackPress(clearText: () -> Unit) {
