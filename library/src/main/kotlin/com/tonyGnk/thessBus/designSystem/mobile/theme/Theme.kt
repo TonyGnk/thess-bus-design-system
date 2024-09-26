@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor.background
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
@@ -30,7 +31,9 @@ fun ClpTheme(
 //        ThemeBrand.BLUE -> com.tonygnk.thessbus.designsystem.mobile.theme.themeBrand.BlueAppTheme
 //    }
     //if android sdk >=31
-    val appTheme = BlueAppTheme //getDynamicTheme(LocalContext.current)
+    val appTheme =
+        //  getDynamicTheme(LocalContext.current)
+        BlueAppTheme
 
     var colorScheme = when (darkTheme) {
         true -> appTheme.darkColorScheme
@@ -41,17 +44,36 @@ fun ClpTheme(
         true -> {
             colorScheme = colorScheme.copy(
                 //Ignore the real surfaceContainerHighest
-                surfaceContainerLowest = averageColor(
-                    colorScheme.surfaceContainerHighest,
-                    colorScheme.surfaceContainerHigh,
-                ),
-                surfaceContainerLow = averageColor(
-                    colorScheme.surfaceContainerHigh,
+                surfaceContainerLowest =  //colorScheme.surfaceContainer,
+//                averageColor(
+//                    colorScheme.surfaceContainerHigh, //High
+//                    colorScheme.surfaceContainer, //Container
+//                ),
+                averageColor(
                     colorScheme.surfaceContainer,
+                    colorScheme.surfaceContainerLow, //Container
                 ),
-                surfaceContainer = averageColor(colorScheme.surfaceContainer, colorScheme.surface),
 
-                background = averageColor(colorScheme.surface, colorScheme.surfaceContainerLow),
+                surfaceContainerLow = //colorScheme.surfaceContainerLow, //*
+//                averageColor(
+//                    colorScheme.surfaceContainer, //Container
+//                    colorScheme.surface, // Surface
+//                ),
+                averageColor(
+                    colorScheme.surfaceContainerLow,
+                    colorScheme.surface, //Container
+                ),
+                surfaceContainer = colorScheme.surface, //*
+//                        averageColor(
+//                    colorScheme.surface,
+//                    colorScheme.surfaceContainerLow //Surface and SurfaceContainerLow
+//                ),
+
+                background = colorScheme.surfaceContainerLowest
+//                averageColor(
+//                    colorScheme.surfaceContainerLow,
+//                    colorScheme.surfaceContainerLowest//low and lowest
+//                ),
             )
         }
 

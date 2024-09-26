@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.DefaultButtonValues.PADDING
@@ -47,11 +48,12 @@ fun IconWithTextRow(
     @DrawableRes iconRes: Int,
     contentColor: Color,
     modifier: Modifier = Modifier,
-    arrangement: Arrangement.Horizontal = Arrangement.Start,
-    style: TextStyle = AppTypo.labelLarge.copy(color = contentColor)
+    arrangement: Arrangement.Horizontal,
+    style: TextStyle = AppTypo.labelLarge.copy(color = contentColor),
+    weight: FontWeight = FontWeight.Normal
 ) {
     when (iconRes) {
-        0 -> Text(text = text, style = style, modifier = modifier)
+        0 -> Text(text = text, style = style, weight = weight, modifier = modifier)
 
         else -> {
             val size = text.findScreenSize(style)
@@ -60,9 +62,11 @@ fun IconWithTextRow(
                 horizontalArrangement = arrangement,
             ) {
                 Icon(
-                    iconRes = iconRes, color = contentColor, modifier = Modifier.size(size.height)
+                    iconRes = iconRes,
+                    color = contentColor,
+                    modifier = Modifier.size(size.height + 1.dp)
                 )
-                Text(text = text, style = style)
+                Text(text = text, style = style, weight = weight)
             }
         }
     }

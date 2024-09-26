@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,7 +30,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement

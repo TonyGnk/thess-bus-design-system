@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
@@ -21,13 +21,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues.NORMAL_BEZEL_PADDING
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeHistory
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.LocationsPickTargetOverview
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.overview.LocationsPickTargetOverviewItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode.LazyListOfPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeFavorites
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.LazyListOfPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 
@@ -46,6 +46,11 @@ data class LocationsPickTargetItems(
     val sharedElementText: String,
     val sharedElementCard: String,
     val sharedElementMagnifier: String,
+    val favorites: List<DirectionsFeatureItemType.SingleItem>,
+    val history: List<DirectionsFeatureItemType.SingleItem>,
+    val horizontalPadding: PaddingValues,
+    val onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
+    val onAddCollectionClick: () -> Unit
 ) {
     companion object {
         val preview = LocationsPickTargetItems(
@@ -60,7 +65,12 @@ data class LocationsPickTargetItems(
             results = PickTargetFakeResults,
             sharedElementText = "",
             sharedElementMagnifier = "",
-            sharedElementCard = ""
+            sharedElementCard = "",
+            favorites = PickTargetFakeFavorites,
+            history = PickTargetFakeHistory,
+            horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
+            onItemClick = {},
+            onAddCollectionClick = {}
         )
     }
 }
@@ -92,7 +102,7 @@ fun LocationsPickTarget(
     }
 
     val query = items.textState.text.toString()
-    val padding = NORMAL_BEZEL_PADDING.dp
+    val padding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
     val emptyQuery = query.isEmpty()
 
     if (items.requestFocus && !emptyQuery) ClearTextOnBackPress(items.clearText)
@@ -126,19 +136,13 @@ fun LocationsPickTarget(
         item {
             AnimatedContent(targetState = emptyQuery, label = "") {
                 when (it) {
-                    true -> LocationsPickTargetOverview(
-                        items = LocationsPickTargetOverviewItems(
-                            onCategoriesClick = items.onCategoriesClick,
-                            favorites = PickTargetFakeResults,
-                            history = PickTargetFakeHistory,
-                            horizontalPadding = PaddingValues(horizontal = padding),
-                            itemArrangementDp = 8.dp,
-                            onAddCollectionClick = {},
-                            onItemClick = { item ->
+                    true -> PickTargetOverview(
+                        items = items.copy(
+                            onResultClick = { item ->
                                 focusManager.clearFocus()
                                 items.onResultClick(item)
                             },
-                        )
+                        ),
                     )
 
                     false -> LazyListOfPickTargetItems(
@@ -163,7 +167,7 @@ private fun ClearTextOnBackPress(clearText: () -> Unit) {
     BackHandler { clearText() }
 }
 
-@AppPreview.Dark
+@AppPreview.Light
 @Composable
 private fun Preview() = ClpTheme {
     Box(modifier = Modifier.padding(8.dp)) {

@@ -35,6 +35,12 @@ annotation class AppPreview {
     @Target(AnnotationTarget.FUNCTION)
     @Retention(AnnotationRetention.RUNTIME)
     @AppPreview
+    @PreviewZoomed
+    annotation class Zoomed
+
+    @Target(AnnotationTarget.FUNCTION)
+    @Retention(AnnotationRetention.RUNTIME)
+    @AppPreview
     @PreviewBrightness
     annotation class Brightness
 
@@ -133,8 +139,12 @@ private annotation class PreviewFont
 @Preview(name = "6 - 130%", widthDp = 320, heightDp = 567, fontScale = 1.3f)
 @Preview(name = "6 - 150%", widthDp = 320, heightDp = 567, fontScale = 1.5f)
 @Preview(name = "6 - 180%", widthDp = 320, heightDp = 567, fontScale = 1.8f)
-@Preview(name = "6 - 200%", widthDp = 320, heightDp = 567, fontScale = 2f)
+//@Preview(name = "6 - 200%", widthDp = 320, heightDp = 567, fontScale = 2f)
 private annotation class PreviewScaleAndFont
+
+
+@Preview(name = "6 - 180%", widthDp = 320, heightDp = 567, fontScale = 1.8f)
+private annotation class PreviewZoomed
 
 
 @Preview(name = "Light", locale = "en")

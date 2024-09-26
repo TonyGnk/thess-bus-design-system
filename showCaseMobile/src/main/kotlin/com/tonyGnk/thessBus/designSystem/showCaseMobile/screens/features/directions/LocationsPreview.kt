@@ -10,12 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.DirectionsLookTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget.LocationsLookTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.LocationsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.LocationsPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsCard
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsCardItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeFavorites
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.DirectionsLookTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCard
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCardItems
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.preview.DirectionsPreviewModel
 
@@ -59,20 +62,25 @@ fun LocationsPickTargetPre(
 
     val items = LocationsPickTargetItems(
         onBack = onBack,
-        requestFocus = true,
-        applySystemBarPadding = true,
-        textState = state.textState,
-        onCategoriesClick = goToCategories,
+        onSearchIme = {},
         onResultClick = {
             goToLookTarget()
             model.setGivenType(it)
         },
-        onSearchIme = {},
         clearText = model::clearText,
-        results = emptyList(),
-        sharedElementCard = "card",
+        onCategoriesClick = goToCategories,
+        requestFocus = false,//TODO
+        applySystemBarPadding = true,
+        textState = state.textState,
+        results = PickTargetFakeResults,
         sharedElementText = "text",
+        sharedElementCard = "card",
         sharedElementMagnifier = "icon",
+        favorites = PickTargetFakeFavorites,
+        history = PickTargetFakeHistory,
+        horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
+        onItemClick = {},
+        onAddCollectionClick = {}
     )
 
     LocationsPickTarget(

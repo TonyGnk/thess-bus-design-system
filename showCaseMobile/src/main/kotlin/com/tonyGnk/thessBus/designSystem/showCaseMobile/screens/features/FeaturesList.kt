@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
@@ -103,7 +104,7 @@ fun FeaturesList(
     ) {
         item {
             BasicTopBar(
-                labelRes = R.string.landing_destinations_features,
+                label = stringResource(R.string.landing_destinations_features),
                 backIcon = TopBarBackIcon(
                     onBack = onBack
                 )

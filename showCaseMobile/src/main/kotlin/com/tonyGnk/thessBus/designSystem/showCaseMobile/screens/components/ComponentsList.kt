@@ -30,7 +30,7 @@ fun ComponentsList(
         ) {
             item {
                 BasicTopBar(
-                    labelRes = R.string.landing_destinations_components,
+                    label = stringResource(R.string.landing_destinations_components),
                     backIcon = TopBarBackIcon(
                         onBack = onBack
                     )

@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -28,7 +29,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.LocationsPhases
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPhases
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.preview.DirectionsPreviewModel
@@ -62,7 +63,7 @@ fun DirectionsFeaturePager(
     ) {
         BasicTopBar(
             modifier = Modifier.fillMaxWidth(),
-            labelRes = R.string.Directions_label_pager,
+            label = stringResource(R.string.Directions_label_pager),
             backIcon = TopBarBackIcon(
                 iconRes = AppIcon.back,
                 onBack = onBack

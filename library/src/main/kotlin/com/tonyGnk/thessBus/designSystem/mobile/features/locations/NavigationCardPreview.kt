@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalSharedTransitionApi

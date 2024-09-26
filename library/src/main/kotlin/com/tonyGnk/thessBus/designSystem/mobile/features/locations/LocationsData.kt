@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations
 
 import androidx.annotation.DrawableRes
 import com.tonyGnk.thessBus.designSystem.mobile.R
@@ -32,7 +32,7 @@ sealed interface PickTargetPointsType {
     ) : PickTargetPointsType
 }
 
-enum class DirectionsPoiCategory(
+enum class LocationsPoiCategory(
     val osmLabel: String,
     @DrawableRes val iconRes: Int
 ) {
@@ -69,14 +69,14 @@ val PickTargetFakeResults = listOf(
         points = PickTargetPointsType.Single(40.640063, 22.943383),
         title = "Βασιλειάδης Χρ. Βασίλειος",
         subTitle = "Νικολάου Παρασκευά 17",
-        iconRes = DirectionsPoiCategory.PHARMACY.iconRes,
+        iconRes = LocationsPoiCategory.PHARMACY.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "2",
         points = PickTargetPointsType.Single(40.640033, 22.943373),
         title = "Δεντρόσπιτο",
         subTitle = "Δεντρόσπιτο",
-        iconRes = DirectionsPoiCategory.CAFFE.iconRes,
+        iconRes = LocationsPoiCategory.CAFFE.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "3",
@@ -112,14 +112,14 @@ val PickTargetFakeResults = listOf(
         ),
         title = "Σκλαβενίτης",
         subTitle = "Σκλαβενίτης",
-        iconRes = DirectionsPoiCategory.SUPER_MARKET.iconRes,
+        iconRes = LocationsPoiCategory.SUPER_MARKET.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "4",
         points = PickTargetPointsType.Single(40.6305712, 22.9564884),
         title = "Κυλικείο Πρυτανείας",
         subTitle = "Κυλικείο Πρυτανείας",
-        iconRes = DirectionsPoiCategory.CAFFE.iconRes,
+        iconRes = LocationsPoiCategory.CAFFE.iconRes,
     ),
 )
 
@@ -201,34 +201,6 @@ val PickTargetFakeHistory = listOf(
         id = "9",
         points = PickTargetPointsType.Single(40.64063, 22.94338),
         title = "πανεπιστήμιο",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "10",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
-        title = "καφετέρια",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "11",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
-        title = "στάσεις",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "12",
-        points = PickTargetPointsType.Single(40.64063, 22.94338),
-        title = "γγγ",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "13",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
-        title = "αριστοτελους",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),

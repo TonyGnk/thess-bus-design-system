@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -113,4 +114,30 @@ object AppColor {
     val transparent: Color
         @Composable
         get() = Color.Transparent
+
+    //____STATIC COLORS_______________________________
+    val orange: Color
+        @Composable
+        get() = if (!isSystemInDarkTheme()) {
+            Color(0xFFFF9800) // Light theme orange
+        } else {
+            Color(0xFFFFB74D) // Dark theme orange (slightly lighter for better visibility)
+        }
+
+    val blue: Color
+        @Composable
+        get() = if (!isSystemInDarkTheme()) {
+            Color(0xFF2196F3) // Light theme blue
+        } else {
+            Color(0xFF64B5F6) // Dark theme blue (slightly lighter for better visibility)
+        }
+
+    val green: Color
+        @Composable
+        get() = if (!isSystemInDarkTheme()) {
+            Color(0xFF4CAF50) // Light theme green
+        } else {
+            Color(0xFF81C784) // Dark theme green (slightly lighter for better visibility)
+        }
+
 }

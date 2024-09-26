@@ -27,7 +27,7 @@ fun MyNavHost(navController: NavHostController) {
         CompositionLocalProvider(value = LocalSharedTransitionScope provides this) {
             NavHost(
                 navController = navController,
-                startDestination = TopDestination.Landing
+                startDestination = TopDestination.FeaturesGraph
             ) {
                 val navigateToTopDestination: (LandingDestination) -> Unit = { destination ->
                     when (destination) {

@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,7 @@ object LocationsProperties {
 
     const val IN_PADDING = OUTER_PADDING.div(1.3f)
     const val IN_CORNERS = OUTER_CORNERS.div(1.3f)
-    const val SEARCH_ARRANGEMENT = OUTER_PADDING * 0.75f
+    const val ARRANGEMENT = OUTER_PADDING * 0.75f
     const val SEARCH_LABEL = "Search here"
     val searchTextStyle: TextStyle
         @Composable
@@ -68,7 +68,7 @@ fun LocationsCard(
     items: LocationsCardItems = LocationsCardItems.preview
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(LocationsProperties.SEARCH_ARRANGEMENT.dp),
+        verticalArrangement = Arrangement.spacedBy(LocationsProperties.ARRANGEMENT.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxWidth()

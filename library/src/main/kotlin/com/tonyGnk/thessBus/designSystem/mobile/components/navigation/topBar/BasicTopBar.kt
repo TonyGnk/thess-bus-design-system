@@ -3,9 +3,11 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -25,21 +27,20 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
-sealed interface TopBarAreaType
 
 data class TopBarBackIcon(
     @DrawableRes val iconRes: Int = R.drawable.back,
     @StringRes val contentDescription: Int = R.string.back,
     val onBack: () -> Unit = {}
-) : TopBarAreaType
+)
 
 
 @Composable
 fun BasicTopBar(
     modifier: Modifier = Modifier,
-    @StringRes labelRes: Int = 0,
+    label: String = "",
     backIcon: TopBarBackIcon? = null,
-    rightContent: TopBarAreaType? = null
+    rightContent: TopBarBackIcon? = null
 ) {
     val labelStyle: TextStyle = AppTypo.topBar
     val textForCalculations = "Q"
@@ -56,8 +57,8 @@ fun BasicTopBar(
             contentDescription = stringResource(backIcon.contentDescription),
             modifier = Modifier.size(iconHeight)
         )
-        if (labelRes != 0) Text(
-            text = stringResource(labelRes),
+         Text(
+            text = label,
             style = labelStyle.copy(color = AppColor.onSurface)
         )
         Spacer(modifier = Modifier.weight(1f))
@@ -75,14 +76,56 @@ fun BasicTopBar(
 }
 
 @Composable
+fun CenteredTopBar(
+    modifier: Modifier = Modifier,
+    leftContent: @Composable () -> Unit = {},
+    centerContent: @Composable () -> Unit = {},
+    rightContent: @Composable () -> Unit = {}
+) {
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+        modifier = modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)
+    ) {
+        Box(contentAlignment = Alignment.CenterStart, modifier =Modifier.weight(1f)) {
+            leftContent()
+        }
+        centerContent()
+        Box(contentAlignment = Alignment.CenterEnd, modifier =Modifier.weight(1f)) {
+            rightContent()
+        }
+    }
+}
+
+@Composable
 @AppPreview.Dark
 private fun Preview() = ClpTheme {
     Column {
         BasicTopBar(
-            labelRes = R.string.destination_alarms,
+            label = "Alarms",
             backIcon = TopBarBackIcon()
         )
-        BasicTopBar(labelRes = R.string.destination_alarms)
+        BasicTopBar(label = "Alarms")
         BasicTopBar(backIcon = TopBarBackIcon())
+        CenteredTopBar(
+            centerContent = {
+                Text(text = "Alarms", style = AppTypo.topBar)
+            },
+            leftContent = {
+                IconButton(
+                    iconRes = AppIcon.search,
+                    onClick = {},
+                    contentDescription = "Search"
+                )
+            },
+            rightContent = {
+                IconButton(
+                    iconRes = AppIcon.search,
+                    onClick = {},
+                    contentDescription = "Search"
+                )
+            }
+        )
     }
 }

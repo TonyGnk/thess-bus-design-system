@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.NavigationBar
@@ -26,7 +27,7 @@ fun NavigationBarPage(
                 .padding(it)
         ) {
             BasicTopBar(
-                labelRes = R.string.landing_destinations_navigation,
+                label = stringResource( R.string.landing_destinations_navigation),
                 backIcon = TopBarBackIcon(
                     onBack = onBack
                 ),

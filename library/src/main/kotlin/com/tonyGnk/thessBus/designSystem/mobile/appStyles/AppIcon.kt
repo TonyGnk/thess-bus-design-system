@@ -33,5 +33,6 @@ object AppIcon {
     val catBurger = R.drawable.burger_fries
     val catBus = R.drawable.bus_alt
     val catChurch = R.drawable.church
+    val graduation_cap = R.drawable.graduation_cap
 
 }

@@ -1,12 +1,10 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
 import android.util.Log
-import androidx.compose.material3.ModalBottomSheetDefaults.properties
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.maps.android.compose.CameraPositionState
@@ -16,13 +14,11 @@ import com.google.maps.android.compose.GoogleMapComposable
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polygon
-import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetPointsType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetPointsType
 
 
 @Composable

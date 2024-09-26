@@ -24,7 +24,7 @@ fun NavGraphBuilder.featuresGraph(
     }
 
     graph<TopDestination.FeaturesGraph>(
-        startDestination = FeatureDestination.List
+        startDestination = FeatureDestination.LocationsGraph
     ) {
         route<FeatureDestination.List> {
             FeaturesList(
@@ -46,7 +46,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
     }
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.Card
+        startDestination = FeatureLocationsDestination.PickTarget
     ) {
         route<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {
@@ -78,6 +78,22 @@ fun NavGraphBuilder.featuresLocationsGraph(
                 },
             )
         }
+
+        route<FeatureLocationsDestination.Collection> {
+            val parentEntry = remember(it) {
+                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+            }
+            LocationsPickTargetPre(
+                model = viewModel(parentEntry),
+                onBack = onBack,
+                goToLookTarget = { goTo(FeatureLocationsDestination.LookTarget) },
+                goToCategories = {
+                    //goTo(FeatureLocationsDestination.PickCategory)
+                },
+            )
+        }
+
+
 
         route<FeatureLocationsDestination.LookTarget> {
             val parentEntry = remember(it) {

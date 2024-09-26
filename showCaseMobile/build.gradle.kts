@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.tonyGnk.thessBus.designSystem.showCaseMobile"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"

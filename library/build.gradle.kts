@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.tonyGnk.thessBus.designSystem.mobile"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

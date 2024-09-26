@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.LocationsPhases
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPhases
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

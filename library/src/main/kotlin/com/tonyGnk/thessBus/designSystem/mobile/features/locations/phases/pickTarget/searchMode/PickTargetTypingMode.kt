@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.pickTarget.searchMode
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +20,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.LocationsProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 

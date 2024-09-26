@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.benchmark"
-    compileSdk = 34
+    compileSdk = 35
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -25,10 +25,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    testOptions{
-        managedDevices{
-            devices{
-                create("pixel2Api31", ManagedVirtualDevice::class){
+    testOptions {
+        managedDevices {
+            devices {
+                create("pixel2Api31", ManagedVirtualDevice::class) {
                     device = "Pixel 2"
                     apiLevel = 31
                     systemImageSource = "aosp"

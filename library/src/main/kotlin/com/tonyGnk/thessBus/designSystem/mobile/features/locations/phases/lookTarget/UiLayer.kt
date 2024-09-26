@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.lookTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
 import android.content.Intent
 import androidx.compose.animation.AnimatedContent
@@ -31,8 +31,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.start.SearchButton
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 
