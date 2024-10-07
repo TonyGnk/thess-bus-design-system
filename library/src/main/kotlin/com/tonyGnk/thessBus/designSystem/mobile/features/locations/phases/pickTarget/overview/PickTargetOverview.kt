@@ -2,7 +2,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickT
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +18,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconWithTextRow
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
@@ -61,71 +59,48 @@ internal fun PickTargetOverview(
                 text = "Pick on map",
             )
         }
-        OverviewCardLayout(
-            modifier = Modifier.fillMaxWidth(),
-            outerHorizontalPadding = items.horizontalPadding,
-            itemArrangementDp = arrangement.dp,
-            labelStyle = labelStyle,
-            label = "Collections"
-        ) {
-            PickTargetOverviewFavorites(
-                onAddCollectionClick = items.onAddCollectionClick
-            )
-        }
-
-        OverviewCardLayout(
-            modifier = Modifier.fillMaxWidth(),
-            outerHorizontalPadding = items.horizontalPadding,
-            itemArrangementDp = arrangement.dp,
-            labelStyle = labelStyle,
-            label = "Categories"
-        ) {
-            PickTargetOverviewCategories(
-            )
-        }
-
-        FavoritesOld(
-            modifier = Modifier.padding(items.horizontalPadding),
-            label = "Recent",
-            items = items.history,
-            onItemClick = items.onItemClick
-        )
-    }
-}
 
 
-@Composable
-private fun FavoritesOld(
-    modifier: Modifier = Modifier,
-    label: String,
-    items: List<DirectionsFeatureItemType.SingleItem>,
-    onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit = {}
-) {
-    Column(
-        modifier = modifier.padding(bottom = 5.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(label, style = AppTypo.titleMedium)
-        }
         Column(
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.spacedBy(arrangement.dp),
+            modifier = Modifier.padding(items.horizontalPadding)
         ) {
-            items.forEach { item ->
-                PickTargetResult(
-                    result = item, onClick = {
-                        onItemClick(item)
-                    }
+            Text(text = "Collections", style = labelStyle)
+            SurfaceWithShadows(
+                shadowElevation = 0,
+                color = AppColor.surfaceLowest,
+                shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
+            ) {
+                PickTargetOverviewCollection(
+                    onFavoriteClick = items.onPickItem,
+                    onAddCollectionClick = items.onAddCollectionClick,
+                    onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick
                 )
+            }
+        }
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(arrangement.dp),
+            modifier = Modifier.padding(items.horizontalPadding)
+        ) {
+            Text(text = "Recent", style = labelStyle)
+            Column(
+                modifier = Modifier,
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                horizontalAlignment = Alignment.Start,
+            ) {
+                items.history.forEach { item ->
+                    PickTargetResult(
+                        result = item, onClick = {
+                            items.onPickItem(item)
+                        }
+                    )
+                }
             }
         }
     }
 }
+
 
 @AppPreview.Light
 @Composable

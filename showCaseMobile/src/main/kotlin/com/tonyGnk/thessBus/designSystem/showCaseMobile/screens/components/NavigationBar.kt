@@ -13,6 +13,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigation
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
 @Composable

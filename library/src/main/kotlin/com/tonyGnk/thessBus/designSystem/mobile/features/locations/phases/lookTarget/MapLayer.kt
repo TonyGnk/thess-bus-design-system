@@ -1,277 +1,127 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
-import android.util.Log
+import android.annotation.SuppressLint
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.PointOfInterest
-import com.google.maps.android.compose.CameraPositionState
-import com.google.maps.android.compose.ComposeMapColorScheme
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.GoogleMapComposable
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.Polygon
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberMarkerState
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MyGoogleMap
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.bitmapDescriptorFromVector
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetPointsType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun DestinationOverviewMapLayer(
-    items: DirectionsLookTargetItems
+    items: DirectionsLookTargetItems,
 ) {
+    val context = LocalContext.current
+
     MyGoogleMap(
-        setType = items.setType,
-        cameraPositionState = items.cameraPositionState
+        setTypeOnMap = items.onPickItem,
+        onCameraPositionChanged = items.onCameraPositionChanged,
+        givenType = items.givenType,
     ) {
+
+
         when (items.givenType) {
             is DirectionsFeatureItemType.JustMap -> {}
-
             is DirectionsFeatureItemType.MultipleItems -> {}
-            is DirectionsFeatureItemType.SingleItem -> when (items.givenType.points) {
-                is PickTargetPointsType.Multi -> {
-                    val listOfPairs = items.givenType.points.points
-                    val center = findCenter(listOfPairs)
-                    val markerState = rememberMarkerState(
-                        position = LatLng(center.first, center.second)
+            is DirectionsFeatureItemType.SingleItem -> {
+                val markerState = rememberMarkerState(
+                    position = LatLng(
+                        items.givenType.lat, items.givenType.lon
                     )
+                )
+                val previousLat = remember { mutableDoubleStateOf(0.0) }
+                val previousLng = remember { mutableDoubleStateOf(0.0) }
 
-                    Marker(
-                        state = markerState,
-                        draggable = false,
-                        flat = false,
-                        zIndex = 0f,
-                        icon = BitmapDescriptorFactory.defaultMarker(12f)
-                    )
-                    Polygon(
-                        points = listOfPairs.map { LatLng(it.first, it.second) },
-                        fillColor = AppColor.primary.copy(alpha = 0.5f),
-                        strokeColor = AppColor.primary,
-                        clickable = false,
-                        geodesic = true,
-                    )
+                LaunchedEffect(items.givenType.lat, items.givenType.lon) {
+                    //if new is different then animate
+                    if (
+                        previousLat.doubleValue != items.givenType.lat &&
+                        previousLng.doubleValue != items.givenType.lon
+                    ) {
+
+                        animateMarker(
+                            markerState = MarkerState(
+                                LatLng(previousLat.doubleValue, previousLng.doubleValue)
+                            ),
+                            targetPosition = LatLng(items.givenType.lat, items.givenType.lon),
+                        ) { newPosition ->
+                            markerState.position = newPosition  // Update marker position
+                        }
+                        previousLat.doubleValue = items.givenType.lat
+                        previousLng.doubleValue = items.givenType.lon
+                    }
                 }
 
-                is PickTargetPointsType.Single -> {
-                    val markerState = rememberMarkerState(
-                        position = LatLng(items.givenType.points.lat, items.givenType.points.lon)
-                    )
 
-                    Marker(
-                        state = markerState,
-                        draggable = false,
-                        flat = false,
-                        zIndex = 0f,
-                        icon = BitmapDescriptorFactory.defaultMarker(12f)
+
+                Marker(
+                    state = markerState
+//                    MarkerState(
+//                        position = LatLng(
+//                            //items.givenType.lat, items.givenType.lon
+//                        )
+//                    ),
+                    ,
+                    draggable = false,
+                    flat = false,
+                    zIndex = 0f,
+                    icon = bitmapDescriptorFromVector(
+                        context = context,
+                        vectorResId = AppIcon.locationSolid,
+                        color = AppColor.red.toArgb()
                     )
-                }
+                )
             }
         }
     }
 }
 
-private fun findCenter(listOfPairs: List<Pair<Double, Double>>): Pair<Double, Double> {
-    var sumLat = 0.0
-    var sumLng = 0.0
-    for (pair in listOfPairs) {
-        sumLat += pair.first
-        sumLng += pair.second
-    }
-    return Pair(sumLat / listOfPairs.size, sumLng / listOfPairs.size)
-}
-
-
-@Composable
-fun MyGoogleMap(
-    modifier: Modifier = Modifier,
-    cameraPositionState: CameraPositionState,
-    setType: (DirectionsFeatureItemType) -> Unit,
-    content: @Composable @GoogleMapComposable () -> Unit = {},
+suspend fun animateMarker(
+    markerState: MarkerState,
+    targetPosition: LatLng,
+    duration: Long = 300L,  // Duration in milliseconds
+    onUpdate: (LatLng) -> Unit  // Callback to update marker's position
 ) {
-    val mapUiSettings = remember {
-        MapUiSettings(
-            myLocationButtonEnabled = false,
-            mapToolbarEnabled = false,
-            compassEnabled = false,
-            zoomControlsEnabled = false,
-        )
-    }
+    val startPosition = markerState.position
+    val startLat = startPosition.latitude
+    val startLng = startPosition.longitude
+    val endLat = targetPosition.latitude
+    val endLng = targetPosition.longitude
 
-    val mapProperties = remember {
-        MapProperties(
-            //  minZoomPreference = 10f,
-        )
-    }
+    val latDifference = endLat - startLat
+    val lngDifference = endLng - startLng
 
-    val onPOIClick = remember {
-        { poi: PointOfInterest ->
-            setType(
-                DirectionsFeatureItemType.SingleItem(
-                    title = poi.name,
-                    id = poi.placeId,
-                    iconRes = 0,
-                    subTitle = "Σημείο στο χάρτη",
-                    points = PickTargetPointsType.Single(
-                        lat = poi.latLng.latitude,
-                        lon = poi.latLng.longitude
-                    )
-                )
-            )
+    val steps = 360  // The number of steps for smoothness
+    val delayTime = duration / steps
+
+    for (i in 0..steps) {
+        val fraction = i / steps.toFloat()
+        val newLat = startLat + (latDifference * fraction)
+        val newLng = startLng + (lngDifference * fraction)
+        val newPosition = LatLng(newLat, newLng)
+
+        // Update marker's position in each step
+        withContext(Dispatchers.Main) {
+            onUpdate(newPosition)
         }
-    }
-
-    val onMapLongClick = remember {
-        { latLng: LatLng ->
-            setType(
-                DirectionsFeatureItemType.SingleItem(
-                    title = "Σημείο",
-                    id = "",
-                    iconRes = 0,
-                    subTitle = "",
-                    points = PickTargetPointsType.Single(
-                        lat = latLng.latitude,
-                        lon = latLng.longitude
-                    )
-                )
-            )
-        }
-    }
-
-    GoogleMap(
-        modifier = modifier,
-        cameraPositionState = cameraPositionState,
-        uiSettings = mapUiSettings,
-        onPOIClick = onPOIClick,
-        onMapLongClick = onMapLongClick,
-        properties = mapProperties,
-        mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
-        content = content
-    )
-
-//    GoogleMap(
-//        modifier = modifier,
-//        cameraPositionState = cameraPositionState,
-//        uiSettings = MapUiSettings(
-//            myLocationButtonEnabled = false,
-//            mapToolbarEnabled = false,
-//            compassEnabled = false,
-//            zoomControlsEnabled = false,
-//        ),
-//        onPOIClick = { poi ->
-//            setType(
-//                DirectionsFeatureItemType.SingleItem(
-//                    title = poi.name,
-//                    id = poi.placeId,
-//                    iconRes = 0,
-//                    subTitle = "Σημείο στο χάρτη",
-//                    points = PickTargetPointsType.Single(
-//                        lat = poi.latLng.latitude,
-//                        lon = poi.latLng.longitude
-//                    )
-//                )
-//            )
-//        },
-//        onMapLongClick = { latLng: LatLng ->
-//            setType(
-//                DirectionsFeatureItemType.SingleItem(
-//                    title = "Σημείο",
-//                    id = "",
-//                    iconRes = 0,
-//                    subTitle = "",
-//                    points = PickTargetPointsType.Single(
-//                        lat = latLng.latitude,
-//                        lon = latLng.longitude
-//                    )
-//                )
-//            )
-//        },
-//        properties = MapProperties(
-//            minZoomPreference = 10f,
-//        ),
-//        mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
-//        content = content
-//    )
-}
-
-
-@Composable
-fun DestinationOverviewMapLayer2(
-    givenType: DirectionsFeatureItemType? = null,
-) {
-    val markerState = rememberMarkerState(
-        // position = LatLng(latitude, longitude)
-    )
-    val properties = MapProperties(
-        minZoomPreference = 10f,
-    )
-//    val cameraPositionState: CameraPositionState = rememberCameraPositionState(
-//        init = {
-//            position = CameraPosition(
-//                LatLng(latitude, longitude),
-//                16f,
-//                20f,
-//                0f
-//            )
-//        }
-//    )
-    val uiSettings = MapUiSettings(
-        myLocationButtonEnabled = false,
-        mapToolbarEnabled = false,
-        compassEnabled = false,
-        zoomControlsEnabled = false,
-    )
-
-    GoogleMap(
-        uiSettings = uiSettings,
-        properties = properties,
-        onMapLoaded = {
-            Log.d("maps", "Map loaded")
-        },
-        mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
-        onPOIClick = {
-            val item = it
-            Log.d("maps", item.name + item.latLng + item.placeId)
-        }
-    ) {
-//        Polyline(
-//            points = listOf(
-//                LatLng(latitude, longitude),
-//                LatLng(40.63100, 22.96331),
-//            ),
-//            color = AppColor.primary,
-//            clickable = false,
-//            geodesic = false,
-//        )
-//        Polygon(
-//            points = listOf(
-//                LatLng(40.63231, 22.96331),
-//                LatLng(40.62231, 22.96331),
-//                LatLng(40.62231, 22.97331),
-//                LatLng(40.63231, 22.97331),
-//            ),
-//            fillColor = AppColor.primary.copy(alpha = 0.5f),
-//            strokeColor = AppColor.primary,
-//            clickable = false,
-//            geodesic = true,
-//        )
-        Marker(
-            state = markerState,
-            draggable = true,
-            flat = false,
-            zIndex = 0f,
-            icon = BitmapDescriptorFactory.defaultMarker(12f)
-        )
+        delay(delayTime)
     }
 }
-
-//@Composable
-//@AppPreview.Dark
-//private fun Preview() = DestinationOverviewMapLayer(
-//    latitude = 40.63231,
-//    longitude = 22.96331
-//)

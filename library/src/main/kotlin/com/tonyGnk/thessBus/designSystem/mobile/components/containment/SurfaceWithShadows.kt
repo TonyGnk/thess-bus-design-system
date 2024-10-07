@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +34,8 @@ fun SurfaceWithShadows(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
+    val hasClicked = remember { mutableStateOf(false) }
+
     Surface(
         shape = shape,
         color = color,
@@ -45,7 +48,10 @@ fun SurfaceWithShadows(
             modifier = Modifier
                 .then(
                     if (onClick != null) Modifier.clickable(
-                        onClick = { onClick() },
+                        onClick = {
+                            if (!hasClicked.value) onClick()
+                            hasClicked.value = true
+                        },
                         interactionSource = remember { MutableInteractionSource() },
                         indication = ripple(color = contentColor)
                     ) else Modifier

@@ -31,6 +31,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 data class TopBarBackIcon(
     @DrawableRes val iconRes: Int = R.drawable.back,
     @StringRes val contentDescription: Int = R.string.back,
+    val modifier: Modifier = Modifier,
     val onBack: () -> Unit = {}
 )
 
@@ -67,7 +68,7 @@ fun BasicTopBar(
                 iconRes = rightContent.iconRes,
                 onClick = rightContent.onBack,
                 contentDescription = stringResource(rightContent.contentDescription),
-                modifier = Modifier.size(iconHeight)
+                modifier = rightContent.modifier.size(iconHeight)
             )
 
             null -> {}

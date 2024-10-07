@@ -12,24 +12,14 @@ sealed interface DirectionsFeatureItemType {
 
     data class SingleItem(
         val id: String,
-        val points: PickTargetPointsType,
+        val lat: Double,
+        val lon: Double,
         val title: String,
         val subTitle: String,
         @DrawableRes val iconRes: Int,
     ) : DirectionsFeatureItemType
 
     data object JustMap : DirectionsFeatureItemType
-}
-
-sealed interface PickTargetPointsType {
-    data class Single(
-        val lat: Double,
-        val lon: Double
-    ) : PickTargetPointsType
-
-    data class Multi(
-        val points: List<Pair<Double, Double>>
-    ) : PickTargetPointsType
 }
 
 enum class LocationsPoiCategory(
@@ -66,57 +56,24 @@ enum class LocationsPoiCategory(
 val PickTargetFakeResults = listOf(
     DirectionsFeatureItemType.SingleItem(
         id = "1",
-        points = PickTargetPointsType.Single(40.640063, 22.943383),
+        lat = 40.640063,
+        lon = 22.943383,
         title = "Βασιλειάδης Χρ. Βασίλειος",
         subTitle = "Νικολάου Παρασκευά 17",
         iconRes = LocationsPoiCategory.PHARMACY.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "2",
-        points = PickTargetPointsType.Single(40.640033, 22.943373),
+        lat = 40.640033,
+        lon = 22.943373,
         title = "Δεντρόσπιτο",
         subTitle = "Δεντρόσπιτο",
         iconRes = LocationsPoiCategory.CAFFE.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
-        id = "3",
-        points = PickTargetPointsType.Multi(
-            listOf(
-                40.62357 to 22.96215,
-                40.6236 to 22.96214,
-                40.62365 to 22.96211,
-                40.62365 to 22.96211,
-                40.62371 to 22.96207,
-                40.62376 to 22.96204,
-                40.62382 to 22.96199,
-                40.62476 to 22.96121,
-                40.62516 to 22.96088,
-                40.62552 to 22.96059,
-                40.62602 to 22.9602,
-                40.62605 to 22.96017,
-                40.62615 to 22.9601,
-                40.62622 to 22.96006,
-                40.62636 to 22.95992,
-                40.62647 to 22.95982,
-                40.62652 to 22.95978,
-                40.62657 to 22.95973,
-                40.62666 to 22.95964,
-                40.62679 to 22.9595,
-                40.62718 to 22.9591,
-                40.62815 to 22.95804,
-                40.62852 to 22.95762,
-                40.62861 to 22.95752,
-                40.62875 to 22.95735,
-                40.62898 to 22.95708,
-            )
-        ),
-        title = "Σκλαβενίτης",
-        subTitle = "Σκλαβενίτης",
-        iconRes = LocationsPoiCategory.SUPER_MARKET.iconRes,
-    ),
-    DirectionsFeatureItemType.SingleItem(
         id = "4",
-        points = PickTargetPointsType.Single(40.6305712, 22.9564884),
+        lat = 40.640033,
+        lon = 22.943373,
         title = "Κυλικείο Πρυτανείας",
         subTitle = "Κυλικείο Πρυτανείας",
         iconRes = LocationsPoiCategory.CAFFE.iconRes,
@@ -126,14 +83,16 @@ val PickTargetFakeResults = listOf(
 val PickTargetFakeFavorites = listOf(
     DirectionsFeatureItemType.SingleItem(
         id = "1",
-        points = PickTargetPointsType.Single(40.64063, 22.94338),
+        lat = 40.640063,
+        lon = 22.943383,
         title = "Σπίτι",
         subTitle = "Καραολή Δημητρίου 17",
         iconRes = AppIcon.house
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "2",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
+        lat = 40.64003,
+        lon = 22.94337,
         title = "Δουλειά",
         subTitle = "Βασιλέως Ηρακλείου 2",
         iconRes = R.drawable.bank,
@@ -143,64 +102,49 @@ val PickTargetFakeFavorites = listOf(
 val PickTargetFakeHistory = listOf(
     DirectionsFeatureItemType.SingleItem(
         id = "1",
-        points = PickTargetPointsType.Single(40.64063, 22.94338),
+        lat = 40.640063,
+        lon = 22.943383,
         title = "γγγ",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "2",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
+        lat = 40.64003,
+        lon = 22.94337,
         title = "αριστοτελους",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "3",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
+        lat = 40.64003,
+        lon = 22.94337,
         title = " ",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "4",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
+        lat = 40.64003,
+        lon = 22.94337,
         title = "στάσεις",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "5",
-        points = PickTargetPointsType.Single(40.64063, 22.94338),
+        lat = 40.640063,
+        lon = 22.943383,
         title = "γγγ",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "6",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
+        lat = 40.64003,
+        lon = 22.94337,
         title = "αριστοτελους",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "7",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
-        title = " ",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "8",
-        points = PickTargetPointsType.Single(40.64003, 22.94337),
-        title = "στάσεις",
-        subTitle = "",
-        iconRes = AppIcon.clockFive,
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "9",
-        points = PickTargetPointsType.Single(40.64063, 22.94338),
-        title = "πανεπιστήμιο",
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),

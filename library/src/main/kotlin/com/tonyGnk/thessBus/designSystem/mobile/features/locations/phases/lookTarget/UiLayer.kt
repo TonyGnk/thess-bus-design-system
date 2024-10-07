@@ -68,21 +68,21 @@ fun DestinationOverviewUiLayer(
             )
         }
         Spacer(Modifier.weight(1f))
-        AnimatedContent(
-            items.givenType, label = "",
-        ) {
-            when (it) {
-                DirectionsFeatureItemType.JustMap -> {}
-                is DirectionsFeatureItemType.MultipleItems -> {}
-                is DirectionsFeatureItemType.SingleItem -> {
-                    PoiCard(
-                        onClose = { items.setType(DirectionsFeatureItemType.JustMap) },
-                        poiTitle = it.title,
-                        poiCategory = it.subTitle
-                    )
-                }
-            }
-        }
+//        AnimatedContent(
+//            items.givenType, label = "",
+//        ) {
+//            when (it) {
+//                is DirectionsFeatureItemType.JustMap -> Box(Modifier.fillMaxSize().height(100.dp))
+//                is DirectionsFeatureItemType.MultipleItems -> {}
+//                is DirectionsFeatureItemType.SingleItem -> {
+//                    PoiCard(
+//                        onClose = { items.onPickItem(DirectionsFeatureItemType.JustMap) },
+//                        poiTitle = it.title,
+//                        poiCategory = it.subTitle
+//                    )
+//                }
+//            }
+//        }
     }
 }
 

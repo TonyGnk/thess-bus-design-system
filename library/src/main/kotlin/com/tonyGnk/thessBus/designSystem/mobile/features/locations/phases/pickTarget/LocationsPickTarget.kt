@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
@@ -36,9 +35,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 data class LocationsPickTargetItems(
     val onBack: () -> Unit,
     val onSearchIme: () -> Unit,
-    val onResultClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
     val clearText: () -> Unit,
     val onCategoriesClick: () -> Unit,
+    val onFavoriteNotConfiguredClick: () -> Unit,
     val requestFocus: Boolean,
     val applySystemBarPadding: Boolean,
     val textState: TextFieldState,
@@ -49,18 +48,18 @@ data class LocationsPickTargetItems(
     val favorites: List<DirectionsFeatureItemType.SingleItem>,
     val history: List<DirectionsFeatureItemType.SingleItem>,
     val horizontalPadding: PaddingValues,
-    val onItemClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
+    val onPickItem: (DirectionsFeatureItemType.SingleItem?) -> Unit,
     val onAddCollectionClick: () -> Unit
 ) {
     companion object {
         val preview = LocationsPickTargetItems(
             onBack = {},
             onSearchIme = {},
-            onResultClick = {},
             clearText = {},
             onCategoriesClick = {},
             requestFocus = false,
             applySystemBarPadding = true,
+            onFavoriteNotConfiguredClick = {},
             textState = TextFieldState(),
             results = PickTargetFakeResults,
             sharedElementText = "",
@@ -69,7 +68,7 @@ data class LocationsPickTargetItems(
             favorites = PickTargetFakeFavorites,
             history = PickTargetFakeHistory,
             horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
-            onItemClick = {},
+            onPickItem = {},
             onAddCollectionClick = {}
         )
     }
@@ -109,7 +108,7 @@ fun LocationsPickTarget(
 
     LazyColumn(
         state = lazyListState,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = if (items.applySystemBarPadding) extendedWindowInsets else PaddingValues(
             0.dp
         ),
@@ -120,7 +119,7 @@ fun LocationsPickTarget(
                 modifier = Modifier.padding(horizontal = padding),
                 onSearchClick = items.onSearchIme,
                 onBackClick = {
-                    focusManager.clearFocus()
+                    focusManager.clearFocus() //TODO: Maybe remove this
                     when (emptyQuery) {
                         true -> items.onBack()
                         false -> items.clearText()
@@ -138,20 +137,18 @@ fun LocationsPickTarget(
                 when (it) {
                     true -> PickTargetOverview(
                         items = items.copy(
-                            onResultClick = { item ->
+                            onPickItem = { item ->
                                 focusManager.clearFocus()
-                                items.onResultClick(item)
+                                items.onPickItem(item)
                             },
                         ),
                     )
 
                     false -> LazyListOfPickTargetItems(
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                            .padding(horizontal = padding),
+                        modifier = Modifier.padding(horizontal = padding),
                         onClick = { item ->
                             focusManager.clearFocus()
-                            items.onResultClick(item)
+                            items.onPickItem(item)
                         },
                         items = items.results
                     )

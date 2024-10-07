@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "ThessBus Design System"
 include(":library")
 include(":showCaseMobile")
-include(":benchmark")
+include(":baselineprofile")

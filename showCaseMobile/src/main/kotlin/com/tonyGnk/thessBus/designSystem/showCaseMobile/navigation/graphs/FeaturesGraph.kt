@@ -10,10 +10,10 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestinatio
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.FeaturesList
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.DirectionsFeaturePager
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.LocationsLookTargetPre
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.LocationsPickTargetPre
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.directions.LocationsStartPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.DirectionsFeaturePager
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsLookTargetPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickTargetPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsStartPre
 
 fun NavGraphBuilder.featuresGraph(
     navController: NavController

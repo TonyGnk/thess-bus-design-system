@@ -16,6 +16,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.featuresGraph
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.IconsGridPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
 
@@ -27,18 +28,25 @@ fun MyNavHost(navController: NavHostController) {
         CompositionLocalProvider(value = LocalSharedTransitionScope provides this) {
             NavHost(
                 navController = navController,
-                startDestination = TopDestination.FeaturesGraph
+                startDestination = TopDestination.Landing
             ) {
                 val navigateToTopDestination: (LandingDestination) -> Unit = { destination ->
                     when (destination) {
                         LandingDestination.Features -> navController.navigate(TopDestination.FeaturesGraph)
                         LandingDestination.Components -> navController.navigate(TopDestination.ComponentsGraph)
+                        LandingDestination.Icons -> navController.navigate(TopDestination.Icons)
                     }
                 }
 
                 route<TopDestination.Landing> {
                     LandingPage(
                         navigateToDestination = navigateToTopDestination
+                    )
+                }
+
+                route<TopDestination.Icons> {
+                    IconsGridPage(
+                        onBack = { navController.navigateUp() }
                     )
                 }
 
@@ -54,9 +62,7 @@ inline fun <reified R : Any> NavGraphBuilder.route(
     noinline content: @Composable (AnimatedContentScope.(NavBackStackEntry) -> Unit),
 ) {
     composable<R>(
-        enterTransition = {
-            AppTransition.enter()
-        },
+        enterTransition = { AppTransition.enter() },
         exitTransition = { AppTransition.exit() },
         popEnterTransition = { AppTransition.enterPop() },
         popExitTransition = { AppTransition.exitPop() }

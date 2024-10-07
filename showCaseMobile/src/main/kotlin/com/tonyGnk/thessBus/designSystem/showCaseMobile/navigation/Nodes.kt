@@ -8,6 +8,9 @@ sealed interface TopDestination {
     data object Landing : TopDestination
 
     @Serializable
+    data object Icons : TopDestination
+
+    @Serializable
     data object FeaturesGraph : TopDestination
 
     @Serializable

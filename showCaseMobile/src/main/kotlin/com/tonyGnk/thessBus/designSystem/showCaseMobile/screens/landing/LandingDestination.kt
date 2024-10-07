@@ -9,6 +9,7 @@ enum class LandingDestination(
 ) {
     Features(R.string.landing_destinations_features, R.drawable.objects_column),
     Components(R.string.landing_destinations_components, R.drawable.add_circle),
+    Icons(R.string.landing_destinations_icons, R.drawable.circle_nodes),
 }
 
 enum class LayoutDestination(
@@ -17,8 +18,19 @@ enum class LayoutDestination(
     NavCard(R.string.Layouts_directions),
 }
 
+//(actions, communication, containment, navigation, selection, textInputs)
+enum class ComponentsType(@StringRes val labelRes: Int) {
+    Actions(R.string.component_types_actions),
+    Communication(R.string.component_types_communication),
+    Containment(R.string.component_types_containment),
+    Navigation(R.string.component_types_navigation),
+    Selection(R.string.component_types_selection),
+    TextInputs(R.string.component_types_text_inputs),
+}
+
 enum class Components(
-    @StringRes val labelRes: Int
+    @StringRes val labelRes: Int,
+    val componentsType: ComponentsType
 ) {
-    NavigationBar(R.string.components_navigation_bar),
+    NavigationBar(R.string.components_navigation_bar, ComponentsType.Navigation),
 }

@@ -139,5 +139,13 @@ object AppColor {
         } else {
             Color(0xFF81C784) // Dark theme green (slightly lighter for better visibility)
         }
+    
+    val red: Color
+        @Composable
+        get() = if (!isSystemInDarkTheme()) {
+            Color(0xFFE57373) // Light theme red
+        } else {
+            Color(0xFFE57373) // Dark theme red
+        }
 
 }
