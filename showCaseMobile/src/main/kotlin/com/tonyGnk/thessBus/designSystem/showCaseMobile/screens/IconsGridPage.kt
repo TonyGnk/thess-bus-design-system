@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -64,20 +66,23 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
     LazyVerticalGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        // contentPadding = extendedWindowInsets,
-        modifier = Modifier.fillMaxSize(),
+        contentPadding = extendedWindowInsets,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
         columns = GridCells.Adaptive(minSize = 72.dp)
     ) {
-        stickyHeader {
+        item(
+            span = { GridItemSpan(maxLineSpan) }
+        ) {
             BasicTopBar(
-                modifier = Modifier.extendedWindowInsets(),
                 label = stringResource(R.string.landing_destinations_icons),
                 backIcon = TopBarBackIcon(
                     onBack = onBack
-                )
+                ),
+                applyHorizontalPadding = false
             )
         }
-        stickyHeader {} //DO NOT REMOVE
         items(
             count = items.size, key = { it }
         ) { index ->
@@ -137,11 +142,6 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
                 Image(
                     painter = painterResource(R.drawable.im_flaticon_by_color_negative_hor),
                     contentDescription = null,
-                    colorFilter = if (!isSystemInDarkTheme()) {
-                        null//  ColorFilter.colorMatrix(invertWhiteColorMatrix)
-                    } else {
-                        null
-                    },
                     modifier = Modifier
                         .height(24.dp)
                         .weight(1f),
@@ -156,7 +156,6 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
             }
         }
     }
-
 }
 
 fun getAllDrawables(context: Context): List<Pair<String, Int>> {

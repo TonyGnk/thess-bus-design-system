@@ -11,6 +11,9 @@ sealed interface TopDestination {
     data object Icons : TopDestination
 
     @Serializable
+    data object Colors : TopDestination
+
+    @Serializable
     data object FeaturesGraph : TopDestination
 
     @Serializable

@@ -41,7 +41,8 @@ fun BasicTopBar(
     modifier: Modifier = Modifier,
     label: String = "",
     backIcon: TopBarBackIcon? = null,
-    rightContent: TopBarBackIcon? = null
+    rightContent: TopBarBackIcon? = null,
+    applyHorizontalPadding: Boolean = true
 ) {
     val labelStyle: TextStyle = AppTypo.topBar
     val textForCalculations = "Q"
@@ -50,7 +51,9 @@ fun BasicTopBar(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
-        modifier = modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)
+        modifier = if (applyHorizontalPadding) modifier.padding(
+            horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
+        ) else Modifier
     ) {
         if (backIcon != null) IconButton(
             iconRes = backIcon.iconRes,
@@ -58,7 +61,7 @@ fun BasicTopBar(
             contentDescription = stringResource(backIcon.contentDescription),
             modifier = Modifier.size(iconHeight)
         )
-         Text(
+        Text(
             text = label,
             style = labelStyle.copy(color = AppColor.onSurface)
         )
@@ -89,11 +92,11 @@ fun CenteredTopBar(
         horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
         modifier = modifier.padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp)
     ) {
-        Box(contentAlignment = Alignment.CenterStart, modifier =Modifier.weight(1f)) {
+        Box(contentAlignment = Alignment.CenterStart, modifier = Modifier.weight(1f)) {
             leftContent()
         }
         centerContent()
-        Box(contentAlignment = Alignment.CenterEnd, modifier =Modifier.weight(1f)) {
+        Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.weight(1f)) {
             rightContent()
         }
     }

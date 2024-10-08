@@ -10,6 +10,7 @@ enum class LandingDestination(
     Features(R.string.landing_destinations_features, R.drawable.objects_column),
     Components(R.string.landing_destinations_components, R.drawable.add_circle),
     Icons(R.string.landing_destinations_icons, R.drawable.circle_nodes),
+    Colors(R.string.landing_destinations_colors, R.drawable.palette),
 }
 
 enum class LayoutDestination(

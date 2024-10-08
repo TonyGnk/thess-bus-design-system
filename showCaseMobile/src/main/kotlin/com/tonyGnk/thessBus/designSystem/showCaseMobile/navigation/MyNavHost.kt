@@ -16,6 +16,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.featuresGraph
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.ColorsGridPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.IconsGridPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.LandingPage
@@ -35,6 +36,7 @@ fun MyNavHost(navController: NavHostController) {
                         LandingDestination.Features -> navController.navigate(TopDestination.FeaturesGraph)
                         LandingDestination.Components -> navController.navigate(TopDestination.ComponentsGraph)
                         LandingDestination.Icons -> navController.navigate(TopDestination.Icons)
+                        LandingDestination.Colors -> navController.navigate(TopDestination.Colors)
                     }
                 }
 
@@ -46,6 +48,12 @@ fun MyNavHost(navController: NavHostController) {
 
                 route<TopDestination.Icons> {
                     IconsGridPage(
+                        onBack = { navController.navigateUp() }
+                    )
+                }
+
+                route<TopDestination.Colors> {
+                    ColorsGridPage(
                         onBack = { navController.navigateUp() }
                     )
                 }

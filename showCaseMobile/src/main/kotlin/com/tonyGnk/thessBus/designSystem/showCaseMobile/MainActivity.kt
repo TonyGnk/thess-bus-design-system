@@ -10,9 +10,11 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
@@ -45,16 +47,23 @@ internal class MainActivity : ComponentActivity() {
                         android.graphics.Color.TRANSPARENT,
                         android.graphics.Color.TRANSPARENT,
                     ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
+//                    navigationBarStyle = SystemBarStyle.auto(
+//                        lightScrim,
+//                        darkScrim,
+//                    ) { darkTheme },
                 )
                 onDispose {}
             }
 
+
+
             ClpTheme {
                 val navController = rememberNavController()
+//                Box(
+//                    Modifier
+//                        .fillMaxSize()
+//                        .background(Color.Cyan)
+//                )
                 MyNavHost(navController)
             }
 //            Column(Modifier.fillMaxSize()) {

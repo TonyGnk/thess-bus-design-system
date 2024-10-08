@@ -9,6 +9,7 @@
     <string name="landing_destinations_components" translatable="false">Components</string>
     <string name="landing_destinations_navigation" translatable="false">Navigation</string>
     <string name="landing_destinations_icons" translatable="false">Icons</string>
+    <string name="landing_destinations_colors" translatable="false">Colors</string>
 
     <!-- Features -->
     <string name="Layouts_directions" translatable="false">Directions</string>

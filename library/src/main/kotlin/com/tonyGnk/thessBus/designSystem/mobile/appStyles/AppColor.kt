@@ -1,12 +1,15 @@
 package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 
 object AppColor {
-
     val primary: Color
         @Composable
         get() = MaterialTheme.colorScheme.primary
@@ -139,7 +142,7 @@ object AppColor {
         } else {
             Color(0xFF81C784) // Dark theme green (slightly lighter for better visibility)
         }
-    
+
     val red: Color
         @Composable
         get() = if (!isSystemInDarkTheme()) {
@@ -149,3 +152,10 @@ object AppColor {
         }
 
 }
+
+
+@Composable
+fun contentColorFor(backgroundColor: Color) =
+    MaterialTheme.colorScheme.contentColorFor(backgroundColor).takeOrElse {
+        LocalContentColor.current
+    }

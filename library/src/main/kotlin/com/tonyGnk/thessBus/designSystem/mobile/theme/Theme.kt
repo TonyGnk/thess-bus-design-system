@@ -1,19 +1,17 @@
 package com.tonyGnk.thessBus.designSystem.mobile.theme
 
 import android.app.Activity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor.background
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
-import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
 
 @Composable
@@ -21,7 +19,7 @@ fun ClpTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // brand: ThemeBrand = ThemeBrand.BLUE,
     useTotalBlack: Boolean = false,
-    //fillMaxSize: Boolean = false,
+    includeBackgroundPane: Boolean = true,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -112,7 +110,7 @@ fun ClpTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.navigationBarColor = colorScheme.surfaceContainer.toArgb()
+            //  window.navigationBarColor = colorScheme.background.toArgb()
 
             WindowCompat.getInsetsController(window, view)
                 .isAppearanceLightStatusBars = !darkTheme
@@ -125,7 +123,11 @@ fun ClpTheme(
         colorScheme = colorScheme,
         typography = appTheme.typography,
     ) {
-        ClsBackground(content = content, modifier = modifier)
+        Box(
+            modifier = if (includeBackgroundPane) modifier.background(colorScheme.background) else modifier
+        ) {
+            content()
+        }
     }
 }
 
