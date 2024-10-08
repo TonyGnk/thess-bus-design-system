@@ -42,8 +42,9 @@ class BaselineProfileGenerator {
     fun generate() {
         // The application id for the running build variant is read from the instrumentation arguments.
         rule.collect(
-            packageName = "com.tonyGnk.thessBus.designSystem.mobile2",
-
+            packageName = "com.tonyGnk.thessBus.designSystem.mobile",
+            stableIterations = 2,
+            maxIterations = 2,
             // See: https://d.android.com/topic/performance/baselineprofiles/dex-layout-optimizations
             includeInStartupProfile = true
         ) {
@@ -53,6 +54,7 @@ class BaselineProfileGenerator {
             // Start default activity for your app
             pressHome()
             startActivityAndWait()
+
 
             // TODO Write more interactions to optimize advanced journeys of your app.
             // For example:
