@@ -37,6 +37,12 @@ sealed interface ComponentDestination {
 
     @Serializable
     data object NavigationBar : ComponentDestination
+
+    @Serializable
+    data object Buttons : ComponentDestination
+
+    @Serializable
+    data object FloatingActionButton : ComponentDestination
 }
 
 @Serializable

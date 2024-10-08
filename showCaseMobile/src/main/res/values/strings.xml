@@ -18,15 +18,19 @@
 
     <!-- Component Types (actions, communication, containment, navigation, selection, textInputs) -->
     <string name="component_types_actions" translatable="false">Actions</string>
+    <string name="components_actions_buttons" translatable="false">Buttons</string>
+    <string name="components_actions_floating_action_button" translatable="false">Floating Action Button</string>
 
     <string name="component_types_communication" translatable="false">Communication</string>
 
     <string name="component_types_containment" translatable="false">Containment</string>
 
     <string name="component_types_navigation" translatable="false">Navigation</string>
-    <string name="components_navigation_bar" translatable="false">Navigation Bar</string>
+    <string name="components_navigation_navigation_bar" translatable="false">Navigation Bar</string>
 
     <string name="component_types_selection" translatable="false">Selection</string>
 
     <string name="component_types_text_inputs" translatable="false">Text Inputs</string>
+
+
 </resources>

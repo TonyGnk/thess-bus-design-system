@@ -33,5 +33,12 @@ enum class Components(
     @StringRes val labelRes: Int,
     val componentsType: ComponentsType
 ) {
-    NavigationBar(R.string.components_navigation_bar, ComponentsType.Navigation),
+    Buttons(R.string.components_actions_buttons, ComponentsType.Actions),
+    FloatingActionButton(
+        R.string.components_actions_floating_action_button,
+        ComponentsType.Actions
+    ),
+
+
+    NavigationBar(R.string.components_navigation_navigation_bar, ComponentsType.Navigation),
 }

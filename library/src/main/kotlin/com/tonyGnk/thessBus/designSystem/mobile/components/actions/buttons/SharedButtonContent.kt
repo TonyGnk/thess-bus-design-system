@@ -25,7 +25,9 @@ fun SharedButtonContent(
     style: TextStyle = AppTypo.labelLarge.copy(color = contentColor)
 ) {
     when (iconRes) {
-        0 -> Text(text = text, style = style, modifier = modifier)
+        0 -> Text(
+            text = text, style = style, softWrap = false, modifier = modifier
+        )
 
         else -> {
             val size = text.findScreenSize(style)

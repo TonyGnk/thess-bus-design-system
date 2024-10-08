@@ -25,6 +25,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalD
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
+import com.tonyGnk.thessBus.designSystem.mobile.utils.add
 import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
@@ -38,45 +39,40 @@ fun ComponentsList(
 ) {
     val insidePadding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
 
-    Scaffold {
-        LazyColumn(
-            contentPadding = PaddingValues(
-                top = extendedWindowInsets.calculateTopPadding(),
-                bottom = extendedWindowInsets.calculateBottomPadding() + insidePadding.dp
-            ),
-            modifier = Modifier.fillMaxSize()
-        ) {
-            item {
-                BasicTopBar(
-                    label = stringResource(R.string.landing_destinations_components),
-                    modifier = Modifier.padding(bottom = (insidePadding * 2).dp),
-                    backIcon = TopBarBackIcon(
-                        onBack = onBack
-                    )
+    LazyColumn(
+        contentPadding = extendedWindowInsets.add(bottom = insidePadding.dp),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        item {
+            BasicTopBar(
+                label = stringResource(R.string.landing_destinations_components),
+                modifier = Modifier.padding(bottom = insidePadding.dp),
+                backIcon = TopBarBackIcon(
+                    onBack = onBack
                 )
-            }
+            )
+        }
 
-            items(
-                items = ComponentsType.entries,
-                key = { it.ordinal }
-            ) { type ->
-                val items = Components.entries.filter { item ->
-                    item.componentsType == type
-                }
-                if (items.isNotEmpty()) SharedListContainer(
-                    label = stringResource(type.labelRes),
-                    paddingValues = insidePadding
-                ) {
-                    items.forEachIndexed { index, destination ->
-                        ListItem(
-                            text = stringResource(id = destination.labelRes),
-                            iconRes = 0,
-                            onClick = { onComponentPick(destination) },
-                            paddingValues = insidePadding
-                        )
-                        if (index != Components.entries.size - 1) {
-                            HorizontalDivider()
-                        }
+        items(
+            items = ComponentsType.entries,
+            key = { it.ordinal }
+        ) { type ->
+            val items = Components.entries.filter { item ->
+                item.componentsType == type
+            }
+            if (items.isNotEmpty()) SharedListContainer(
+                label = stringResource(type.labelRes),
+                paddingValues = insidePadding
+            ) {
+                items.forEachIndexed { index, destination ->
+                    ListItem(
+                        text = stringResource(id = destination.labelRes),
+                        iconRes = 0,
+                        onClick = { onComponentPick(destination) },
+                        paddingValues = insidePadding
+                    )
+                    if (index != items.size - 1) {
+                        HorizontalDivider()
                     }
                 }
             }
@@ -92,11 +88,11 @@ private fun SharedListContainer(
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
-        modifier = modifier.padding(bottom = (paddingValues * 2).dp),
-        verticalArrangement = Arrangement.spacedBy(paddingValues.dp),
+        modifier = modifier.padding(bottom = (paddingValues * 1.5).dp),
+        verticalArrangement = Arrangement.spacedBy(paddingValues.div(1.5).dp),
     ) {
         Text(
-            label,
+            text = label,
             style = AppTypo.labelLarge,
             modifier = Modifier.padding(horizontal = paddingValues.dp)
         )
@@ -106,9 +102,7 @@ private fun SharedListContainer(
             shape = AppShape.round30,
             modifier = Modifier.padding(0.dp)
         ) {
-            Column {
-                content()
-            }
+            Column { content() }
         }
     }
 }

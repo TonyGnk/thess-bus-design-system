@@ -8,6 +8,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.ComponentsList
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.NavigationBarPage
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.actions.ComponentsActionsButtonPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.Components
 
 fun NavGraphBuilder.componentGraph(
@@ -18,6 +19,8 @@ fun NavGraphBuilder.componentGraph(
     val onComponentPick: (Components) -> Unit = { destination ->
         when (destination) {
             Components.NavigationBar -> navController.navigate(ComponentDestination.NavigationBar)
+            Components.Buttons -> navController.navigate(ComponentDestination.Buttons)
+            Components.FloatingActionButton -> navController.navigate(ComponentDestination.FloatingActionButton)
         }
     }
 
@@ -32,9 +35,17 @@ fun NavGraphBuilder.componentGraph(
         }
 
         route<ComponentDestination.NavigationBar> {
-            NavigationBarPage(
-                onBack = onBack
-            )
+            NavigationBarPage(onBack)
+        }
+
+        route<ComponentDestination.Buttons> {
+            ComponentsActionsButtonPage(onBack)
+        }
+
+        route<ComponentDestination.FloatingActionButton> {
+//            NavigationBarPage(
+//                onBack = onBack
+//            )
         }
     }
 }
