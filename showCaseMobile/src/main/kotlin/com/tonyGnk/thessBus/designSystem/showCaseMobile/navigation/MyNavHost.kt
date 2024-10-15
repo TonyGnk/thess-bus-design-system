@@ -1,15 +1,12 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -18,8 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.BlurThing
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.applyContextMenu
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTarget
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
@@ -79,13 +74,17 @@ fun MyNavHost(navController: NavHostController) {
 
 
 inline fun <reified R : Any> NavGraphBuilder.route(
-    noinline content: @Composable (AnimatedContentScope.(NavBackStackEntry) -> Unit),
+    noinline enterTransition: () -> EnterTransition = AppTransition.nativeEnter,
+    noinline exitTransition: () -> ExitTransition = AppTransition.nativeExit,
+    noinline popEnterTransition: () -> EnterTransition? = AppTransition.nativeEnterPop,
+    noinline popExitTransition: () -> ExitTransition = AppTransition.nativeExitPop,
+    noinline content: @Composable (AnimatedContentScope.(NavBackStackEntry) -> Unit)
 ) {
     composable<R>(
-        enterTransition = { AppTransition.enter() },
-        exitTransition = { AppTransition.exit() },
-        popEnterTransition = { AppTransition.enterPop() },
-        popExitTransition = { AppTransition.exitPop() }
+        enterTransition = { enterTransition() },
+        exitTransition = { exitTransition() },
+        popEnterTransition = { popEnterTransition() },
+        popExitTransition = { popExitTransition() }
     ) {
         CompositionLocalProvider(LocalAnimatedContentScope provides this) {
             content(it)
@@ -99,10 +98,10 @@ inline fun <reified T : Any> NavGraphBuilder.graph(
 ) {
     navigation<T>(
         startDestination = startDestination,
-        enterTransition = { AppTransition.enter() },
-        exitTransition = { AppTransition.exit() },
-        popEnterTransition = { AppTransition.enterPop() },
-        popExitTransition = { AppTransition.exitPop() },
+        enterTransition = { AppTransition.nativeEnter() },
+        exitTransition = { AppTransition.nativeExit() },
+        popEnterTransition = { AppTransition.nativeEnterPop() },
+        popExitTransition = { AppTransition.nativeExitPop() },
         builder = builder
     )
 }

@@ -50,11 +50,14 @@ data class LocationsPickTargetItems(
     val sharedElementSearchBar: String,
     val sharedElementMagnifier: String,
     val selectedFavoriteItemId: Int?,
+    val collectionsBottomSheetType: CollectionBottomSheetType,
+    val setBottomSheetType: (CollectionBottomSheetType) -> Unit,
     val updateSelectedFavoriteItemId: (Int?) -> Unit,
     val favorites: List<DirectionsFeatureItemType.SingleItem>,
     val history: List<DirectionsFeatureItemType.SingleItem>,
     val horizontalPadding: PaddingValues,
-    val onPickItem: (DirectionsFeatureItemType.SingleItem?) -> Unit,
+    val onResultClick: (DirectionsFeatureItemType.SingleItem?) -> Unit,
+    val onSavedLocationClick: (DirectionsFeatureItemType.SingleItem?) -> Unit,
     val onAddCollectionClick: () -> Unit
 ) {
     companion object {
@@ -62,6 +65,8 @@ data class LocationsPickTargetItems(
             onBack = {},
             onSearchIme = {},
             clearText = {},
+            setBottomSheetType = {},
+            collectionsBottomSheetType = CollectionBottomSheetType.Hidden,
             onCategoriesClick = {},
             requestFocus = false,
             applySystemBarPadding = true,
@@ -75,9 +80,10 @@ data class LocationsPickTargetItems(
             favorites = PickTargetFakeFavorites,
             history = PickTargetFakeHistory,
             horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
-            onPickItem = {},
+            onResultClick = {},
             updateSelectedFavoriteItemId = {},
             sharedElementText = "",
+            onSavedLocationClick = {},
             onAddCollectionClick = {}
         )
     }
@@ -147,9 +153,9 @@ fun LocationsPickTarget(
                 when (it) {
                     true -> PickTargetOverview(
                         items = items.copy(
-                            onPickItem = { item ->
+                            onResultClick = { item ->
                                 focusManager.clearFocus()
-                                items.onPickItem(item)
+                                items.onResultClick(item)
                             },
                         ),
                     )
@@ -158,7 +164,7 @@ fun LocationsPickTarget(
                         modifier = Modifier.padding(horizontal = padding),
                         onClick = { item ->
                             focusManager.clearFocus()
-                            items.onPickItem(item)
+                            items.onResultClick(item)
                         },
                         items = items.results
                     )
@@ -166,6 +172,13 @@ fun LocationsPickTarget(
             }
         }
     }
+
+    if (items.collectionsBottomSheetType == CollectionBottomSheetType.Overview) CollectionBottomSheet(
+        type = items.collectionsBottomSheetType,
+        onDismissRequest = {
+            items.setBottomSheetType(CollectionBottomSheetType.Hidden)
+        }
+    )
 }
 
 

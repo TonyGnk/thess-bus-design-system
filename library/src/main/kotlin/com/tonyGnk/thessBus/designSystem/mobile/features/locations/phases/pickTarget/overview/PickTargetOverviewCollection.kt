@@ -326,7 +326,7 @@ private fun TextLabelLarge(
         text = text,
         textAlign = TextAlign.Center,
         style = AppTypo.bodySmall,
-        modifier = modifier,
+        modifier =modifier,
         textTargetWidth = textTargetWidth,
         backgroundColor = AppColor.surfaceLowest
     )

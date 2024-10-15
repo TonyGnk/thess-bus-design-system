@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconW
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
@@ -71,13 +73,26 @@ internal fun PickTargetOverview(
                 color = AppColor.surfaceLowest,
                 shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
             ) {
-                PickTargetOverviewCollection(
-                    onFavoriteClick = items.onPickItem,
-                    onAddCollectionClick = items.onAddCollectionClick,
-                    onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick,
-                    selectedFavoriteItemId = items.selectedFavoriteItemId,
-                    updateSelectedFavoriteItemId = items.updateSelectedFavoriteItemId,
-                )
+                Column {
+                    PickTargetOverviewCollection(
+                        onFavoriteClick = items.onSavedLocationClick,
+                        onAddCollectionClick = items.onAddCollectionClick,
+                        onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick,
+                        selectedFavoriteItemId = items.selectedFavoriteItemId,
+                        updateSelectedFavoriteItemId = items.updateSelectedFavoriteItemId,
+                    )
+//                    SurfaceWithShadows(
+//                        modifier = Modifier.fillMaxWidth(),
+//                        shadowElevation = 0,
+//                        color = AppColor.transparent,
+//                        onClick = {
+//                            Log.d("PickTargetOverview", items.collectionsBottomSheetType.toString())
+//                            items.setBottomSheetType(CollectionBottomSheetType.Overview)
+//                        },
+//                    ) {
+//                        Text("All")
+//                    }
+                }
             }
         }
 
@@ -94,7 +109,7 @@ internal fun PickTargetOverview(
                 items.history.forEach { item ->
                     PickTargetResult(
                         result = item, onClick = {
-                            items.onPickItem(item)
+                            items.onResultClick(item)
                         }
                     )
                 }

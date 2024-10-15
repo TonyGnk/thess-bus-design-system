@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.CustomCameraPosition
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPhases
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,6 +51,15 @@ class LocationsFeatureModel : ViewModel() {
     fun setTextField(title: String?) {
         if (title != null) _state.value.textState.setTextAndPlaceCursorAtEnd(title)
     }
+
+    fun setBottomSheetType(type: CollectionBottomSheetType) {
+        _state.update {
+            it.copy(
+                collectionsBottomSheetType = type
+            )
+        }
+    }
+
 }
 
 @Stable
@@ -63,4 +73,5 @@ data class DirectionsFeaturePreviewState(
         pageCount = { LocationsPhases.entries.size }
     ),
     val selectedFavoriteItemId: Int? = null,
+    val collectionsBottomSheetType: CollectionBottomSheetType = CollectionBottomSheetType.Hidden
 )

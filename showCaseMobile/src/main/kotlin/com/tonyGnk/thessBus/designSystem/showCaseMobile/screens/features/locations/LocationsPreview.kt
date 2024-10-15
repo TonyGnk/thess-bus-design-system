@@ -75,15 +75,21 @@ fun LocationsPickTargetPre(
         results = PickTargetFakeResults,
         favorites = PickTargetFakeFavorites,
         history = PickTargetFakeHistory,
-        onPickItem = { item ->
+        onResultClick = { item ->
             model.setGivenType(item)
             model.setTextField(item?.title)
+            goToLookTarget()
+        },
+        onSavedLocationClick = { item ->
+            model.setGivenType(item)
             goToLookTarget()
         },
         onAddCollectionClick = {},
         selectedFavoriteItemId = state.selectedFavoriteItemId,
         updateSelectedFavoriteItemId = model::updateSelectedFavoriteItemId,
         sharedElementText = "searchText",
+        collectionsBottomSheetType = state.collectionsBottomSheetType,
+        setBottomSheetType = model::setBottomSheetType,
         onFavoriteNotConfiguredClick = {},
     )
 

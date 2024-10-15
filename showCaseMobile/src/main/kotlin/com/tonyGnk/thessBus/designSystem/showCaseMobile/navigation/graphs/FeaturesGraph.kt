@@ -4,6 +4,7 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureLocationsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
@@ -46,7 +47,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
     }
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.LookTarget
+        startDestination = FeatureLocationsDestination.PickTarget
     ) {
         route<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {
@@ -94,7 +95,10 @@ fun NavGraphBuilder.featuresLocationsGraph(
         }
 
 
-        route<FeatureLocationsDestination.LookTarget> {
+        route<FeatureLocationsDestination.LookTarget>(
+            enterTransition = AppTransition.fadeEnter,
+            popExitTransition = AppTransition.fadeExit,
+        ) {
             val parentEntry = remember(it) {
                 navController.getBackStackEntry(TopDestination.FeaturesGraph)
             }
