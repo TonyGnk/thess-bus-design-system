@@ -11,7 +11,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
+        applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"
         minSdk = 24
         targetSdk = 35
         versionCode = 16
@@ -68,6 +68,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui.tooling.preview)
     "baselineProfile"(project(":baselineprofile"))
+    implementation(libs.androidx.fragment)
     debugImplementation(libs.androidx.ui.tooling)
 
     implementation(libs.androidx.navigation.compose)

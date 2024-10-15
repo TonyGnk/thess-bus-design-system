@@ -3,7 +3,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.containment.map
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +27,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.isOutOfBounds
+
 
 fun bitmapDescriptorFromVector(
     context: Context,
@@ -62,105 +62,42 @@ fun MyGoogleMap(
     setTypeOnMap: (DirectionsFeatureItemType.SingleItem) -> Unit,
     content: @Composable @GoogleMapComposable () -> Unit = {},
 ) {
-    Log.d("MyGoogleMap", "Item type: $givenType")
+    val latLng = getLatLngForType(givenType)
+
+    // Extract default zoom and tilt values
+    val defaultZoom = getDefaultZoomForType(givenType)
+    val defaultTilt = DefaultMapValues.DEFAULT_TILT
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-        position = when (givenType) {
-            is DirectionsFeatureItemType.JustMap -> CameraPosition(
-                LatLng(
-                    DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
-                ),
-                DefaultMapValues.DEFAULT_ZOOM,
-                DefaultMapValues.DEFAULT_TILT,
-                0f
-            )
-
-            is DirectionsFeatureItemType.MultipleItems -> CameraPosition(
-                LatLng(
-                    DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
-                ),
-                DefaultMapValues.DEFAULT_ZOOM,
-                DefaultMapValues.DEFAULT_TILT,
-                0f
-            )
-
-            is DirectionsFeatureItemType.SingleItem -> CameraPosition(
-                LatLng(
-                    givenType.lat, givenType.lon
-                ),
-                DefaultMapValues.MARKET_ZOOM,
-                DefaultMapValues.DEFAULT_TILT,
-                0f
-            )
-        }
+        position = CameraPosition(
+            latLng,
+            defaultZoom,
+            defaultTilt,
+            0f
+        )
     }
 
-
-
     LaunchedEffect(givenType) {
-        val sameZoom = cameraPositionState.position.zoom
-        val sameTilt = cameraPositionState.position.tilt
-        val sameBearing = cameraPositionState.position.bearing
+        val currentPosition = cameraPositionState.position
+        val latLngChanged = latLngHasChanged(currentPosition.target, latLng)
+        val animateOnly = latLngChanged && isOutOfBounds(
+            camera = cameraPositionState,
+            latLng = latLng
+        ) && givenType is DirectionsFeatureItemType.SingleItem
 
-        val latLng = when (givenType) {
-            is DirectionsFeatureItemType.JustMap -> LatLng(
-                DefaultMapValues.DEFAULT_LAT,
-                DefaultMapValues.DEFAULT_LON
-            )
-
-            is DirectionsFeatureItemType.MultipleItems -> LatLng(
-                DefaultMapValues.DEFAULT_LAT,
-                DefaultMapValues.DEFAULT_LON
-            )
-
-            is DirectionsFeatureItemType.SingleItem -> LatLng(
-                givenType.lat,
-                givenType.lon
+        if (animateOnly) {
+            cameraPositionState.animate(
+                update = CameraUpdateFactory.newCameraPosition(
+                    CameraPosition(
+                        latLng,
+                        currentPosition.zoom,
+                        currentPosition.tilt,
+                        currentPosition.bearing
+                    )
+                ),
+                durationMs = 700
             )
         }
-
-
-        val newPositionIsDifferent =
-            cameraPositionState.position.target.latitude != latLng.latitude ||
-                    cameraPositionState.position.target.longitude != latLng.longitude
-
-        if (
-            newPositionIsDifferent && isOutOfBounds(
-                cameraPositionState, latLng
-            )
-        ) cameraPositionState.animate(
-            update = CameraUpdateFactory.newCameraPosition(
-                when (givenType) {
-                    is DirectionsFeatureItemType.JustMap -> CameraPosition(
-                        LatLng(
-                            DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
-                        ),
-                        sameZoom,
-                        sameTilt,
-                        sameBearing
-                    )
-
-                    is DirectionsFeatureItemType.MultipleItems -> CameraPosition(
-                        LatLng(
-                            DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
-                        ),
-                        DefaultMapValues.DEFAULT_ZOOM,
-                        sameTilt,
-                        sameBearing
-                    )
-
-                    is DirectionsFeatureItemType.SingleItem -> CameraPosition(
-                        LatLng(
-                            givenType.lat, givenType.lon
-                        ),
-                        sameZoom,
-                        sameTilt,
-                        sameBearing
-                    )
-                }
-            ),
-            durationMs = 700
-        )
     }
 
 
@@ -230,4 +167,29 @@ fun MyGoogleMap(
         mapColorScheme = if (isSystemInDarkTheme()) ComposeMapColorScheme.DARK else ComposeMapColorScheme.LIGHT,
         content = content
     )
+}
+
+
+private fun getLatLngForType(givenType: DirectionsFeatureItemType): LatLng {
+    return when (givenType) {
+        is DirectionsFeatureItemType.JustMap,
+        is DirectionsFeatureItemType.MultipleItems -> LatLng(
+            DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
+        )
+
+        is DirectionsFeatureItemType.SingleItem -> LatLng(givenType.lat, givenType.lon)
+    }
+}
+
+private fun getDefaultZoomForType(givenType: DirectionsFeatureItemType): Float {
+    return when (givenType) {
+        is DirectionsFeatureItemType.JustMap,
+        is DirectionsFeatureItemType.MultipleItems -> DefaultMapValues.DEFAULT_ZOOM
+
+        is DirectionsFeatureItemType.SingleItem -> DefaultMapValues.MARKET_ZOOM
+    }
+}
+
+private fun latLngHasChanged(currentLatLng: LatLng, newLatLng: LatLng): Boolean {
+    return currentLatLng.latitude != newLatLng.latitude || currentLatLng.longitude != newLatLng.longitude
 }

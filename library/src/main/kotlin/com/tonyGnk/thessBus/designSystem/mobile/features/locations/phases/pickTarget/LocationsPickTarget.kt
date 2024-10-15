@@ -21,6 +21,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.applyContextMenu
+import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBar
+import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBarType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeFavorites
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
@@ -28,7 +31,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFak
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.LazyListOfPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
 
 @Stable
@@ -42,9 +45,12 @@ data class LocationsPickTargetItems(
     val applySystemBarPadding: Boolean,
     val textState: TextFieldState,
     val results: List<DirectionsFeatureItemType.SingleItem>,
+    val sharedElementPlaceHolder: String,
     val sharedElementText: String,
-    val sharedElementCard: String,
+    val sharedElementSearchBar: String,
     val sharedElementMagnifier: String,
+    val selectedFavoriteItemId: Int?,
+    val updateSelectedFavoriteItemId: (Int?) -> Unit,
     val favorites: List<DirectionsFeatureItemType.SingleItem>,
     val history: List<DirectionsFeatureItemType.SingleItem>,
     val horizontalPadding: PaddingValues,
@@ -59,16 +65,19 @@ data class LocationsPickTargetItems(
             onCategoriesClick = {},
             requestFocus = false,
             applySystemBarPadding = true,
+            selectedFavoriteItemId = null,
             onFavoriteNotConfiguredClick = {},
             textState = TextFieldState(),
             results = PickTargetFakeResults,
-            sharedElementText = "",
+            sharedElementPlaceHolder = "",
             sharedElementMagnifier = "",
-            sharedElementCard = "",
+            sharedElementSearchBar = "",
             favorites = PickTargetFakeFavorites,
             history = PickTargetFakeHistory,
             horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
             onPickItem = {},
+            updateSelectedFavoriteItemId = {},
+            sharedElementText = "",
             onAddCollectionClick = {}
         )
     }
@@ -112,24 +121,25 @@ fun LocationsPickTarget(
         contentPadding = if (items.applySystemBarPadding) extendedWindowInsets else PaddingValues(
             0.dp
         ),
-        modifier = modifier
+        modifier = modifier.applyContextMenu(items.selectedFavoriteItemId != null)
     ) {
         item {
             SearchBar(
                 modifier = Modifier.padding(horizontal = padding),
                 onSearchClick = items.onSearchIme,
                 onBackClick = {
-                    focusManager.clearFocus() //TODO: Maybe remove this
                     when (emptyQuery) {
                         true -> items.onBack()
                         false -> items.clearText()
                     }
                 },
-                textState = items.textState,
-                focusRequester = focusRequester,
-                sharedElementTextTag = items.sharedElementText,
+                type = SearchBarType.TextField(
+                    textFieldState = items.textState, focusRequester = focusRequester
+                ),
+                sharedElementPlaceHolderTag = items.sharedElementPlaceHolder,
                 sharedElementIconTag = items.sharedElementMagnifier,
-                sharedElementCard = items.sharedElementCard
+                sharedElementTextTag = items.sharedElementText,
+                sharedElementBox = items.sharedElementSearchBar
             )
         }
         item {

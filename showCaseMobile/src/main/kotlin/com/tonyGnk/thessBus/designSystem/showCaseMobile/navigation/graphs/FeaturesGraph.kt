@@ -46,7 +46,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
     }
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.PickTarget
+        startDestination = FeatureLocationsDestination.LookTarget
     ) {
         route<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {
@@ -92,7 +92,6 @@ fun NavGraphBuilder.featuresLocationsGraph(
                 },
             )
         }
-
 
 
         route<FeatureLocationsDestination.LookTarget> {

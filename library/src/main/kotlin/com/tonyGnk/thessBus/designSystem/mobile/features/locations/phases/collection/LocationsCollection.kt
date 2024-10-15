@@ -19,7 +19,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.CenteredTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
 
 @Composable

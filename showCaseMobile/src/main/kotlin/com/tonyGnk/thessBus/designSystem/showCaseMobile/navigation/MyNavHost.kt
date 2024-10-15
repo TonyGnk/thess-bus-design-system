@@ -3,8 +3,13 @@ package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -12,6 +17,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.BlurThing
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.applyContextMenu
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTarget
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
@@ -29,7 +37,7 @@ fun MyNavHost(navController: NavHostController) {
         CompositionLocalProvider(value = LocalSharedTransitionScope provides this) {
             NavHost(
                 navController = navController,
-                startDestination = TopDestination.Landing
+                startDestination = TopDestination.FeaturesGraph
             ) {
                 val navigateToTopDestination: (LandingDestination) -> Unit = { destination ->
                     when (destination) {
@@ -38,6 +46,10 @@ fun MyNavHost(navController: NavHostController) {
                         LandingDestination.Icons -> navController.navigate(TopDestination.Icons)
                         LandingDestination.Colors -> navController.navigate(TopDestination.Colors)
                     }
+                }
+
+                route<TopDestination.Blur> {
+                    BlurThing()
                 }
 
                 route<TopDestination.Landing> {

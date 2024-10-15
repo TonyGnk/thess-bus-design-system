@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.utils
+package com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -16,11 +16,11 @@ import androidx.compose.ui.node.invalidateDraw
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.dp
-import java.util.Objects
-import kotlin.math.min
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Objects
+import kotlin.math.min
 
 /**
  * A [Modifier] that draws a border around elements that are recomposing. The border increases in

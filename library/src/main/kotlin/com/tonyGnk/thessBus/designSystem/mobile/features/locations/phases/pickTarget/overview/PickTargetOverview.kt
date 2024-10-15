@@ -18,9 +18,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconWithTextRow
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
 
@@ -74,7 +74,9 @@ internal fun PickTargetOverview(
                 PickTargetOverviewCollection(
                     onFavoriteClick = items.onPickItem,
                     onAddCollectionClick = items.onAddCollectionClick,
-                    onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick
+                    onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick,
+                    selectedFavoriteItemId = items.selectedFavoriteItemId,
+                    updateSelectedFavoriteItemId = items.updateSelectedFavoriteItemId,
                 )
             }
         }

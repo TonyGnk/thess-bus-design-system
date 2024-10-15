@@ -3,6 +3,7 @@ package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locati
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.text.TextRange
 import androidx.lifecycle.ViewModel
@@ -24,7 +25,6 @@ class LocationsFeatureModel : ViewModel() {
         _state.value.textState.clearText()
     }
 
-
     fun setGivenType(givenType: DirectionsFeatureItemType?) {
         if (givenType == null) return
 
@@ -38,6 +38,18 @@ class LocationsFeatureModel : ViewModel() {
     fun updateCameraPosition(newPosition: CustomCameraPosition) {
         _mapCamera.update { newPosition }
     }
+
+    fun updateSelectedFavoriteItemId(newId: Int?) {
+        _state.update {
+            it.copy(
+                selectedFavoriteItemId = newId
+            )
+        }
+    }
+
+    fun setTextField(title: String?) {
+        if (title != null) _state.value.textState.setTextAndPlaceCursorAtEnd(title)
+    }
 }
 
 @Stable
@@ -50,4 +62,5 @@ data class DirectionsFeaturePreviewState(
         currentPage = LocationsPhases.entries.indexOf(LocationsPhases.CARD),
         pageCount = { LocationsPhases.entries.size }
     ),
+    val selectedFavoriteItemId: Int? = null,
 )

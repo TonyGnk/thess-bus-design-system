@@ -1,7 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.appStyles
 
 import com.tonyGnk.thessBus.designSystem.mobile.R
-import kotlin.reflect.KProperty
 
 object AppIcon {
     val gpsOn = R.drawable.location_crosshairs

@@ -5,29 +5,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.google.maps.android.compose.CameraPositionState
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.CustomCameraPosition
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 
+data class LocationsLookTargetSharedElements(
+    val searchBar: String = "searchBar",
+)
+
 @Stable
-data class DirectionsLookTargetItems(
+data class LocationsLookTargetItems(
     val givenType: DirectionsFeatureItemType,
     val query: String,
     val onPickItem: (DirectionsFeatureItemType) -> Unit,
-    val onBack: () -> Unit,
+    val goToPickTargetResults: () -> Unit,
+    val clearTextField: () -> Unit,
     val applySystemBarPadding: Boolean,
     val paddingValues: PaddingValues,
+    val sharedElements: LocationsLookTargetSharedElements,
     val onCameraPositionChanged: (CustomCameraPosition) -> Unit,
 ) {
     companion object {
-        val preview = DirectionsLookTargetItems(
+        val preview = LocationsLookTargetItems(
             givenType = DirectionsFeatureItemType.JustMap,
             query = "",
             onPickItem = {},
-            onBack = {},
+            goToPickTargetResults = {},
             applySystemBarPadding = true,
             paddingValues = PaddingValues(0.dp),
             onCameraPositionChanged = {},
+            clearTextField = {},
+            sharedElements = LocationsLookTargetSharedElements(),
         )
     }
 }
@@ -35,7 +42,7 @@ data class DirectionsLookTargetItems(
 @Composable
 fun LocationsLookTarget(
     modifier: Modifier = Modifier,
-    items: DirectionsLookTargetItems = DirectionsLookTargetItems.preview,
+    items: LocationsLookTargetItems = LocationsLookTargetItems.preview,
 ) {
     DestinationOverviewMapLayer(
         items = items

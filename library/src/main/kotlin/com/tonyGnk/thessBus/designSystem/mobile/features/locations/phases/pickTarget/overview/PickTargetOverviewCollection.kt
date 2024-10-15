@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,7 +27,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.TextFade
+import com.tonyGnk.thessBus.designSystem.mobile.components.selection.menu.DropdownMenu
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 
@@ -35,6 +39,8 @@ fun PickTargetOverviewCollection(
     modifier: Modifier = Modifier,
     onFavoriteNotConfiguredClick: () -> Unit,
     onFavoriteClick: (DirectionsFeatureItemType.SingleItem?) -> Unit,
+    selectedFavoriteItemId: Int?,
+    updateSelectedFavoriteItemId: (Int?) -> Unit,
     onAddCollectionClick: () -> Unit
 ) {
     LazyRow(
@@ -48,8 +54,11 @@ fun PickTargetOverviewCollection(
         items(
             items = favorites, key = { it.id }
         ) {
+            val isTheSelected = selectedFavoriteItemId == it.id
+
             FavoriteItemColumn(
                 item = it,
+
                 onClick = {
                     when (it.type) {
                         is FavoriteItemType.Configured -> {
@@ -65,6 +74,20 @@ fun PickTargetOverviewCollection(
                         }
                     }
                 },
+                isTheSelected = isTheSelected,
+                onContextMenuDismiss = {
+                    updateSelectedFavoriteItemId(null)
+                }, onLongPressClick = {
+                    when (it.type) {
+                        is FavoriteItemType.Add -> {}
+                        is FavoriteItemType.Configured -> {
+                            Log.d("a", "a")
+                            updateSelectedFavoriteItemId(it.id)
+                        }
+
+                        is FavoriteItemType.NotConfigured -> {}
+                    }
+                }
             )
         }
         item {
@@ -74,7 +97,9 @@ fun PickTargetOverviewCollection(
                     iconRes = AppIcon.add,
                     type = FavoriteItemType.Add
                 ),
-                onClick = onAddCollectionClick
+                onClick = onAddCollectionClick,
+                onLongPressClick = {},
+                isTheSelected = false
             )
         }
     }
@@ -109,7 +134,9 @@ sealed interface FavoriteItemType {
         val title: String,
         val subTitle: String,
         val lat: Double,
-        val lon: Double
+        val lon: Double,
+        val isTheSelected: Boolean = false,
+        val updateSelectedFavoriteItemId: (Int?) -> Unit = {},
     ) : FavoriteItemType
 
     data class NotConfigured(
@@ -177,6 +204,9 @@ val favorites = listOf(
 private fun FavoriteItemColumn(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    isTheSelected: Boolean,
+    onLongPressClick: () -> Unit,
+    onContextMenuDismiss: () -> Unit = {},
     item: FavoriteItem
 ) {
     val color: Color? = colorsMapSaves[item.color]
@@ -185,12 +215,14 @@ private fun FavoriteItemColumn(
     val textModifier = remember {
         Modifier.width(width)
     }
-
     SurfaceWithShadows(
         shape = AppShape.round15,
         color = AppColor.surfaceLowest,
         shadowElevation = 0,
-        onClick = onClick
+        onClick = onClick,
+        onLongClick = {
+            onLongPressClick()
+        },
     ) {
         Column(
             modifier = modifier.padding(LocationsProperties.IN_PADDING.div(2).dp),
@@ -255,6 +287,32 @@ private fun FavoriteItemColumn(
                 }
             }
         }
+    }
+    if (isTheSelected) DropdownMenu(
+        expanded = true,
+        onDismissRequest = onContextMenuDismiss,
+        //offset = DpOffset(0.dp, (-50).dp),
+        modifier = Modifier
+        //  .crop(vertical = 8.dp)
+    ) {
+        DropdownMenuItem(
+            onClick = {},
+            text = { Text("Item 1") },
+            modifier = Modifier,
+            leadingIcon = {},
+            trailingIcon = {},
+            enabled = true,
+            contentPadding = PaddingValues()
+        )
+        DropdownMenuItem(
+            onClick = {},
+            text = { Text("Item 2") },
+            modifier = Modifier,
+            leadingIcon = {},
+            trailingIcon = {},
+            enabled = true,
+            contentPadding = PaddingValues()
+        )
     }
 }
 

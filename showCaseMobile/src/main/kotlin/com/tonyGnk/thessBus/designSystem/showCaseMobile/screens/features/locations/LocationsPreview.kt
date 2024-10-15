@@ -13,13 +13,14 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeFavorites
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.DirectionsLookTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCard
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCardItems
-import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTargetSharedElements
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.preview.LocationsFeatureModel
 
 @Composable
@@ -63,8 +64,8 @@ fun LocationsPickTargetPre(
         onBack = onBack,
         requestFocus = false,//TODO
         applySystemBarPadding = true,
-        sharedElementText = "text",
-        sharedElementCard = "card",
+        sharedElementPlaceHolder = "text",
+        sharedElementSearchBar = "searchBar",
         sharedElementMagnifier = "icon",
         horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
         onSearchIme = {},
@@ -75,10 +76,14 @@ fun LocationsPickTargetPre(
         favorites = PickTargetFakeFavorites,
         history = PickTargetFakeHistory,
         onPickItem = { item ->
-            goToLookTarget()
             model.setGivenType(item)
+            model.setTextField(item?.title)
+            goToLookTarget()
         },
         onAddCollectionClick = {},
+        selectedFavoriteItemId = state.selectedFavoriteItemId,
+        updateSelectedFavoriteItemId = model::updateSelectedFavoriteItemId,
+        sharedElementText = "searchText",
         onFavoriteNotConfiguredClick = {},
     )
 
@@ -96,15 +101,22 @@ fun LocationsLookTargetPre(
 ) {
     val state by model.state.collectAsStateWithLifecycle()
 
-    val items = DirectionsLookTargetItems(
+    val sharedElements = LocationsLookTargetSharedElements(
+        searchBar = "searchBar"
+    )
+
+    val items = LocationsLookTargetItems(
         applySystemBarPadding = true,
         query = state.textState.text.toString(),
         paddingValues = PaddingValues(),
-        onBack = onBack,
+        goToPickTargetResults = onBack,
         onPickItem = {
+            model.clearSearchField()
             model.setGivenType(it)
         },
         givenType = state.givenType,
+        sharedElements = sharedElements,
+        clearTextField = model::clearSearchField,
         onCameraPositionChanged = { model.updateCameraPosition(it) },
     )
 

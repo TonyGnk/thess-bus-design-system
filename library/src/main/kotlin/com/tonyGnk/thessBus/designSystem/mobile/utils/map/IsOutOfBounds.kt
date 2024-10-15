@@ -2,7 +2,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.utils.map
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
-import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow

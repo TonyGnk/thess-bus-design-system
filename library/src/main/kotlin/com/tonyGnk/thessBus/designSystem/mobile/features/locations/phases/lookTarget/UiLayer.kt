@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -31,19 +32,20 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBar
+import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBarType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.SearchButton
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
 
 @Composable
 fun DestinationOverviewUiLayer(
     modifier: Modifier = Modifier,
-    items: DirectionsLookTargetItems
+    items: LocationsLookTargetItems
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(items.paddingValues)
             .then(
@@ -53,36 +55,66 @@ fun DestinationOverviewUiLayer(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(
-            modifier = modifier.padding(
-                horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
-            )
-        ) {
-            SearchButton(
-                searchLabel = items.query,
-                onClick = items.onBack,
-                color = AppColor.surfaceLowest,
-                rippleColor = AppColor.onSurface,
-                sharedElementTag = "",
-                sharedElementTextTag = "",
-            )
-        }
-        Spacer(Modifier.weight(1f))
-//        AnimatedContent(
-//            items.givenType, label = "",
+//        Box(
+//            modifier = modifier.padding(
+//                horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+//            )
 //        ) {
-//            when (it) {
-//                is DirectionsFeatureItemType.JustMap -> Box(Modifier.fillMaxSize().height(100.dp))
-//                is DirectionsFeatureItemType.MultipleItems -> {}
-//                is DirectionsFeatureItemType.SingleItem -> {
-//                    PoiCard(
-//                        onClose = { items.onPickItem(DirectionsFeatureItemType.JustMap) },
-//                        poiTitle = it.title,
-//                        poiCategory = it.subTitle
-//                    )
-//                }
-//            }
+//            SearchButton(
+//                searchLabel = items.query,
+//                onClick = {
+//                    items.goToPickTargetResults()
+//                },
+//                color = AppColor.surfaceLowest,
+//                rippleColor = AppColor.onSurface,
+//                sharedElementTag = "",
+//                sharedElementTextTag = items.sharedElementText,
+//            )
 //        }
+        SearchBar(
+            modifier = Modifier.padding(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
+            onSearchClick = {},
+            onBackClick = {
+                items.clearTextField()
+                items.goToPickTargetResults()
+            },
+            type = SearchBarType.Static(
+                text = items.query,
+                alternativeText = "Search here",
+                onTextClick = items.goToPickTargetResults
+            ),
+            sharedElementPlaceHolderTag = "sharedElementPlaceHolderTag",
+            sharedElementIconTag = "sharedElementIconTag",
+            sharedElementTextTag = "sharedElementTextTag",
+            sharedElementBox = items.sharedElements.searchBar
+        )
+        Spacer(Modifier.weight(1f))
+        ItemDetails(items = items)
+    }
+}
+
+
+@Composable
+private fun ItemDetails(items: LocationsLookTargetItems) {
+    AnimatedContent(
+        items.givenType, label = "",
+    ) {
+        when (it) {
+            is DirectionsFeatureItemType.JustMap -> Box(
+                Modifier
+                    .fillMaxSize()
+                    .height(100.dp)
+            )
+
+            is DirectionsFeatureItemType.MultipleItems -> {}
+            is DirectionsFeatureItemType.SingleItem -> {
+                PoiCard(
+                    onClose = { items.onPickItem(DirectionsFeatureItemType.JustMap) },
+                    poiTitle = it.title,
+                    poiCategory = it.subTitle
+                )
+            }
+        }
     }
 }
 
@@ -196,5 +228,5 @@ private fun PoiTextLabels(
 @Composable
 @AppPreview.Dark
 private fun Preview() = ClpTheme {
-    // PoiCard()
+    DestinationOverviewUiLayer(items = LocationsLookTargetItems.preview)
 }

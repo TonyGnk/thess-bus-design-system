@@ -1,7 +1,7 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +32,7 @@ fun SurfaceWithShadows(
     shadowElevation: Int = 1,
     tonalElevation: Int = 0,
     onClick: (() -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     val hasClicked = remember { mutableStateOf(false) }
@@ -47,14 +48,26 @@ fun SurfaceWithShadows(
         Box(
             modifier = Modifier
                 .then(
-                    if (onClick != null) Modifier.clickable(
-                        onClick = {
-                            if (!hasClicked.value) onClick()
-                            hasClicked.value = true
-                        },
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = contentColor)
-                    ) else Modifier
+                    if (onClick != null || onLongClick != null)
+
+                        Modifier.combinedClickable(
+                            onClick = {
+                                if (!hasClicked.value) onClick?.invoke()
+                                hasClicked.value = true
+                            },
+                            onLongClick = onLongClick,
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = ripple(color = contentColor)
+                        )
+//                            .Modifier.clickable(
+//                            onClick = {
+//                                if (!hasClicked.value) onClick()
+//                                hasClicked.value = true
+//                            },
+//                            interactionSource = remember { MutableInteractionSource() },
+//                            indication = ripple(color = contentColor)
+//                        )
+                    else Modifier
                 )
                 .background(color = color)
         ) {

@@ -9,11 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
-import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.getDynamicTheme
 
 
 @Composable

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("maven-publish")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -52,10 +53,16 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.animation)
+    implementation(libs.play.services.maps)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.ui.viewbinding)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.fragment.compose)
     debugImplementation(libs.androidx.ui.tooling)
 
     implementation(libs.androidx.material3)
     implementation(libs.lottie.compose)
+    implementation("com.github.skydoves:flexible-bottomsheet-material3:0.1.5")
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
 

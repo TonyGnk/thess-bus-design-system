@@ -1,12 +1,9 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +24,7 @@ import kotlinx.coroutines.withContext
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun DestinationOverviewMapLayer(
-    items: DirectionsLookTargetItems,
+    items: LocationsLookTargetItems,
 ) {
     val context = LocalContext.current
 
@@ -36,8 +33,6 @@ fun DestinationOverviewMapLayer(
         onCameraPositionChanged = items.onCameraPositionChanged,
         givenType = items.givenType,
     ) {
-
-
         when (items.givenType) {
             is DirectionsFeatureItemType.JustMap -> {}
             is DirectionsFeatureItemType.MultipleItems -> {}
@@ -47,8 +42,8 @@ fun DestinationOverviewMapLayer(
                         items.givenType.lat, items.givenType.lon
                     )
                 )
-                val previousLat = remember { mutableDoubleStateOf(0.0) }
-                val previousLng = remember { mutableDoubleStateOf(0.0) }
+                val previousLat = remember { mutableDoubleStateOf(markerState.position.latitude) }
+                val previousLng = remember { mutableDoubleStateOf(markerState.position.longitude) }
 
                 LaunchedEffect(items.givenType.lat, items.givenType.lon) {
                     //if new is different then animate
@@ -56,7 +51,6 @@ fun DestinationOverviewMapLayer(
                         previousLat.doubleValue != items.givenType.lat &&
                         previousLng.doubleValue != items.givenType.lon
                     ) {
-
                         animateMarker(
                             markerState = MarkerState(
                                 LatLng(previousLat.doubleValue, previousLng.doubleValue)
@@ -71,22 +65,15 @@ fun DestinationOverviewMapLayer(
                 }
 
 
-
                 Marker(
-                    state = markerState
-//                    MarkerState(
-//                        position = LatLng(
-//                            //items.givenType.lat, items.givenType.lon
-//                        )
-//                    ),
-                    ,
+                    state = markerState,
                     draggable = false,
                     flat = false,
                     zIndex = 0f,
                     icon = bitmapDescriptorFromVector(
                         context = context,
                         vectorResId = AppIcon.locationSolid,
-                        color = AppColor.red.toArgb()
+                        color = AppColor.red.toArgb(),
                     )
                 )
             }
@@ -97,7 +84,7 @@ fun DestinationOverviewMapLayer(
 suspend fun animateMarker(
     markerState: MarkerState,
     targetPosition: LatLng,
-    duration: Long = 300L,  // Duration in milliseconds
+    duration: Long = 400L,  // Duration in milliseconds
     onUpdate: (LatLng) -> Unit  // Callback to update marker's position
 ) {
     val startPosition = markerState.position
@@ -109,7 +96,7 @@ suspend fun animateMarker(
     val latDifference = endLat - startLat
     val lngDifference = endLng - startLng
 
-    val steps = 360  // The number of steps for smoothness
+    val steps = 1440  // The number of steps for smoothness
     val delayTime = duration / steps
 
     for (i in 0..steps) {
