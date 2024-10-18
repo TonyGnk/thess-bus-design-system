@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,6 +24,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SurfaceWithShadows(
     modifier: Modifier = Modifier,

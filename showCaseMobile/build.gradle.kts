@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -14,16 +15,17 @@ android {
         applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"
         minSdk = 24
         targetSdk = 35
-        versionCode = 16
-        versionName = "0.0.16"
+        versionCode = 17
+        versionName = "0.0.17"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        manifestPlaceholders["MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: ""
-        buildConfigField("String", "MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY")}\"")
+        val apiKey = project.findProperty("MAPS_API_KEY") as String
+        //buildConfigField("String", "MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY")}\"")
+        manifestPlaceholders["MAPS_API_KEY"] = apiKey
     }
 
     buildTypes {
@@ -59,27 +61,21 @@ android {
     }
 }
 
-composeCompiler {
-    enableStrongSkippingMode = true
-}
 
 dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui.tooling.preview)
-    "baselineProfile"(project(":baselineprofile"))
-    implementation(libs.androidx.fragment)
-    debugImplementation(libs.androidx.ui.tooling)
-
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.maps.compose)
-    //implementation(libs.play.services.maps)
-
-
-    implementation(project(":library"))
     implementation(libs.androidx.profileinstaller)
-    implementation(kotlin("reflect"))
+
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.maps.compose)
+
+
+    baselineProfile(project(":baselineprofile"))
+    implementation(project(":library"))
 }

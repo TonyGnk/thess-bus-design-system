@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("maven-publish")
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("androidx.baselineprofile")
 }
 
 android {
@@ -16,7 +16,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -44,53 +44,24 @@ android {
     }
 }
 
-composeCompiler {
-    enableStrongSkippingMode = true
-}
-
 dependencies {
+    implementation(libs.androidx.animation)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.animation)
-    implementation(libs.play.services.maps)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.ui.viewbinding)
-    implementation(libs.androidx.fragment)
-    implementation(libs.androidx.fragment.compose)
-    debugImplementation(libs.androidx.ui.tooling)
-
     implementation(libs.androidx.material3)
-    implementation(libs.lottie.compose)
-    implementation("com.github.skydoves:flexible-bottomsheet-material3:0.1.5")
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.core.splashscreen)
+
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
 
-    implementation(libs.androidx.core.splashscreen)
 
+    implementation(libs.lottie.compose)
     implementation(libs.maps.compose)
-    //implementation(libs.play.services.maps)
 
 
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-//    androidTestImplementation(platform(libs.androidx.compose.bom))
-//    androidTestImplementation(libs.androidx.compose.ui.test)
-//
-//    debugImplementation(libs.androidx.ui.tooling)
-//    debugImplementation(libs.androidx.ui.test.manifest)
-//
-//    testImplementation(libs.junit)
-//    testImplementation(libs.androidx.compose.ui.test)
-//    testImplementation(libs.androidx.compose.ui.testManifest)
-
-    //To be removed
-//    api(libs.androidx.compose.runtime)
-//    api(libs.androidx.compose.ui.util)
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.lifecycle.runtime.ktx)
-//    implementation(libs.androidx.ui)
-//    implementation(libs.androidx.ui.graphics)
+    baselineProfile(project(":baselineprofile"))
 }
 
 publishing {
@@ -98,7 +69,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.tonyGnk"
             artifactId = "thessBus-designSystem"
-            version = "0.0.16"
+            version = "0.0.17"
 
             afterEvaluate {
                 from(components["release"])
