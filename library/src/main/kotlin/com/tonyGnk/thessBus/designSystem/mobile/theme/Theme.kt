@@ -15,7 +15,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.themeBrand.BlueAppTheme
 
 
 @Composable
-fun ClpTheme(
+fun ThessBusTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // brand: ThemeBrand = ThemeBrand.BLUE,
     useTotalBlack: Boolean = false,

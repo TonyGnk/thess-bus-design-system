@@ -25,7 +25,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
@@ -186,7 +186,7 @@ private fun CoolGradientBox(
 
 @AppPreview.Brightness
 @Composable
-private fun CoolGradientBoxPreview() = ClpTheme {
+private fun CoolGradientBoxPreview() = ThessBusTheme {
     CoolGradientBox(
         modifier = Modifier.fillMaxWidth(),
         feature = Feature.Watch
@@ -195,6 +195,6 @@ private fun CoolGradientBoxPreview() = ClpTheme {
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     FeaturesList()
 }

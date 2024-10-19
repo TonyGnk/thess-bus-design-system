@@ -11,12 +11,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -69,7 +69,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.tonyGnk"
             artifactId = "thessBus-designSystem"
-            version = "0.0.17"
+            version = "0.0.18"
 
             afterEvaluate {
                 from(components["release"])

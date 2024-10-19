@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Shape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import androidx.compose.material3.NavigationBarItem as MaterialNavigationBarItem
 
 
@@ -41,7 +41,7 @@ internal fun RowScope.NavigationBarItem(
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     Row {
         NavigationBarItem()
     }

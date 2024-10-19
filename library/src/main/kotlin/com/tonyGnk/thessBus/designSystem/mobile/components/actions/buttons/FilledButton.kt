@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import androidx.compose.material3.Button as MaterialFilledButton
 
 @Composable
@@ -57,6 +57,6 @@ fun FilledButton(
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     FilledButton(iconRes = AppIcon.search)
 }

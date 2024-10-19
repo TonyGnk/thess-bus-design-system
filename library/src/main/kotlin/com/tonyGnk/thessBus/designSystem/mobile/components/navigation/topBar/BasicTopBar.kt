@@ -23,7 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.IconButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 
@@ -103,7 +103,7 @@ fun CenteredTopBar(
 
 @Composable
 @AppPreview.Dark
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     Column {
         BasicTopBar(
             label = "Alarms",

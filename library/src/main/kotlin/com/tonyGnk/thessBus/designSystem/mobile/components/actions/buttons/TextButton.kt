@@ -14,14 +14,14 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import androidx.compose.material3.TextButton as MaterialTextButton
 
 @Composable
 fun TextButton(
     modifier: Modifier = Modifier,
     text: String = "Text Button",
-    textStyle : TextStyle = AppTypo.labelLarge,
+    textStyle: TextStyle = AppTypo.labelLarge,
     onClick: () -> Unit = { Log.d("Design System", text) },
     @DrawableRes iconRes: Int = 0,
     contentColor: Color = AppColor.primary,
@@ -41,7 +41,7 @@ fun TextButton(
         contentPadding = padding,
         content = {
             SharedButtonContent(
-                text = text, iconRes = iconRes,style = textStyle.copy(color =contentColor),
+                text = text, iconRes = iconRes, style = textStyle.copy(color = contentColor),
                 contentColor = contentColor,
             )
 
@@ -51,6 +51,6 @@ fun TextButton(
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     TextButton()
 }

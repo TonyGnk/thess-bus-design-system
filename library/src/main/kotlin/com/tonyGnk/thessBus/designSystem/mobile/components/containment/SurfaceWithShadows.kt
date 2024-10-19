@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -80,7 +80,7 @@ fun SurfaceWithShadows(
 
 @Composable
 @AppPreview.Brightness
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.background(AppColor.surfaceLowest)

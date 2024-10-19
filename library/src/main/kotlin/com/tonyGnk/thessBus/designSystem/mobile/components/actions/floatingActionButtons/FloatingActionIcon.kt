@@ -19,7 +19,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import androidx.compose.material3.FloatingActionButton as MaterialFloatingActionButton
 
 
@@ -56,6 +56,6 @@ fun FloatingActionIcon(
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     FloatingActionIcon()
 }

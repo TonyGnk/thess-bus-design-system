@@ -22,7 +22,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.FilledButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
 
@@ -62,7 +62,7 @@ fun DropdownMenu(
 
 @Composable
 @AppPreview.Dark
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     val isMenuOpen = remember { mutableStateOf(false) }
 
     Column(

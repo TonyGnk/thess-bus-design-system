@@ -27,7 +27,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.iconButtons.I
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
 
@@ -148,7 +148,7 @@ fun SearchButton(
 
 @Composable
 @AppPreview.Dark
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.padding(8.dp)

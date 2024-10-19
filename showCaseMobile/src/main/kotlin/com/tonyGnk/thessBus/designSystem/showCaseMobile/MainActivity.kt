@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
 
 internal class MainActivity : ComponentActivity() {
@@ -55,7 +55,7 @@ internal class MainActivity : ComponentActivity() {
 
 
 
-            ClpTheme {
+            ThessBusTheme {
                 val navController = rememberNavController()
 //                Box(
 //                    Modifier
@@ -82,7 +82,7 @@ private fun row(
     dark: Boolean,
     amoled: Boolean
 ) {
-    ClpTheme(modifier = modifier, darkTheme = dark, useTotalBlack = amoled) {
+    ThessBusTheme(modifier = modifier, darkTheme = dark, useTotalBlack = amoled) {
         Row(modifier = Modifier) {
 //            Box(
 //                contentAlignment = androidx.compose.ui.Alignment.Center,

@@ -12,8 +12,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigationBar.NavigationBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.mySharedElement
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
 @Composable
@@ -28,7 +27,7 @@ fun NavigationBarPage(
                 .padding(it)
         ) {
             BasicTopBar(
-                label = stringResource( R.string.landing_destinations_navigation),
+                label = stringResource(R.string.landing_destinations_navigation),
                 backIcon = TopBarBackIcon(
                     onBack = onBack
                 ),
@@ -40,6 +39,6 @@ fun NavigationBarPage(
 
 @AppPreview.Brightness
 @Composable
-fun LandingPagePreview() = ClpTheme {
+fun LandingPagePreview() = ThessBusTheme {
     NavigationBarPage()
 }

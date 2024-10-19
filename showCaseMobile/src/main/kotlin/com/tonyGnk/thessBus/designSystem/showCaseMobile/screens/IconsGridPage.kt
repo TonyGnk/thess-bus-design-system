@@ -40,7 +40,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
@@ -209,6 +209,6 @@ fun ColorMatrix.setToInvertWhite() {
 
 @AppPreview.Dark
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     IconsGridPage()
 }

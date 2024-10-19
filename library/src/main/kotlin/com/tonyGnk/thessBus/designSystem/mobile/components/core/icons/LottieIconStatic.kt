@@ -19,7 +19,7 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 
 @Composable
@@ -50,7 +50,7 @@ fun LottieIconStatic(
 
 @AppPreview.Brightness
 @Composable
-fun LottieIconStaticPreview() = ClpTheme {
+fun LottieIconStaticPreview() = ThessBusTheme {
 
     val lottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.location_pin)

@@ -24,7 +24,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.CenteredTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 
 @Composable
@@ -131,6 +131,6 @@ private fun localTextField() {
 
 @Composable
 @AppPreview.Light
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     OverviewCollectionItem()
 }

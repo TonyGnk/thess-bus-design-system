@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 13
 
@@ -99,6 +99,6 @@ fun Dp.toSp() = with(LocalDensity.current) { toSp() }
 
 @Composable
 @Preview
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     NavigationBarItemLabel(selected = false)
 }

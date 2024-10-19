@@ -30,7 +30,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFak
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.LazyListOfPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
 
@@ -189,7 +189,7 @@ private fun ClearTextOnBackPress(clearText: () -> Unit) {
 
 @AppPreview.Light
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     Box(modifier = Modifier.padding(8.dp)) {
         LocationsPickTarget()
     }

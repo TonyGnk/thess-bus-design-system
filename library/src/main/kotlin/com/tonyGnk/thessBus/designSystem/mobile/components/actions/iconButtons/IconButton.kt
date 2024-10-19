@@ -19,7 +19,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 @Composable
 fun IconButton(
@@ -55,7 +55,7 @@ fun IconButton(
 
 @AppPreview.Brightness
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     IconButton(
         iconRes = AppIcon.search,
         color = AppColor.primary,

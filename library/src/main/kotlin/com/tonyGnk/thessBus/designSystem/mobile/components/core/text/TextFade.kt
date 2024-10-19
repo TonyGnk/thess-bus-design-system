@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
@@ -20,9 +19,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
@@ -76,9 +74,9 @@ fun TextFade(
 
 @AppPreview.Dark
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     val text = "Πανεπιστήμιο"
-    val style =  AppTypo.bodySmall.copy(
+    val style = AppTypo.bodySmall.copy(
         color = AppColor.primary,
     )
     Column {
@@ -89,7 +87,7 @@ private fun Preview() = ClpTheme {
         ) {
             TextFade(
                 text = text,
-                style =style,
+                style = style,
                 backgroundColor = AppColor.surfaceLowest,
                 textTargetWidth = 79.dp
             )

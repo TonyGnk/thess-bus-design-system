@@ -16,7 +16,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconW
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPoiCategory
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -26,12 +26,12 @@ fun PickTargetOverviewCategories(
 ) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(
-          7.dp
+            7.dp
         ),
         verticalArrangement = Arrangement.spacedBy(
             7.dp
         ),
-        modifier = Modifier.padding( 7.dp),
+        modifier = Modifier.padding(7.dp),
         maxItemsInEachRow = 2
     ) {
         LocationsPoiCategory.entries.take(8).forEach { category ->
@@ -83,11 +83,11 @@ private fun CategoryItem(
 
 @AppPreview.Zoomed
 @Composable
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
 //    CategoryItem(
 //        iconRes = AppIcon.mapMarker,
 //        label = "Κατηγορία",
 //        onClick = { }
 //    )
-PickTargetOverviewCategories()
+    PickTargetOverviewCategories()
 }

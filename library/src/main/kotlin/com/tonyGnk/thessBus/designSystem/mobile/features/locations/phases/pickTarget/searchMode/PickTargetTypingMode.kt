@@ -23,7 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
@@ -114,7 +114,7 @@ internal fun PickTargetResult(
 
 @Composable
 @AppPreview.Dark
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     val results = PickTargetFakeResults
 
     LazyListOfPickTargetItems(

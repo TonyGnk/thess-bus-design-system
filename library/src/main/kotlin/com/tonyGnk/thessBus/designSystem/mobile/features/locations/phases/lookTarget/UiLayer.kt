@@ -35,7 +35,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBarType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
 
@@ -227,6 +227,6 @@ private fun PoiTextLabels(
 
 @Composable
 @AppPreview.Dark
-private fun Preview() = ClpTheme {
+private fun Preview() = ThessBusTheme {
     DestinationOverviewUiLayer(items = LocationsLookTargetItems.preview)
 }

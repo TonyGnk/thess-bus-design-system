@@ -14,7 +14,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ClpTheme
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.LandingUnknown
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.SharedListContainer
 
@@ -66,6 +66,6 @@ private fun Header() {
 
 @AppPreview.Scale
 @Composable
-fun LandingPagePreview() = ClpTheme {
+fun LandingPagePreview() = ThessBusTheme {
     LandingPage()
 }
