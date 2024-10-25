@@ -73,8 +73,8 @@ fun DestinationOverviewUiLayer(
 //        }
         SearchBar(
             modifier = Modifier.padding(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
-            onSearchClick = {},
-            onBackClick = {
+            onSearchIme = {},
+            onBackIconClick = {
                 items.clearTextField()
                 items.goToPickTargetResults()
             },
@@ -97,7 +97,7 @@ fun DestinationOverviewUiLayer(
 @Composable
 private fun ItemDetails(items: LocationsLookTargetItems) {
     AnimatedContent(
-        items.givenType, label = "",
+        items.pickedItem, label = "",
     ) {
         when (it) {
             is DirectionsFeatureItemType.JustMap -> Box(
@@ -111,6 +111,7 @@ private fun ItemDetails(items: LocationsLookTargetItems) {
                 PoiCard(
                     onClose = { items.onPickItem(DirectionsFeatureItemType.JustMap) },
                     poiTitle = it.title,
+                    onNavigate = { items.onNavigate(it) },
                     poiCategory = it.subTitle
                 )
             }
@@ -121,6 +122,7 @@ private fun ItemDetails(items: LocationsLookTargetItems) {
 @Composable
 private fun PoiCard(
     onClose: () -> Unit,
+    onNavigate: () -> Unit = {},
     poiTitle: String = "Nova Store",
     poiCategory: String = "Εταιρεία Τηλεπικοινωνιών"
 ) {
@@ -141,7 +143,6 @@ private fun PoiCard(
                 .fillMaxWidth()
                 .padding(
                     vertical = 20.dp
-                    //top = 28.dp, bottom = 22.dp
                 )
         ) {
             PoiTextLabels(
@@ -154,6 +155,7 @@ private fun PoiCard(
             ) {
                 item {
                     FilledButton(
+                        onClick = onNavigate,
                         iconRes = AppIcon.navigate,
                         text = "Πλοήγηση",
                         padding = PaddingValues(17.dp),
@@ -220,7 +222,7 @@ private fun PoiTextLabels(
             onClick = onClose,
             color = AppColor.background,
             iconRes = AppIcon.cross,
-            modifier = Modifier.size(15.dp)
+            modifier = Modifier.size(14.dp)
         )
     }
 }

@@ -59,15 +59,14 @@ sealed interface SearchBarType {
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    onSearchClick: () -> Unit,
-    onBackClick: () -> Unit,
+    onSearchIme: () -> Unit,
+    onBackIconClick: () -> Unit,
     type: SearchBarType,
     sharedElementPlaceHolderTag: String,
     sharedElementIconTag: String,
     sharedElementBox: String,
     sharedElementTextTag: String,
-
-    ) {
+) {
     val searchLabel = LocationsProperties.SEARCH_LABEL
     val searchStyle = LocationsProperties.searchTextStyle
 
@@ -85,7 +84,7 @@ fun SearchBar(
         IconButton(
             iconRes = AppIcon.back,
             color = AppColor.transparent,
-            onClick = onBackClick,
+            onClick = onBackIconClick,
             modifier = Modifier.size(sizeInScreen)
         )
         when (type) {
@@ -93,7 +92,7 @@ fun SearchBar(
                 searchStyle = searchStyle,
                 modifier = modifierOfTheCenteredItem,
                 searchLabel = searchLabel,
-                onSearchClick = onSearchClick,
+                onSearchClick = onSearchIme,
                 textState = type.textFieldState,
                 sharedElementTextTag = sharedElementTextTag,
                 focusRequester = type.focusRequester
@@ -114,7 +113,7 @@ fun SearchBar(
         IconButton(
             iconRes = AppIcon.search,
             color = AppColor.transparent,
-            onClick = onSearchClick,
+            onClick = onSearchIme,
             modifier = Modifier
                 .size(sizeInScreen)
                 .mySharedElement(sharedElementIconTag)
@@ -202,8 +201,8 @@ fun SearchField(
 @AppPreview.Brightness
 private fun Preview() = ThessBusTheme {
     SearchBar(
-        onBackClick = { },
-        onSearchClick = { },
+        onBackIconClick = { },
+        onSearchIme = { },
         type = SearchBarType.Static(
             text = "Search term", alternativeText = "Search here",
         ) {},

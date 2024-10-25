@@ -31,7 +31,7 @@ class LocationsFeatureModel : ViewModel() {
 
         _state.update {
             it.copy(
-                givenType = givenType,
+                pickedItem = givenType,
             )
         }
     }
@@ -67,7 +67,7 @@ data class DirectionsFeaturePreviewState(
     val textState: TextFieldState = TextFieldState(
         initialText = "", initialSelection = TextRange("".length),
     ),
-    val givenType: DirectionsFeatureItemType = DirectionsFeatureItemType.JustMap,
+    val pickedItem: DirectionsFeatureItemType = DirectionsFeatureItemType.JustMap,
     val pagerState: PagerState = PagerState(
         currentPage = LocationsPhases.entries.indexOf(LocationsPhases.CARD),
         pageCount = { LocationsPhases.entries.size }

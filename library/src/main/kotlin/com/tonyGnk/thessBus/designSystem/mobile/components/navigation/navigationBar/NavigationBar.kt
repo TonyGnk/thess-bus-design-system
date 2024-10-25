@@ -6,8 +6,6 @@ import android.view.RoundedCorner
 import android.view.WindowManager
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
@@ -21,8 +19,11 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.navigation
 import androidx.compose.material3.NavigationBar as MaterialNavigationBar
 
 @Composable
-fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
-    val selected = remember { mutableIntStateOf(0) }
+fun NavigationBar(
+    selected: Int,
+    onSelectChange: (Int) -> Unit,
+    enabledItems: Triple<Boolean, Boolean, Boolean>
+) {
     val topCorners = findTheRightCorners(LocalView.current.context)
 
     MaterialNavigationBar(
@@ -31,16 +32,16 @@ fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
     ) {
         if (enabledItems.first) NavigationBarItem(
             itemLabel = stringResource(R.string.destination_home),
-            isSelected = selected.intValue == 0,
-            onItemClick = { selected.intValue = 0 },
+            isSelected = selected == 0,
+            onItemClick = { onSelectChange(0) },
             animationResource = R.raw.location_pin,
             modifier = Modifier.weight(1f),
             radius = topCorners
         )
         if (enabledItems.second) NavigationBarItem(
             itemLabel = stringResource(R.string.destination_lines),
-            isSelected = selected.intValue == 1,
-            onItemClick = { selected.intValue = 1 },
+            isSelected = selected == 1,
+            onItemClick = { onSelectChange(1) },
             animationResource = R.raw.lines,
             modifier = Modifier.weight(1f),
             radius = topCorners
@@ -48,8 +49,8 @@ fun NavigationBar(enabledItems: Triple<Boolean, Boolean, Boolean>) {
 
         if (enabledItems.third) NavigationBarItem(
             itemLabel = stringResource(R.string.destination_alarms),
-            isSelected = selected.intValue == 2,
-            onItemClick = { selected.intValue = 2 },
+            isSelected = selected == 2,
+            onItemClick = { onSelectChange(2) },
             animationResource = R.raw.alarm_clock_second,
             modifier = Modifier.weight(1f),
             radius = topCorners

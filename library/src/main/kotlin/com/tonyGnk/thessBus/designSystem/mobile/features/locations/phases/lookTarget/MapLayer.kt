@@ -31,36 +31,36 @@ fun DestinationOverviewMapLayer(
     MyGoogleMap(
         setTypeOnMap = items.onPickItem,
         onCameraPositionChanged = items.onCameraPositionChanged,
-        givenType = items.givenType,
+        givenType = items.pickedItem,
     ) {
-        when (items.givenType) {
+        when (items.pickedItem) {
             is DirectionsFeatureItemType.JustMap -> {}
             is DirectionsFeatureItemType.MultipleItems -> {}
             is DirectionsFeatureItemType.SingleItem -> {
                 val markerState = rememberMarkerState(
                     position = LatLng(
-                        items.givenType.lat, items.givenType.lon
+                        items.pickedItem.lat, items.pickedItem.lon
                     )
                 )
                 val previousLat = remember { mutableDoubleStateOf(markerState.position.latitude) }
                 val previousLng = remember { mutableDoubleStateOf(markerState.position.longitude) }
 
-                LaunchedEffect(items.givenType.lat, items.givenType.lon) {
+                LaunchedEffect(items.pickedItem.lat, items.pickedItem.lon) {
                     //if new is different then animate
                     if (
-                        previousLat.doubleValue != items.givenType.lat &&
-                        previousLng.doubleValue != items.givenType.lon
+                        previousLat.doubleValue != items.pickedItem.lat &&
+                        previousLng.doubleValue != items.pickedItem.lon
                     ) {
                         animateMarker(
                             markerState = MarkerState(
                                 LatLng(previousLat.doubleValue, previousLng.doubleValue)
                             ),
-                            targetPosition = LatLng(items.givenType.lat, items.givenType.lon),
+                            targetPosition = LatLng(items.pickedItem.lat, items.pickedItem.lon),
                         ) { newPosition ->
                             markerState.position = newPosition  // Update marker position
                         }
-                        previousLat.doubleValue = items.givenType.lat
-                        previousLng.doubleValue = items.givenType.lon
+                        previousLat.doubleValue = items.pickedItem.lat
+                        previousLng.doubleValue = items.pickedItem.lon
                     }
                 }
 

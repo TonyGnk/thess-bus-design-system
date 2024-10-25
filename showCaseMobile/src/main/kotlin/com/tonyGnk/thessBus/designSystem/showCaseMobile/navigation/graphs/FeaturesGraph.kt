@@ -13,6 +13,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.FeaturesList
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.DirectionsFeaturePager
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsLookTargetPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickStartPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickTargetPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsStartPre
 
@@ -74,6 +75,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
                 model = viewModel(parentEntry),
                 onBack = onBack,
                 goToLookTarget = { goTo(FeatureLocationsDestination.LookTarget) },
+                goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
                 goToCategories = {
                     //goTo(FeatureLocationsDestination.PickCategory)
                 },
@@ -88,6 +90,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
                 model = viewModel(parentEntry),
                 onBack = onBack,
                 goToLookTarget = { goTo(FeatureLocationsDestination.LookTarget) },
+                goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
                 goToCategories = {
                     //goTo(FeatureLocationsDestination.PickCategory)
                 },
@@ -97,12 +100,25 @@ fun NavGraphBuilder.featuresLocationsGraph(
 
         route<FeatureLocationsDestination.LookTarget>(
             enterTransition = AppTransition.fadeEnter,
+            popEnterTransition = AppTransition.fadeEnter,
+            exitTransition = AppTransition.fadeExit,
             popExitTransition = AppTransition.fadeExit,
         ) {
             val parentEntry = remember(it) {
                 navController.getBackStackEntry(TopDestination.FeaturesGraph)
             }
             LocationsLookTargetPre(
+                model = viewModel(parentEntry),
+                onBack = onBack,
+                goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
+            )
+        }
+
+        route<FeatureLocationsDestination.PickStart> {
+            val parentEntry = remember(it) {
+                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+            }
+            LocationsPickStartPre(
                 model = viewModel(parentEntry),
                 onBack = onBack,
             )

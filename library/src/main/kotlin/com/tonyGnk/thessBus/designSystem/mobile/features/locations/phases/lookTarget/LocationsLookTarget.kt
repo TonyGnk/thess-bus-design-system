@@ -8,25 +8,23 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.CustomCameraPosition
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 
-data class LocationsLookTargetSharedElements(
-    val searchBar: String = "searchBar",
-)
 
 @Stable
 data class LocationsLookTargetItems(
-    val givenType: DirectionsFeatureItemType,
+    val pickedItem: DirectionsFeatureItemType,
     val query: String,
     val onPickItem: (DirectionsFeatureItemType) -> Unit,
     val goToPickTargetResults: () -> Unit,
     val clearTextField: () -> Unit,
     val applySystemBarPadding: Boolean,
+    val onNavigate: (DirectionsFeatureItemType.SingleItem) -> Unit,
     val paddingValues: PaddingValues,
-    val sharedElements: LocationsLookTargetSharedElements,
+    val sharedElements: SharedElementIds = SharedElementIds(),
     val onCameraPositionChanged: (CustomCameraPosition) -> Unit,
 ) {
     companion object {
         val preview = LocationsLookTargetItems(
-            givenType = DirectionsFeatureItemType.JustMap,
+            pickedItem = DirectionsFeatureItemType.JustMap,
             query = "",
             onPickItem = {},
             goToPickTargetResults = {},
@@ -34,9 +32,14 @@ data class LocationsLookTargetItems(
             paddingValues = PaddingValues(0.dp),
             onCameraPositionChanged = {},
             clearTextField = {},
-            sharedElements = LocationsLookTargetSharedElements(),
+            sharedElements = SharedElementIds(),
+            onNavigate = {},
         )
     }
+
+    data class SharedElementIds(
+        val searchBar: String = "searchBar",
+    )
 }
 
 @Composable

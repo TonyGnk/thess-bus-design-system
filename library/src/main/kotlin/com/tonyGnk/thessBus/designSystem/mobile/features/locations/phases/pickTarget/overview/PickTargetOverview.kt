@@ -2,6 +2,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickT
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +20,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconW
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
@@ -27,7 +28,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 @Composable
 internal fun PickTargetOverview(
     modifier: Modifier = Modifier,
-    items: LocationsPickTargetItems = LocationsPickTargetItems.preview,
+    collectionState: LocationsPickTargetItems.CollectionState = LocationsPickTargetItems.CollectionState(),
+    horizontalPadding: PaddingValues = PaddingValues(0.dp),
+    historyState: LocationsPickTargetItems.HistoryState = LocationsPickTargetItems.HistoryState(),
 ) {
     val labelStyle = AppTypo.titleMedium.copy(
         color = AppColor.onSurface.copy(alpha = 0.9f)
@@ -44,7 +47,7 @@ internal fun PickTargetOverview(
             shadowElevation = 0,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(items.horizontalPadding),
+                .padding(horizontalPadding),
             shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
             color = AppColor.surfaceLowest,
             onClick = {}
@@ -63,7 +66,7 @@ internal fun PickTargetOverview(
 
         Column(
             verticalArrangement = Arrangement.spacedBy(arrangement.dp),
-            modifier = Modifier.padding(items.horizontalPadding)
+            modifier = Modifier.padding(horizontalPadding)
         ) {
             Text(text = "Collections", style = labelStyle)
             SurfaceWithShadows(
@@ -73,30 +76,19 @@ internal fun PickTargetOverview(
             ) {
                 Column {
                     PickTargetOverviewCollection(
-                        onFavoriteClick = items.onSavedLocationClick,
-                        onAddCollectionClick = items.onAddCollectionClick,
-                        onFavoriteNotConfiguredClick = items.onFavoriteNotConfiguredClick,
-                        selectedFavoriteItemId = items.selectedFavoriteItemId,
-                        updateSelectedFavoriteItemId = items.updateSelectedFavoriteItemId,
+                        onFavoriteClick = collectionState.onSavedLocationClick,
+                        onAddCollectionClick = collectionState.onAddCollectionClick,
+                        onFavoriteNotConfiguredClick = collectionState.onNotConfiguredClick,
+                        selectedFavoriteItemId = collectionState.selectedId,
+                        updateSelectedFavoriteItemId = collectionState.updateSelectedFavoriteItemId,
                     )
-//                    SurfaceWithShadows(
-//                        modifier = Modifier.fillMaxWidth(),
-//                        shadowElevation = 0,
-//                        color = AppColor.transparent,
-//                        onClick = {
-//                            Log.d("PickTargetOverview", items.collectionsBottomSheetType.toString())
-//                            items.setBottomSheetType(CollectionBottomSheetType.Overview)
-//                        },
-//                    ) {
-//                        Text("All")
-//                    }
                 }
             }
         }
 
         Column(
             verticalArrangement = Arrangement.spacedBy(arrangement.dp),
-            modifier = Modifier.padding(items.horizontalPadding)
+            modifier = Modifier.padding(horizontalPadding)
         ) {
             Text(text = "Recent", style = labelStyle)
             Column(
@@ -104,10 +96,10 @@ internal fun PickTargetOverview(
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                items.history.forEach { item ->
+                historyState.items.forEach { item ->
                     PickTargetResult(
                         result = item, onClick = {
-                            items.onResultClick(item)
+                            historyState.onClick(item)
                         }
                     )
                 }

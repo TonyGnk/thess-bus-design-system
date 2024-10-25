@@ -148,4 +148,20 @@ val PickTargetFakeHistory = listOf(
         subTitle = "",
         iconRes = AppIcon.clockFive,
     ),
+    DirectionsFeatureItemType.SingleItem(
+        id = "6",
+        lat = 40.64003,
+        lon = 22.94337,
+        title = "αριστοτελους",
+        subTitle = "",
+        iconRes = AppIcon.clockFive,
+    ),
+    DirectionsFeatureItemType.SingleItem(
+        id = "6",
+        lat = 40.64003,
+        lon = 22.94337,
+        title = "αριστοτελους",
+        subTitle = "",
+        iconRes = AppIcon.clockFive,
+    ),
 )

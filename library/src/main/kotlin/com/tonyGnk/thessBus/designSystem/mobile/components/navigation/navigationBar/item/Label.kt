@@ -27,7 +27,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
-private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 13
+private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 11
 
 @Composable
 internal fun NavigationBarItemLabel(

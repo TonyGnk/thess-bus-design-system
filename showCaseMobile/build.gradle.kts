@@ -15,8 +15,8 @@ android {
         applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"
         minSdk = 26
         targetSdk = 35
-        versionCode = 18
-        versionName = "0.0.18"
+        versionCode = 19
+        versionName = "0.0.19"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
