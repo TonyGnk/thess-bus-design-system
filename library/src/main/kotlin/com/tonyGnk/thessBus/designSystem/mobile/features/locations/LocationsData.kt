@@ -3,6 +3,8 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations
 import androidx.annotation.DrawableRes
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItemType
 
 
 sealed interface DirectionsFeatureItemType {
@@ -77,25 +79,6 @@ val PickTargetFakeResults = listOf(
         title = "Κυλικείο Πρυτανείας",
         subTitle = "Κυλικείο Πρυτανείας",
         iconRes = LocationsPoiCategory.CAFFE.iconRes,
-    ),
-)
-
-val PickTargetFakeFavorites = listOf(
-    DirectionsFeatureItemType.SingleItem(
-        id = "1",
-        lat = 40.640063,
-        lon = 22.943383,
-        title = "Σπίτι",
-        subTitle = "Καραολή Δημητρίου 17",
-        iconRes = AppIcon.house
-    ),
-    DirectionsFeatureItemType.SingleItem(
-        id = "2",
-        lat = 40.64003,
-        lon = 22.94337,
-        title = "Δουλειά",
-        subTitle = "Βασιλέως Ηρακλείου 2",
-        iconRes = R.drawable.bank,
     ),
 )
 

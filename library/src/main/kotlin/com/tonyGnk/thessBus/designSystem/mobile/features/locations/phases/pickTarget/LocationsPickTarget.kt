@@ -26,8 +26,9 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.appl
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBarType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickersSearchState
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.LazyListOfPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.ResultList
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 
@@ -59,8 +60,8 @@ fun LocationsPickTarget(
 }
 
 @Composable
-private fun LocationPickerEffects(
-    searchState: LocationsPickTargetItems.SearchState,
+internal fun LocationPickerEffects(
+    searchState: LocationsPickersSearchState,
     listState: LazyListState,
     focusManager: FocusManager,
     focusRequester: FocusRequester,
@@ -93,7 +94,7 @@ private fun LocationPickerEffects(
 }
 
 @Composable
-private fun LocationPickerContent(
+internal fun LocationPickerContent(
     modifier: Modifier,
     items: LocationsPickTargetItems,
     listState: LazyListState,
@@ -117,7 +118,7 @@ private fun LocationPickerContent(
         item {
             SearchBar(
                 modifier = Modifier.padding(horizontal = padding),
-                onSearchIme = { items.searchState.onSearchIme() },
+                onSearchIme = items.searchState.onSearchIme,
                 onBackIconClick = {
                     when {
                         emptyQuery -> items.onBack()
@@ -162,22 +163,22 @@ private fun LocationPickerResult(
     emptyQuery: Boolean,
     focusManager: FocusManager,
     padding: Dp,
-    collectionsState: LocationsPickTargetItems.CollectionState,
-    searchState: LocationsPickTargetItems.SearchState
+    collectionsState: LocationsPickTargetItems.FavoritesState,
+    searchState: LocationsPickersSearchState
 ) {
     AnimatedContent(targetState = emptyQuery, label = "") { showOverview ->
         when (showOverview) {
             true -> PickTargetOverview(
                 horizontalPadding = PaddingValues(horizontal = padding),
-                collectionState = collectionsState.copy(
-                    onSavedLocationClick = { item ->
+                favoritesState = collectionsState.copy(
+                    onClick = { item ->
                         focusManager.clearFocus()
-                        collectionsState.onSavedLocationClick(item)
+                        collectionsState.onClick(item)
                     }
                 )
             )
 
-            false -> LazyListOfPickTargetItems(
+            false -> ResultList(
                 modifier = Modifier.padding(horizontal = padding),
                 onClick = { item ->
                     focusManager.clearFocus()

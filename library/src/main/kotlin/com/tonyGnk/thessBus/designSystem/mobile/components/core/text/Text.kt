@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
 import androidx.compose.material3.Switch as MaterialSwitch
 import androidx.compose.material3.Text as MaterialText
@@ -20,7 +21,9 @@ import androidx.compose.material3.Text as MaterialText
 fun Text(
     text: String,
     modifier: Modifier = Modifier,
-    style: TextStyle = LocalTextStyle.current,
+    style: TextStyle = LocalTextStyle.current.copy(
+        color = AppColor.onSurface
+    ),
     weight: FontWeight? = null,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,

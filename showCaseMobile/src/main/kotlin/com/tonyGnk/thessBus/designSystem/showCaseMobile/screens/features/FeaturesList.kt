@@ -42,7 +42,7 @@ enum class Feature(
     ),
     Directions(
         "Offline and online routing",
-        false,
+        true,
         Triple(Color(0xFFDA9745), Color(0xFFD88672), Color(0xFFE36658))
     ),
     BusTracker(
@@ -60,22 +60,22 @@ enum class Feature(
         false,
         Triple(Color(0xFF3B4371), Color(0xFF714371), Color(0xFFF3718F))
     ),
+    Watch(
+        "Android Wear OS client app",
+        false,
+        Triple(Color(0xFF08A2A2), Color(0xFF17A985), Color(0xFF1CAF87))
+    ),
     iOS(
         "Cross-platform support",
         false,
         Triple(Color(0xFFFF2779), Color(0xFFFE7963), Color(0xFFD7D267))
     ),
-    Watch(
-        "Android Wear OS client app",
-        false,
-        Triple(Color(0xFF08A2A2), Color(0xFF17A985), Color(0xFF1CAF87))
-    );
 }
 
 private val featureToPreview: Map<Feature, FeatureDestination> = Feature.entries.associate {
     when (it) {
         Feature.Locations -> it to FeatureDestination.LocationsGraph
-        Feature.Directions -> it to FeatureDestination.LocationsGraph
+        Feature.Directions -> it to FeatureDestination.DirectionsGraph
         Feature.BusTracker -> it to FeatureDestination.LocationsGraph
         Feature.Alarm -> it to FeatureDestination.LocationsGraph
         Feature.Tablet -> it to FeatureDestination.LocationsGraph

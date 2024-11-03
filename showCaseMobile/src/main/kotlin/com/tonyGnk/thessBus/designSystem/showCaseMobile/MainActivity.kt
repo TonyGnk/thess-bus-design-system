@@ -14,14 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.compose.rememberNavController
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 
-internal class MainActivity : ComponentActivity() {
+internal class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -34,7 +36,6 @@ internal class MainActivity : ComponentActivity() {
 //            delay(1)
 //            keepSplashScreenOn = false
 //        }
-
 
         enableEdgeToEdge()
         setContent {

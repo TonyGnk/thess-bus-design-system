@@ -1,24 +1,23 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.rememberMarkerState
+import androidx.fragment.compose.AndroidFragment
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MyGoogleMap
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.bitmapDescriptorFromVector
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.searchContainer.MapsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import org.maplibre.android.geometry.LatLng
 
 
 @SuppressLint("UnrememberedMutableState")
@@ -28,87 +27,91 @@ fun DestinationOverviewMapLayer(
 ) {
     val context = LocalContext.current
 
-    MyGoogleMap(
-        setTypeOnMap = items.onPickItem,
-        onCameraPositionChanged = items.onCameraPositionChanged,
-        givenType = items.pickedItem,
-    ) {
-        when (items.pickedItem) {
-            is DirectionsFeatureItemType.JustMap -> {}
-            is DirectionsFeatureItemType.MultipleItems -> {}
-            is DirectionsFeatureItemType.SingleItem -> {
-                val markerState = rememberMarkerState(
-                    position = LatLng(
-                        items.pickedItem.lat, items.pickedItem.lon
-                    )
-                )
-                val previousLat = remember { mutableDoubleStateOf(markerState.position.latitude) }
-                val previousLng = remember { mutableDoubleStateOf(markerState.position.longitude) }
+    AndroidFragment<MapsFragment>(
+        modifier = Modifier.fillMaxSize()
+    )
 
-                LaunchedEffect(items.pickedItem.lat, items.pickedItem.lon) {
-                    //if new is different then animate
-                    if (
-                        previousLat.doubleValue != items.pickedItem.lat &&
-                        previousLng.doubleValue != items.pickedItem.lon
-                    ) {
-                        animateMarker(
-                            markerState = MarkerState(
-                                LatLng(previousLat.doubleValue, previousLng.doubleValue)
-                            ),
-                            targetPosition = LatLng(items.pickedItem.lat, items.pickedItem.lon),
-                        ) { newPosition ->
-                            markerState.position = newPosition  // Update marker position
-                        }
-                        previousLat.doubleValue = items.pickedItem.lat
-                        previousLng.doubleValue = items.pickedItem.lon
-                    }
-                }
-
-
-                Marker(
-                    state = markerState,
-                    draggable = false,
-                    flat = false,
-                    zIndex = 0f,
-                    icon = bitmapDescriptorFromVector(
-                        context = context,
-                        vectorResId = AppIcon.locationSolid,
-                        color = AppColor.red.toArgb(),
-                    )
-                )
-            }
-        }
-    }
+    // MyGoogleMap(
+//        setTypeOnMap = items.onPickItem,
+//        onCameraPositionChanged = items.onCameraPositionChanged,
+//        givenType = items.pickedItem,
+//    ) {
+//        when (items.pickedItem) {
+//            is DirectionsFeatureItemType.JustMap -> {}
+//            is DirectionsFeatureItemType.MultipleItems -> {}
+//            is DirectionsFeatureItemType.SingleItem -> {
+//                val markerState = rememberMarkerState(
+//                    position = LatLng(
+//                        items.pickedItem.lat, items.pickedItem.lon
+//                    )
+//                )
+//                val previousLat = remember { mutableDoubleStateOf(markerState.position.latitude) }
+//                val previousLng = remember { mutableDoubleStateOf(markerState.position.longitude) }
+//
+//                LaunchedEffect(items.pickedItem.lat, items.pickedItem.lon) {
+//                    //if new is different then animate
+//                    if (
+//                        previousLat.doubleValue != items.pickedItem.lat &&
+//                        previousLng.doubleValue != items.pickedItem.lon
+//                    ) {
+//                        animateMarker(
+//                            markerState = MarkerState(
+//                                LatLng(previousLat.doubleValue, previousLng.doubleValue)
+//                            ),
+//                            targetPosition = LatLng(items.pickedItem.lat, items.pickedItem.lon),
+//                        ) { newPosition ->
+//                            markerState.position = newPosition  // Update marker position
+//                        }
+//                        previousLat.doubleValue = items.pickedItem.lat
+//                        previousLng.doubleValue = items.pickedItem.lon
+//                    }
+//                }
+//
+//
+//                Marker(
+//                    state = markerState,
+//                    draggable = false,
+//                    flat = false,
+//                    zIndex = 0f,
+//                    icon = bitmapDescriptorFromVector(
+//                        context = context,
+//                        vectorResId = AppIcon.locationSolid,
+//                        color = AppColor.red.toArgb(),
+//                    )
+//                )
+//            }
+//        }
+//    }
 }
 
-suspend fun animateMarker(
-    markerState: MarkerState,
-    targetPosition: LatLng,
-    duration: Long = 400L,  // Duration in milliseconds
-    onUpdate: (LatLng) -> Unit  // Callback to update marker's position
-) {
-    val startPosition = markerState.position
-    val startLat = startPosition.latitude
-    val startLng = startPosition.longitude
-    val endLat = targetPosition.latitude
-    val endLng = targetPosition.longitude
-
-    val latDifference = endLat - startLat
-    val lngDifference = endLng - startLng
-
-    val steps = 1440  // The number of steps for smoothness
-    val delayTime = duration / steps
-
-    for (i in 0..steps) {
-        val fraction = i / steps.toFloat()
-        val newLat = startLat + (latDifference * fraction)
-        val newLng = startLng + (lngDifference * fraction)
-        val newPosition = LatLng(newLat, newLng)
-
-        // Update marker's position in each step
-        withContext(Dispatchers.Main) {
-            onUpdate(newPosition)
-        }
-        delay(delayTime)
-    }
-}
+//suspend fun animateMarker(
+//    markerState: MarkerState,
+//    targetPosition: LatLng,
+//    duration: Long = 400L,  // Duration in milliseconds
+//    onUpdate: (LatLng) -> Unit  // Callback to update marker's position
+//) {
+//    val startPosition = markerState.position
+//    val startLat = startPosition.latitude
+//    val startLng = startPosition.longitude
+//    val endLat = targetPosition.latitude
+//    val endLng = targetPosition.longitude
+//
+//    val latDifference = endLat - startLat
+//    val lngDifference = endLng - startLng
+//
+//    val steps = 1440  // The number of steps for smoothness
+//    val delayTime = duration / steps
+//
+//    for (i in 0..steps) {
+//        val fraction = i / steps.toFloat()
+//        val newLat = startLat + (latDifference * fraction)
+//        val newLng = startLng + (lngDifference * fraction)
+//        val newPosition = LatLng(newLat, newLng)
+//
+//        // Update marker's position in each step
+//        withContext(Dispatchers.Main) {
+//            onUpdate(newPosition)
+//        }
+//        delay(delayTime)
+//    }
+//}

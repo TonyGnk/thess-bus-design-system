@@ -73,8 +73,6 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.maps.compose)
-
 
     baselineProfile(project(":baselineprofile"))
     implementation(project(":library"))

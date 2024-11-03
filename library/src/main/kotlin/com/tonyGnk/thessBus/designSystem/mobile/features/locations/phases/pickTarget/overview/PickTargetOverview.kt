@@ -21,6 +21,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.CollectionWidget
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
@@ -28,8 +29,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 @Composable
 internal fun PickTargetOverview(
     modifier: Modifier = Modifier,
-    collectionState: LocationsPickTargetItems.CollectionState = LocationsPickTargetItems.CollectionState(),
     horizontalPadding: PaddingValues = PaddingValues(0.dp),
+    favoritesState: LocationsPickTargetItems.FavoritesState = LocationsPickTargetItems.FavoritesState(),
     historyState: LocationsPickTargetItems.HistoryState = LocationsPickTargetItems.HistoryState(),
 ) {
     val labelStyle = AppTypo.titleMedium.copy(
@@ -63,24 +64,28 @@ internal fun PickTargetOverview(
             )
         }
 
-
         Column(
             verticalArrangement = Arrangement.spacedBy(arrangement.dp),
             modifier = Modifier.padding(horizontalPadding)
         ) {
             Text(text = "Collections", style = labelStyle)
             SurfaceWithShadows(
+                modifier = Modifier.fillMaxWidth(),
                 shadowElevation = 0,
                 color = AppColor.surfaceLowest,
                 shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
             ) {
                 Column {
-                    PickTargetOverviewCollection(
-                        onFavoriteClick = collectionState.onSavedLocationClick,
-                        onAddCollectionClick = collectionState.onAddCollectionClick,
-                        onFavoriteNotConfiguredClick = collectionState.onNotConfiguredClick,
-                        selectedFavoriteItemId = collectionState.selectedId,
-                        updateSelectedFavoriteItemId = collectionState.updateSelectedFavoriteItemId,
+                    CollectionWidget(
+                        onFavoriteClick = favoritesState.onClick,
+                        onAddCollectionClick = favoritesState.onAdd,
+                        onFavoriteNotConfiguredClick = favoritesState.onNotConfigured,
+                        selectedFavoriteItemId = favoritesState.selectedId,
+                        updateSelectedFavoriteItemId = favoritesState.onLongPress,
+                        favorites = favoritesState.items,
+                        onDeleteItem = favoritesState.onDeleteItem,
+                        onEditItem = favoritesState.onEditItem,
+                        onUnpinItem = favoritesState.onUnpinItem,
                     )
                 }
             }

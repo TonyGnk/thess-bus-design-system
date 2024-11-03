@@ -52,6 +52,7 @@ fun IconWithTextRow(
     modifier: Modifier = Modifier,
     arrangement: Arrangement.Horizontal,
     style: TextStyle = AppTypo.labelLarge.copy(color = contentColor),
+    iconLeft: Boolean = true,
     weight: FontWeight = FontWeight.Normal
 ) {
     when (iconRes) {
@@ -63,12 +64,16 @@ fun IconWithTextRow(
                 modifier = modifier,
                 horizontalArrangement = arrangement,
             ) {
+                if (!iconLeft) Text(
+                    text = text, style = style, weight = weight
+                )
+
                 Icon(
                     iconRes = iconRes,
                     color = contentColor,
                     modifier = Modifier.size(size.height + 1.dp)
                 )
-                Text(text = text, style = style, weight = weight)
+                if (iconLeft) Text(text = text, style = style, weight = weight)
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.mobile.utils.map
 
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.CameraPositionState
+import org.maplibre.android.geometry.LatLng
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
@@ -34,34 +33,34 @@ import kotlin.math.sqrt
 
 //When zoom 12 then is 0.01
 
-fun isOutOfBounds(
-    camera: CameraPositionState,
-    latLng: LatLng,
-): Boolean {
-    val projection = camera.projection ?: return false
-
-    val visibleRegion = projection.visibleRegion
-    val bounds = visibleRegion.latLngBounds
-    val center = bounds.center
-
-    // Calculate distances to corners and center
-    val distanceToCenter = distance(latLng, center)
-    val distanceToSouthWest = distance(latLng, bounds.southwest)
-    val distanceToNorthEast = distance(latLng, bounds.northeast)
-    val distanceToNorthWest = distance(latLng, visibleRegion.farLeft)
-    val distanceToSouthEast = distance(latLng, visibleRegion.farRight)
-
-    // Find the minimum distance to any corner
-    val minCornerDistance = minOf(
-        distanceToSouthWest,
-        distanceToNorthEast,
-        distanceToNorthWest,
-        distanceToSouthEast
-    )
-
-    // If the point is closer to any corner than to the center, it's considered "out of bounds"
-    return minCornerDistance < distanceToCenter
-}
+//fun isOutOfBounds(
+//    camera: CameraPositionState,
+//    latLng: LatLng,
+//): Boolean {
+//    val projection = camera.projection ?: return false
+//
+//    val visibleRegion = projection.visibleRegion
+//    val bounds = visibleRegion.latLngBounds
+//    val center = bounds.center
+//
+//    // Calculate distances to corners and center
+//    val distanceToCenter = distance(latLng, center)
+//    val distanceToSouthWest = distance(latLng, bounds.southwest)
+//    val distanceToNorthEast = distance(latLng, bounds.northeast)
+//    val distanceToNorthWest = distance(latLng, visibleRegion.farLeft)
+//    val distanceToSouthEast = distance(latLng, visibleRegion.farRight)
+//
+//    // Find the minimum distance to any corner
+//    val minCornerDistance = minOf(
+//        distanceToSouthWest,
+//        distanceToNorthEast,
+//        distanceToNorthWest,
+//        distanceToSouthEast
+//    )
+//
+//    // If the point is closer to any corner than to the center, it's considered "out of bounds"
+//    return minCornerDistance < distanceToCenter
+//}
 
 // Helper function to calculate distance between two LatLng points
 private fun distance(point1: LatLng, point2: LatLng): Double {

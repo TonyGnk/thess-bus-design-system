@@ -24,7 +24,10 @@ object AppIcon {
     val sign = R.drawable.sign
     val question = R.drawable.question
     val work = R.drawable.work
+    val trash = R.drawable.trash
     val locationSolid = R.drawable.location_solid
+    val pin = R.drawable.pin
+    val edit = R.drawable.edit
 
 
     //Categories

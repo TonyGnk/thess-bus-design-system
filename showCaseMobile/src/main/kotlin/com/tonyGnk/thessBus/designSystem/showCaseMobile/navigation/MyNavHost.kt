@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.BlurThing
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalAnimatedContentScope
 import com.tonyGnk.thessBus.designSystem.mobile.utils.LocalSharedTransitionScope
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs.componentGraph
@@ -41,10 +40,6 @@ fun MyNavHost(navController: NavHostController) {
                         LandingDestination.Icons -> navController.navigate(TopDestination.Icons)
                         LandingDestination.Colors -> navController.navigate(TopDestination.Colors)
                     }
-                }
-
-                route<TopDestination.Blur> {
-                    BlurThing()
                 }
 
                 route<TopDestination.Landing> {

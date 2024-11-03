@@ -8,9 +8,6 @@ sealed interface TopDestination {
     data object Landing : TopDestination
 
     @Serializable
-    data object Blur : TopDestination
-
-    @Serializable
     data object Icons : TopDestination
 
     @Serializable
@@ -30,6 +27,9 @@ sealed interface FeatureDestination {
 
     @Serializable
     data object LocationsGraph : FeatureDestination
+
+    @Serializable
+    data object DirectionsGraph : FeatureDestination
 }
 
 @Serializable
@@ -73,5 +73,17 @@ sealed interface FeatureLocationsDestination {
 
     @Serializable
     data object PickStart : FeatureLocationsDestination
+}
 
+@Serializable
+sealed interface FeatureDirectionsDestination {
+    @Serializable
+    data class Home(
+        val startLocationName: String,
+        val startLat: Double,
+        val startLon: Double,
+        val endLocationName: String,
+        val endLat: Double,
+        val endLon: Double
+    ) : FeatureDirectionsDestination
 }

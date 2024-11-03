@@ -1,7 +1,7 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment.map
 
-import com.google.android.gms.maps.model.LatLng
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
+import org.maplibre.android.geometry.LatLng
 
 data class CustomCameraPosition(
     val latLng: LatLng,

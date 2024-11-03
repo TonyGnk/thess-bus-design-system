@@ -27,7 +27,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
-internal fun LazyListOfPickTargetItems(
+internal fun ResultList(
     modifier: Modifier = Modifier,
     onClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
     items: List<DirectionsFeatureItemType.SingleItem>
@@ -117,7 +117,7 @@ internal fun PickTargetResult(
 private fun Preview() = ThessBusTheme {
     val results = PickTargetFakeResults
 
-    LazyListOfPickTargetItems(
+    ResultList(
         items = results,
         onClick = { _ -> },
     )

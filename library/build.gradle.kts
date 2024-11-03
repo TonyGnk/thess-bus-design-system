@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.core.splashscreen)
@@ -58,8 +59,12 @@ dependencies {
 
 
     implementation(libs.lottie.compose)
-    implementation(libs.maps.compose)
+    api(libs.android.sdk)
 
+
+    api(libs.androidx.fragment)
+    api(libs.androidx.fragment.ktx)
+    api(libs.androidx.fragment.compose)
 
     baselineProfile(project(":baselineprofile"))
 }

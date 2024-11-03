@@ -6,10 +6,10 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeFavorites
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FakeFavoritesItems
 
 @Stable
 data class LocationsPickTargetItems(
@@ -20,14 +20,14 @@ data class LocationsPickTargetItems(
     val setBottomSheetType: (CollectionBottomSheetType) -> Unit,
     val historyState: HistoryState = HistoryState(),
     val horizontalPadding: PaddingValues,
-    val searchState: SearchState,
-    val collectionsState: CollectionState,
+    val searchState: LocationsPickersSearchState,
+    val collectionsState: FavoritesState,
     val sharedElementIds: SharedElementIds = SharedElementIds()
 ) {
     companion object {
         val preview = LocationsPickTargetItems(
-            searchState = SearchState(),
-            collectionsState = CollectionState(),
+            searchState = LocationsPickersSearchState(),
+            collectionsState = FavoritesState(),
             onBack = {},
             setBottomSheetType = {},
             collectionsBottomSheetType = CollectionBottomSheetType.Hidden,
@@ -45,22 +45,16 @@ data class LocationsPickTargetItems(
         val magnifier: String = "magnifier"
     )
 
-    data class SearchState(
-        val onSearchIme: () -> Unit = {},
-        val onResultClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
-        val textFieldState: TextFieldState = TextFieldState(),
-        val results: List<DirectionsFeatureItemType.SingleItem> = emptyList(),
-        val requestFocus: Boolean = false,
-        val clearText: () -> Unit = {}
-    )
-
-    data class CollectionState(
-        val onAddCollectionClick: () -> Unit = {},
-        val items: List<DirectionsFeatureItemType.SingleItem> = PickTargetFakeFavorites,
+    data class FavoritesState(
+        val items: List<FavoriteItem> = FakeFavoritesItems,
         val selectedId: Int? = null,
-        val onNotConfiguredClick: () -> Unit = {},
-        val onSavedLocationClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
-        val updateSelectedFavoriteItemId: (Int?) -> Unit = {}
+        val onAdd: () -> Unit = {},
+        val onNotConfigured: () -> Unit = {},
+        val onClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
+        val onLongPress: (Int?) -> Unit = {},
+        val onEditItem: (Int) -> Unit = {},
+        val onDeleteItem: (Int) -> Unit = {},
+        val onUnpinItem: (Int) -> Unit = {}
     )
 
     data class HistoryState(
@@ -68,3 +62,12 @@ data class LocationsPickTargetItems(
         val onClick: (DirectionsFeatureItemType.SingleItem) -> Unit = {}
     )
 }
+
+data class LocationsPickersSearchState(
+    val onSearchIme: () -> Unit = {},
+    val onResultClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
+    val textFieldState: TextFieldState = TextFieldState(),
+    val results: List<DirectionsFeatureItemType.SingleItem> = emptyList(),
+    val requestFocus: Boolean = false,
+    val clearText: () -> Unit = {}
+)
