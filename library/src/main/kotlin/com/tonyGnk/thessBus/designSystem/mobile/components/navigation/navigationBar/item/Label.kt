@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
@@ -38,15 +39,15 @@ internal fun NavigationBarItemLabel(
 ) {
     val textStyle = if (selected) {
         LocalTextStyle.current.copy(
-            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
-            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
-            fontWeight = FontWeight.Black
+            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            fontWeight = FontWeight.W800
         )
     } else {
         LocalTextStyle.current.copy(
-            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
-            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.toSp(),
-            fontWeight = FontWeight.Thin
+            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            fontWeight = FontWeight.W400
         )
     }
 

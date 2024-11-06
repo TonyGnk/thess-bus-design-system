@@ -1,35 +1,74 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.os.bundleOf
 import androidx.fragment.compose.AndroidFragment
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MyLibreMap
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.searchContainer.MapsFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.Style
+import org.ramani.compose.CameraPosition
+import org.ramani.compose.Circle
+import org.ramani.compose.MapLibre
+import org.ramani.compose.MapProperties
+import org.ramani.compose.Polygon
+import org.ramani.compose.UiSettings
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.InputStream
 
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun DestinationOverviewMapLayer(
     items: LocationsLookTargetItems,
 ) {
-    val context = LocalContext.current
 
-    AndroidFragment<MapsFragment>(
-        modifier = Modifier.fillMaxSize()
+
+//    val cameraPosition = rememberSaveable {
+//        mutableStateOf(
+//            CameraPosition(
+//                target = LatLng(40.631619, 22.953482), zoom = 13.0, tilt = 15.0
+//            )
+//        )
+//    }
+    MyLibreMap(
+        modifier = Modifier.fillMaxSize(),
+        pickedItem = items.pickedItem
     )
+//    MapLibre(
+//        modifier = Modifier.fillMaxSize(),
+//        uiSettings = UiSettings(),
+//        properties = MapProperties(),
+//        styleBuilder = Style.Builder().fromUri(
+//            Uri.fromFile(mapStyle).toString()
+//        ),
+//        cameraPosition = when (val pickedItem = items.pickedItem) {
+//            is DirectionsFeatureItemType.JustMap -> cameraPosition.value
+//            is DirectionsFeatureItemType.MultipleItems -> cameraPosition.value
+//            is DirectionsFeatureItemType.SingleItem -> CameraPosition(
+//                target = LatLng(pickedItem.lat, pickedItem.lon),
+//                zoom = 13.0,
+//                tilt = 15.0
+//            )
+//        },
+//    ) {
+//        // Create a handle for each vertex (those are blue circles)
+//
+//    }
+
 
     // MyGoogleMap(
 //        setTypeOnMap = items.onPickItem,

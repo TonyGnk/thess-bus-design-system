@@ -44,12 +44,12 @@ fun Modifier.applyContextMenu(enable: Boolean): Modifier {
         }
     ) { if (it) 8.dp else 0.dp }
 
-    return if (enable) this.then(
+    return this.then(
         Modifier
             .drawWithContent {
                 drawContent()
                 drawRect(color = Color.Black.copy(alpha = alpha))
             }
             .blur(blur)
-    ) else this
+    )
 }

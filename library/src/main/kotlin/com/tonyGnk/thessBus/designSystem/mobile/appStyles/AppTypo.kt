@@ -78,7 +78,7 @@ object AppTypo {
     val topBar: TextStyle
         @Composable
         get() = MaterialTheme.typography.headlineMedium.copy(
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.W600,
             fontSize = 20.sp,
             color = AppColor.onSurface
         )

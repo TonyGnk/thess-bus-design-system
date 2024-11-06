@@ -59,7 +59,9 @@ dependencies {
 
 
     implementation(libs.lottie.compose)
-    api(libs.android.sdk)
+    //api(libs.android.sdk)
+    api(libs.ramani.maplibre)
+
 
 
     api(libs.androidx.fragment)
@@ -74,7 +76,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.tonyGnk"
             artifactId = "thessBus-designSystem"
-            version = "0.0.18"
+            version = "0.0.19"
 
             afterEvaluate {
                 from(components["release"])

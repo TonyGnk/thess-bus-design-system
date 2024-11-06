@@ -101,18 +101,6 @@ private fun IconColumn(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        LottieAnimation(
-//            composition = lottieComposition,
-//            progress = animationProgress,
-//            dynamicProperties = rememberLottieDynamicProperties(
-//                rememberLottieDynamicProperty(
-//                    property = LottieProperty.COLOR_FILTER,
-//                    value = colorFilter,
-//                    keyPath = arrayOf("**")
-//                ),
-//            ),
-//            modifier = Modifier.size(LOTTIE_ANIMATION_SIZE.dp)
-//        )
         LottieIconStatic(
             lottieComposition = lottieComposition,
             progress = animationProgress,

@@ -5,8 +5,8 @@ import org.maplibre.android.geometry.LatLng
 
 data class CustomCameraPosition(
     val latLng: LatLng,
-    val zoom: Float,
-    val tilt: Float,
+    val zoom: Double,
+    val tilt: Double,
     val bearing: Float,
 ) {
     companion object {

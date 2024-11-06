@@ -84,7 +84,7 @@ fun LocationsPickTargetPre(
         collectionsState = LocationsPickTargetItems.FavoritesState(
             onClick = { item ->
                 model.setGivenType(item)
-                goToPickStart()
+                //goToPickStart()
             },
             onDeleteItem = { deleteFakeFavorite(it) },
             selectedId = state.selectedFavoriteItemId,

@@ -10,7 +10,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.R
 
 
 internal fun appTypography(
-    font: FontFamily = FontFamily(Font(R.font.inter_four_variable))
+    font: FontFamily = FontFamily.Default,
 ) = Typography(
     // Display
     displayLarge = TextStyle(

@@ -3,15 +3,32 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.containment.map
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
+import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues.DEFAULT_ITEM_ZOOM
+import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues.DEFAULT_TILT
+import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues.DEFAULT_ZOOM
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.Style
+import org.ramani.compose.CameraPosition
+import org.ramani.compose.MapLibre
+import org.ramani.compose.MapProperties
+import org.ramani.compose.UiSettings
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.InputStream
 
 //
 //fun bitmapDescriptorFromVector(
@@ -39,6 +56,92 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
 //    }
 //}
 //
+
+private fun copyStreamToFile(inputStream: InputStream, file: File) {
+    try {
+        inputStream.use { input ->
+            file.outputStream().use { output ->
+                val bytesCount = input.copyTo(output)
+            }
+        }
+    } catch (e: Exception) {
+        throw e
+    }
+}
+
+private fun getFileFromAssets(context: Context, fileName: String): File {
+    try {
+        val assetManager = context.assets
+        val inputStream = assetManager.open(fileName)
+        val file = File(context.filesDir, fileName)
+        copyStreamToFile(inputStream, file)
+        return file
+    } catch (e: Exception) {
+        throw e
+    }
+}
+
+private fun setupAndGetStyle(context: Context): File {
+    val styleJsonInputStream = context.assets.open("goodStyle.json")
+    val dir = File(context.filesDir.absolutePath)
+    val styleFile = File(dir, "goodStyle.json")
+    copyStreamToFile(styleJsonInputStream, styleFile)
+
+    val mbtilesFile: File = getFileFromAssets(context, "gr.mbtiles")
+
+    val styleContent = styleFile.inputStream().bufferedReader().use { it.readText() }
+
+    val newFileStr = styleContent.replace(
+        "___FILE_URI___",
+        "mbtiles:///${mbtilesFile.absolutePath}"
+    )
+
+    val gpxWriter = FileWriter(styleFile)
+    BufferedWriter(gpxWriter).use { out ->
+        out.write(newFileStr)
+    }
+    return styleFile
+}
+
+@Composable
+fun MyLibreMap(
+    modifier: Modifier = Modifier,
+    pickedItem: DirectionsFeatureItemType,
+) {
+    val context = LocalContext.current
+
+    val styleBuilder = remember {
+        val style = setupAndGetStyle(context)
+        Style.Builder().fromUri(
+            Uri.fromFile(style).toString()
+        )
+    }
+    val uiSettings = rememberSaveable {
+        UiSettings()
+    }
+    val mapProperties = rememberSaveable {
+        MapProperties()
+    }
+
+    val cameraPosition = rememberSaveable {
+        CameraPosition(
+            target = getLatLngForType(pickedItem),
+            zoom = if (pickedItem is DirectionsFeatureItemType.SingleItem) DEFAULT_ITEM_ZOOM else DEFAULT_ZOOM,
+            tilt = DEFAULT_TILT,
+        )
+    }
+
+    MapLibre(
+        modifier = modifier,
+        uiSettings = uiSettings,
+        properties = mapProperties,
+        styleBuilder = styleBuilder,
+        cameraPosition = cameraPosition
+    ) {
+
+    }
+}
+
 //@Composable
 //fun MyGoogleMap(
 //    modifier: Modifier = Modifier,
@@ -155,16 +258,16 @@ import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
 //}
 //
 //
-//private fun getLatLngForType(givenType: DirectionsFeatureItemType): LatLng {
-//    return when (givenType) {
-//        is DirectionsFeatureItemType.JustMap,
-//        is DirectionsFeatureItemType.MultipleItems -> LatLng(
-//            DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
-//        )
-//
-//        is DirectionsFeatureItemType.SingleItem -> LatLng(givenType.lat, givenType.lon)
-//    }
-//}
+private fun getLatLngForType(givenType: DirectionsFeatureItemType): LatLng {
+    return when (givenType) {
+        is DirectionsFeatureItemType.JustMap,
+        is DirectionsFeatureItemType.MultipleItems -> LatLng(
+            DefaultMapValues.DEFAULT_LAT, DefaultMapValues.DEFAULT_LON
+        )
+
+        is DirectionsFeatureItemType.SingleItem -> LatLng(givenType.lat, givenType.lon)
+    }
+}
 
 //private fun getDefaultZoomForType(givenType: DirectionsFeatureItemType): Float {
 //    return when (givenType) {
