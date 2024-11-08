@@ -19,7 +19,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.CenteredTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 
 
 @Composable
@@ -33,7 +33,7 @@ fun OverviewCollection(
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = extendedWindowInsets,
+        contentPadding = getExtendedWindowInsets(),
     ) {
         item {
             CenteredTopBar(

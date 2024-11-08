@@ -42,6 +42,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.Bas
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
 private const val FLAT_ICON_ICON = 0xFF17D1C6
@@ -64,7 +65,7 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
     LazyVerticalGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = extendedWindowInsets,
+        contentPadding = getExtendedWindowInsets(),
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),

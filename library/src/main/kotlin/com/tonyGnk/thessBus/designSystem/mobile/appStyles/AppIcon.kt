@@ -28,6 +28,7 @@ object AppIcon {
     val locationSolid = R.drawable.location_solid
     val pin = R.drawable.pin
     val edit = R.drawable.edit
+    val menu = R.drawable.menu
 
 
     //Categories

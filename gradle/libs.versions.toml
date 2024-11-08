@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.1"
+agp = "8.7.2"
 androidSdk = "11.5.2"
 androidxCoreSplashscreen = "1.0.1"
 animation = "1.8.0-alpha05"

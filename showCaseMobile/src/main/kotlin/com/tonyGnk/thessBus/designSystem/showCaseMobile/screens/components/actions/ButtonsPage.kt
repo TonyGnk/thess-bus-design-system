@@ -22,8 +22,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
 
@@ -33,7 +33,7 @@ private const val ARRANGEMENT = 11
 fun ComponentsActionsButtonPage(onBack: () -> Unit = {}) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(ARRANGEMENT.dp),
-        contentPadding = extendedWindowInsets.add(bottom = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+        contentPadding = getExtendedWindowInsets().add(bottom = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),

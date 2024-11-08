@@ -15,29 +15,32 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 fun Modifier.extendedWindowInsets() = composed {
-    this.padding(extendedWindowInsets)
+    this.padding(getExtendedWindowInsets())
 }
 
-val extendedWindowInsets: PaddingValues
-    @Composable
-    get() {
-        val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
-        val top = systemBarPadding.calculateTopPadding()
-        val start = systemBarPadding.calculateStartPadding(
-            layoutDirection = LayoutDirection.Ltr
-        )
-        val end = systemBarPadding.calculateEndPadding(
-            layoutDirection = LayoutDirection.Ltr
-        )
-        val bottom = systemBarPadding.calculateBottomPadding()
+@Composable
+fun getExtendedWindowInsets(
+    topPaddingIfNoStatusBar: Dp = 0.dp
+): PaddingValues {
+    val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
+    val top = systemBarPadding.calculateTopPadding()
+    val start = systemBarPadding.calculateStartPadding(
+        layoutDirection = LayoutDirection.Ltr
+    )
+    val end = systemBarPadding.calculateEndPadding(
+        layoutDirection = LayoutDirection.Ltr
+    )
+    val bottom = systemBarPadding.calculateBottomPadding()
 
-        return PaddingValues(
-            top = top + if (top > 0.dp) 4.dp else 0.dp,
-            start = start,
-            end = end,
-            bottom = bottom
-        )
-    }
+    return PaddingValues(
+        top = if (top > 0.dp) {
+            top + 4.dp
+        } else topPaddingIfNoStatusBar,
+        start = start,
+        end = end,
+        bottom = bottom
+    )
+}
 
 
 fun PaddingValues.add(horizontally: Dp = 0.dp, vertically: Dp = 0.dp): PaddingValues {

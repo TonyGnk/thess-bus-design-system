@@ -30,7 +30,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTa
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.ResultList
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 
 
 @Composable
@@ -109,7 +109,7 @@ internal fun LocationPickerContent(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = if (items.applySystemBarPadding) {
-            extendedWindowInsets
+            getExtendedWindowInsets()
         } else {
             PaddingValues(0.dp)
         },

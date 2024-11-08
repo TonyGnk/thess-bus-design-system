@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
@@ -29,11 +30,12 @@ fun IconButton(
     onClick: (() -> Unit)? = null,
     color: Color = AppColor.background,
     contentColor: Color = AppColor.onSurface,
+    shape: Shape = AppShape.round20,
     contentDescription: String = "",
 ) {
     if (iconRes != 0) Box(
         modifier = selectionModifier
-            .clip(AppShape.round20)
+            .clip(shape)
             .background(color)
             .then(
                 if (onClick != null) Modifier.clickable(

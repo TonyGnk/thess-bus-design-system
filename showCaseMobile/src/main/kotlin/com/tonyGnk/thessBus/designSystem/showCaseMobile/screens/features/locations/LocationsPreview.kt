@@ -22,7 +22,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.L
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickStart.LocationsPickStart
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickersSearchState
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.deleteFakeFavorite
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.preview.LocationsFeatureModel
 
 @Composable
@@ -38,7 +38,7 @@ fun LocationsStartPre(
     )
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = extendedWindowInsets
+        contentPadding = getExtendedWindowInsets()
     ) {
         item {
             LocationsCard(
