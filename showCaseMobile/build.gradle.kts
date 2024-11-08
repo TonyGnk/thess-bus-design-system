@@ -12,11 +12,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.tonyGnk.thessBus.designSystem.mobile2"
+        applicationId = "com.tonyGnk.thessBus.designSystem.mobile"
         minSdk = 26
         targetSdk = 35
         versionCode = 19
-        versionName = "0.0.19"
+        versionName = "0.0.20"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

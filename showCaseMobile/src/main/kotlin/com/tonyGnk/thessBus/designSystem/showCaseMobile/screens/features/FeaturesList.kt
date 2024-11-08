@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -130,6 +131,8 @@ private fun CoolGradientBox(
     modifier: Modifier = Modifier,
     navigateTo: (FeatureDestination) -> Unit = {},
 ) {
+    val hasClick = remember { mutableStateOf(false) }
+
     val gradientBrush = remember {
         Brush.linearGradient(
             colors = listOf(
@@ -158,7 +161,10 @@ private fun CoolGradientBox(
 
             .then(
                 if (feature.enabled) Modifier.clickable {
-                    navigateTo(featureToPreview[feature]!!)
+                    if (!hasClick.value) {
+                        navigateTo(featureToPreview[feature]!!)
+                        hasClick.value = true
+                    }
                 } else Modifier.background(
                     Color.Black.copy(
                         alpha = 0.5f
