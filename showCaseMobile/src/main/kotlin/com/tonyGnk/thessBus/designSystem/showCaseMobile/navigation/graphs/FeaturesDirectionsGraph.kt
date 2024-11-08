@@ -6,7 +6,7 @@ import androidx.navigation.toRoute
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirectionsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
 
 fun NavGraphBuilder.featuresDirectionsGraph(
     navController: NavController
@@ -21,7 +21,7 @@ fun NavGraphBuilder.featuresDirectionsGraph(
             "A", 40.64, 22.94, "B", 3.0, 3.3
         )
     ) {
-        route<FeatureDirectionsDestination.Home> {
+        node<FeatureDirectionsDestination.Home> {
             val args =
                 it.toRoute<com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirectionsDestination.Home>()
             com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.DirectionsOverview(

@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class LocationsFeatureModel : ViewModel() {
-    private val _state = MutableStateFlow(DirectionsFeaturePreviewState())
-    val state: StateFlow<DirectionsFeaturePreviewState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(LocationsFeaturePreviewState())
+    val state: StateFlow<LocationsFeaturePreviewState> = _state.asStateFlow()
 
     private val _mapCamera = MutableStateFlow(CustomCameraPosition.DEFAULT)
 
@@ -63,7 +63,7 @@ class LocationsFeatureModel : ViewModel() {
 }
 
 @Stable
-data class DirectionsFeaturePreviewState(
+data class LocationsFeaturePreviewState(
     val textState: TextFieldState = TextFieldState(
         initialText = "", initialSelection = TextRange("".length),
     ),

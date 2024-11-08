@@ -42,19 +42,19 @@ fun MyNavHost(navController: NavHostController) {
                     }
                 }
 
-                route<TopDestination.Landing> {
+                node<TopDestination.Landing> {
                     LandingPage(
                         navigateToDestination = navigateToTopDestination
                     )
                 }
 
-                route<TopDestination.Icons> {
+                node<TopDestination.Icons> {
                     IconsGridPage(
                         onBack = { navController.navigateUp() }
                     )
                 }
 
-                route<TopDestination.Colors> {
+                node<TopDestination.Colors> {
                     ColorsGridPage(
                         onBack = { navController.navigateUp() }
                     )
@@ -68,7 +68,7 @@ fun MyNavHost(navController: NavHostController) {
 }
 
 
-inline fun <reified R : Any> NavGraphBuilder.route(
+inline fun <reified R : Any> NavGraphBuilder.node(
     noinline enterTransition: () -> EnterTransition = AppTransition.nativeEnter,
     noinline exitTransition: () -> ExitTransition = AppTransition.nativeExit,
     noinline popEnterTransition: () -> EnterTransition? = AppTransition.nativeEnterPop,

@@ -38,6 +38,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
@@ -53,8 +54,9 @@ private const val FLAT_ICON_BACK = 0xFF081126
 fun IconsGridPage(onBack: () -> Unit = {}) {
 
     val context = LocalContext.current
-    val items = getAllDrawables(context)
-
+    val items = remember {
+        AppIcon.allIcons
+    }
     val navigateToFlatIcon = remember {
         {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.flaticon.com/"))
@@ -97,8 +99,8 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    iconRes = item.second,
-                    contentDescription = item.first,
+                    iconRes = item,
+                    contentDescription = "",
                     color = AppColor.onSurface
                 )
             }

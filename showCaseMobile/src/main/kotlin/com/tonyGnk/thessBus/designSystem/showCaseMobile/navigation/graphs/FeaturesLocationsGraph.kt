@@ -10,9 +10,10 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirect
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureLocationsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.DirectionsFeaturePager
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsLookTargetPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickStartPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickTargetPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsStartPre
 
@@ -41,9 +42,9 @@ fun NavGraphBuilder.featuresLocationsGraph(
     graph<FeatureDestination.LocationsGraph>(
         startDestination = FeatureLocationsDestination.PickTarget
     ) {
-        route<FeatureLocationsDestination.Info> {
+        node<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {
-                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
             }
             DirectionsFeaturePager(
                 model = viewModel(parentEntry),
@@ -52,15 +53,15 @@ fun NavGraphBuilder.featuresLocationsGraph(
             )
         }
 
-        route<FeatureLocationsDestination.Card> {
+        node<FeatureLocationsDestination.Card> {
             LocationsStartPre(
                 goToPickTarget = { goTo(FeatureLocationsDestination.PickTarget) },
             )
         }
 
-        route<FeatureLocationsDestination.PickTarget> {
+        node<FeatureLocationsDestination.PickTarget> {
             val parentEntry = remember(it) {
-                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
             }
             LocationsPickTargetPre(
                 model = viewModel(parentEntry),
@@ -73,9 +74,9 @@ fun NavGraphBuilder.featuresLocationsGraph(
             )
         }
 
-        route<FeatureLocationsDestination.Collection> {
+        node<FeatureLocationsDestination.Collection> {
             val parentEntry = remember(it) {
-                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
             }
             LocationsPickTargetPre(
                 model = viewModel(parentEntry),
@@ -89,14 +90,14 @@ fun NavGraphBuilder.featuresLocationsGraph(
         }
 
 
-        route<FeatureLocationsDestination.LookTarget>(
+        node<FeatureLocationsDestination.LookTarget>(
             enterTransition = AppTransition.fadeEnter,
             popEnterTransition = AppTransition.fadeEnter,
             exitTransition = AppTransition.fadeExit,
             popExitTransition = AppTransition.fadeExit,
         ) {
             val parentEntry = remember(it) {
-                navController.getBackStackEntry(TopDestination.FeaturesGraph)
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
             }
             LocationsLookTargetPre(
                 model = viewModel(parentEntry),
@@ -105,12 +106,12 @@ fun NavGraphBuilder.featuresLocationsGraph(
             )
         }
 
-        route<FeatureLocationsDestination.PickStart> {
-            val parentEntry = androidx.compose.runtime.remember(it) {
-                navController.getBackStackEntry(com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination.FeaturesGraph)
+        node<FeatureLocationsDestination.PickStart> {
+            val parentEntry = remember(it) {
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
             }
-            com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickStartPre(
-                model = androidx.lifecycle.viewmodel.compose.viewModel(parentEntry),
+            LocationsPickStartPre(
+                model = viewModel(parentEntry),
                 goToDirections = goToDirections,
                 onBack = onBack,
             )

@@ -20,13 +20,13 @@ data class LocationsPickTargetItems(
     val setBottomSheetType: (CollectionBottomSheetType) -> Unit,
     val historyState: HistoryState = HistoryState(),
     val horizontalPadding: PaddingValues,
-    val searchState: LocationsPickersSearchState,
+    val searchState: SearchState,
     val collectionsState: FavoritesState,
     val sharedElementIds: SharedElementIds = SharedElementIds()
 ) {
     companion object {
         val preview = LocationsPickTargetItems(
-            searchState = LocationsPickersSearchState(),
+            searchState = SearchState(),
             collectionsState = FavoritesState(),
             onBack = {},
             setBottomSheetType = {},
@@ -61,13 +61,14 @@ data class LocationsPickTargetItems(
         val items: List<DirectionsFeatureItemType.SingleItem> = PickTargetFakeHistory,
         val onClick: (DirectionsFeatureItemType.SingleItem) -> Unit = {}
     )
-}
 
-data class LocationsPickersSearchState(
-    val onSearchIme: () -> Unit = {},
-    val onResultClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
-    val textFieldState: TextFieldState = TextFieldState(),
-    val results: List<DirectionsFeatureItemType.SingleItem> = emptyList(),
-    val requestFocus: Boolean = false,
-    val clearText: () -> Unit = {}
-)
+
+    data class SearchState(
+        val onSearchIme: () -> Unit = {},
+        val onClick: (DirectionsFeatureItemType.SingleItem?) -> Unit = {},
+        val textFieldState: TextFieldState = TextFieldState(),
+        val results: List<DirectionsFeatureItemType.SingleItem> = emptyList(),
+        val requestFocus: Boolean = false,
+        val clearText: () -> Unit = {}
+    )
+}

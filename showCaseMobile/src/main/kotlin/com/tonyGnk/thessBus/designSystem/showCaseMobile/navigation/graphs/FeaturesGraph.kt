@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.FeaturesList
 
 fun NavGraphBuilder.featuresGraph(
@@ -19,7 +19,7 @@ fun NavGraphBuilder.featuresGraph(
     graph<TopDestination.FeaturesGraph>(
         startDestination = FeatureDestination.List
     ) {
-        route<FeatureDestination.List> {
+        node<FeatureDestination.List> {
             FeaturesList(
                 onBack = onBack,
                 goTo = navigateTo

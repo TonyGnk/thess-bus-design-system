@@ -92,7 +92,7 @@ fun LocationsCard(
 private fun LargeLabel() = Text(
     text = "Where are you going?",
     style = AppTypo.titleLarge.copy(color = AppColor.onPrimary),
-    weight = FontWeight.Black,
+    weight = FontWeight.W600,
     textAlign = TextAlign.Start,
     modifier = Modifier.fillMaxWidth()
 )
@@ -129,6 +129,7 @@ fun SearchButton(
             Text(
                 text = searchLabel,
                 style = searchStyle,
+                weight = FontWeight.W400,
                 modifier = Modifier
                     .weight(1f)
                     .padding(vertical = LocationsProperties.IN_PADDING.dp)

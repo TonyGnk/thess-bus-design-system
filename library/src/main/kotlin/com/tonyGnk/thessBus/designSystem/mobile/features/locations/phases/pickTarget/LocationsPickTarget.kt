@@ -26,7 +26,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.menu.appl
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar.SearchBarType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickersSearchState
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.ResultList
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
@@ -61,7 +60,7 @@ fun LocationsPickTarget(
 
 @Composable
 internal fun LocationPickerEffects(
-    searchState: LocationsPickersSearchState,
+    searchState: LocationsPickTargetItems.SearchState,
     listState: LazyListState,
     focusManager: FocusManager,
     focusRequester: FocusRequester,
@@ -164,7 +163,7 @@ private fun LocationPickerResult(
     focusManager: FocusManager,
     padding: Dp,
     collectionsState: LocationsPickTargetItems.FavoritesState,
-    searchState: LocationsPickersSearchState
+    searchState: LocationsPickTargetItems.SearchState
 ) {
     AnimatedContent(targetState = emptyQuery, label = "") { showOverview ->
         when (showOverview) {
@@ -182,7 +181,7 @@ private fun LocationPickerResult(
                 modifier = Modifier.padding(horizontal = padding),
                 onClick = { item ->
                     focusManager.clearFocus()
-                    searchState.onResultClick(item)
+                    searchState.onClick(item)
                 },
                 items = searchState.results
             )

@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.ComponentDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.route
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.ComponentsList
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.NavigationBarPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.actions.ComponentsActionsButtonPage
@@ -27,22 +27,22 @@ fun NavGraphBuilder.componentGraph(
     graph<TopDestination.ComponentsGraph>(
         startDestination = ComponentDestination.Select
     ) {
-        route<ComponentDestination.Select> {
+        node<ComponentDestination.Select> {
             ComponentsList(
                 onComponentPick = onComponentPick,
                 onBack = onBack
             )
         }
 
-        route<ComponentDestination.NavigationBar> {
+        node<ComponentDestination.NavigationBar> {
             NavigationBarPage(onBack)
         }
 
-        route<ComponentDestination.Buttons> {
+        node<ComponentDestination.Buttons> {
             ComponentsActionsButtonPage(onBack)
         }
 
-        route<ComponentDestination.FloatingActionButton> {
+        node<ComponentDestination.FloatingActionButton> {
 //            NavigationBarPage(
 //                onBack = onBack
 //            )
