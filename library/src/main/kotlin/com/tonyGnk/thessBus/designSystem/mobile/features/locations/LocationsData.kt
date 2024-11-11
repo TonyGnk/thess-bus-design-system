@@ -3,8 +3,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations
 import androidx.annotation.DrawableRes
 import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItem
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItemType
 
 
 sealed interface DirectionsFeatureItemType {
@@ -89,7 +87,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.943383,
         title = "γγγ",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "2",
@@ -97,7 +95,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = "αριστοτελους",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "3",
@@ -105,7 +103,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = " ",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "4",
@@ -113,7 +111,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = "στάσεις",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "5",
@@ -121,7 +119,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.943383,
         title = "γγγ",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "6",
@@ -129,7 +127,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = "αριστοτελους",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "6",
@@ -137,7 +135,7 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = "αριστοτελους",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
     DirectionsFeatureItemType.SingleItem(
         id = "6",
@@ -145,6 +143,6 @@ val PickTargetFakeHistory = listOf(
         lon = 22.94337,
         title = "αριστοτελους",
         subTitle = "",
-        iconRes = AppIcon.clockFive,
+        iconRes = AppIcon.ClockFive.iconRes,
     ),
 )

@@ -14,12 +14,14 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,7 +40,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
@@ -54,9 +55,6 @@ private const val FLAT_ICON_BACK = 0xFF081126
 fun IconsGridPage(onBack: () -> Unit = {}) {
 
     val context = LocalContext.current
-    val items = remember {
-        AppIcon.allIcons
-    }
     val navigateToFlatIcon = remember {
         {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.flaticon.com/"))
@@ -84,10 +82,12 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
                 applyHorizontalPadding = false
             )
         }
+
         items(
-            count = items.size, key = { it }
-        ) { index ->
-            val item = items[index]
+            items = AppIcon.entries,
+            key = { it.name },
+            contentType = { "icon" } // Optional: helps with performance
+        ) { appIcon ->
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -99,7 +99,7 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    iconRes = item,
+                    iconRes = appIcon.iconRes,
                     contentDescription = "",
                     color = AppColor.onSurface
                 )
@@ -152,63 +152,13 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
                 Icon(
                     color = Color(FLAT_ICON_ICON),
                     modifier = Modifier.size(24.dp),
-                    iconRes = AppIcon.arrowRight,
+                    iconRes = AppIcon.ArrowRight.iconRes,
                 )
             }
         }
     }
 }
 
-fun getAllDrawables(context: Context): List<Pair<String, Int>> {
-    val drawables = mutableListOf<Pair<String, Int>>()
-    val fields = com.tonyGnk.thessBus.designSystem.mobile.R.drawable::class.java.fields
-
-    for (field in fields) {
-        try {
-            val drawableName = field.name
-            val drawableId = field.getInt(null)
-
-            // Verify that this resource ID actually corresponds to a drawable
-            if (isDrawable(context.resources, drawableId)) {
-                drawables.add(Pair(drawableName, drawableId))
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    return drawables.filter { !it.first.startsWith("ic_") && !it.first.startsWith("im_") }
-}
-
-private fun isDrawable(resources: Resources, resourceId: Int): Boolean {
-    return try {
-        resources.getResourceTypeName(resourceId) == "drawable"
-    } catch (e: Resources.NotFoundException) {
-        false
-    }
-}
-
-val invertWhiteFilter = ColorFilter.colorMatrix(
-    ColorMatrix().apply {
-        // setToIdentity()
-        // This line effectively inverts the white color while leaving the green parts untouched.
-        setToInvertWhite()
-    }
-)
-
-// Helper function to apply custom matrix for inverting whites
-fun ColorMatrix.setToInvertWhite() {
-    // Identity matrix: leaves colors as-is
-    //setToIdentity()
-
-    // Custom logic to invert only white color
-    // The values here can be tuned as needed to target the white areas specifically
-    val threshold = 0.9f // Define the range of white you want to invert
-    // Modify red, green, blue channels for the white inversion
-    for (i in 0 until 3) {
-        this[i, i] = if (this[i, i] > threshold) -1f else 1f // Invert only whites
-    }
-}
 
 @AppPreview.Dark
 @Composable

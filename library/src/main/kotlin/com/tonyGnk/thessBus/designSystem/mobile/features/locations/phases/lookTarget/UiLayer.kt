@@ -156,7 +156,7 @@ private fun PoiCard(
                 item {
                     FilledButton(
                         onClick = onNavigate,
-                        iconRes = AppIcon.navigate,
+                        iconRes = AppIcon.Navigate.iconRes,
                         text = "Πλοήγηση",
                         padding = PaddingValues(17.dp),
                         modifier = Modifier.padding(start = 20.dp)
@@ -172,7 +172,7 @@ private fun PoiCard(
                 }
                 item {
                     TonalButton(
-                        iconRes = AppIcon.share,
+                        iconRes = AppIcon.Share.iconRes,
                         text = "Κοινοποίηση",
                         onClick = {
                             val sendIntent = Intent().apply {
@@ -221,7 +221,7 @@ private fun PoiTextLabels(
         IconButton(
             onClick = onClose,
             color = AppColor.background,
-            iconRes = AppIcon.cross,
+            iconRes = AppIcon.Cross.iconRes,
             modifier = Modifier.size(14.dp)
         )
     }

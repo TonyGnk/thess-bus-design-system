@@ -26,7 +26,7 @@ fun FloatingActionButton(
     onClick: () -> Unit = {},
     forceExtended: Boolean = true,
     containerColor: Color = AppColor.primary,
-    iconRes: Int = AppIcon.search,
+    iconRes: Int = AppIcon.Search.iconRes,
     text: String = "Floating Button",
 ) {
     MaterialFloatingActionButton(

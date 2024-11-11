@@ -29,7 +29,7 @@ fun FloatingActionButtonAnimated(
     onClick: () -> Unit = {},
     forceExtended: Boolean = true,
     containerColor: Color = AppColor.primary,
-    iconRes: Int = AppIcon.search,
+    iconRes: Int = AppIcon.Search.iconRes,
     text: String = "Floating Button",
 ) {
     var initialExtended by remember { mutableStateOf(false) }

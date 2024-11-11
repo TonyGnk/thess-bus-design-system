@@ -28,7 +28,7 @@ fun FloatingActionIcon(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     containerColor: Color = AppColor.primary,
-    iconRes: Int = AppIcon.search,
+    iconRes: Int = AppIcon.Search.iconRes,
 ) {
     var initialExtended by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {

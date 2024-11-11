@@ -136,7 +136,7 @@ fun SearchButton(
                     .mySharedElement(sharedElementTextTag)
             )
             IconButton(
-                iconRes = AppIcon.search,
+                iconRes = AppIcon.Search.iconRes,
                 color = AppColor.transparent,
                 modifier = Modifier
                     .size(sizeInScreen)

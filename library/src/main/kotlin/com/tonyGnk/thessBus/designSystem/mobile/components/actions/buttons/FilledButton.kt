@@ -58,5 +58,5 @@ fun FilledButton(
 @AppPreview.Brightness
 @Composable
 private fun Preview() = ThessBusTheme {
-    FilledButton(iconRes = AppIcon.search.iconRes)
+    FilledButton(iconRes = AppIcon.Search.iconRes)
 }

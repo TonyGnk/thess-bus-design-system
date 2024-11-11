@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIconWithEnum
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
@@ -60,7 +59,7 @@ fun IconButton(
 @Composable
 private fun Preview() = ThessBusTheme {
     IconButton(
-        iconRes = AppIconWithEnum.SEARCH.iconRes,
+        iconRes = AppIcon.Search.iconRes,
         color = AppColor.primary,
         contentColor = AppColor.onPrimary
     )

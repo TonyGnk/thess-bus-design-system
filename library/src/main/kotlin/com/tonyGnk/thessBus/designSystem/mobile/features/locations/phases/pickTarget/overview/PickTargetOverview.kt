@@ -3,7 +3,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickT
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,7 +57,7 @@ internal fun PickTargetOverview(
             IconWithTextRow(
                 modifier = Modifier.padding(LocationsProperties.IN_PADDING.dp),
                 contentColor = AppColor.primary,
-                iconRes = AppIcon.mapMarker,
+                iconRes = AppIcon.MapMarker.iconRes,
                 style = AppTypo.titleMedium.copy(color = AppColor.primary),
                 weight = FontWeight.W500,
                 arrangement = Arrangement.spacedBy(18.dp),

@@ -88,7 +88,7 @@ fun CollectionWidget(
             FavoriteItemColumn(
                 item = FavoriteItem(
                     id = 0,
-                    iconRes = AppIcon.add,
+                    iconRes = AppIcon.Add.iconRes,
                     type = FavoriteItemType.Add
                 ),
                 onClick = onAddCollectionClick,

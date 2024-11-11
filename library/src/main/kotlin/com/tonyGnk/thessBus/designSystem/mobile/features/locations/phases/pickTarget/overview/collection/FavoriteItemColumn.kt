@@ -114,7 +114,7 @@ fun FavoriteItemColumn(
                 onEdit()
             },
             sizeOfTheMenuItem = sizeOfTheMenuItem,
-            trailingIconRes = AppIcon.edit,
+            trailingIconRes = AppIcon.Edit.iconRes,
             text = listOfOptions[0],
         )
         DropdownMenuItem(
@@ -122,7 +122,7 @@ fun FavoriteItemColumn(
                 onContextMenuDismiss()
                 onUnpin()
             },
-            trailingIconRes = AppIcon.pin,
+            trailingIconRes = AppIcon.Pin.iconRes,
             sizeOfTheMenuItem = sizeOfTheMenuItem,
             text = listOfOptions[1],
         )
@@ -134,7 +134,7 @@ fun FavoriteItemColumn(
             text = listOfOptions[2],
             makeItRed = true,
             sizeOfTheMenuItem = sizeOfTheMenuItem,
-            trailingIconRes = AppIcon.trash,
+            trailingIconRes = AppIcon.Trash.iconRes,
         )
     }
 }

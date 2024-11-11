@@ -65,7 +65,7 @@ fun DirectionsFeaturePager(
             modifier = Modifier.fillMaxWidth(),
             label = stringResource(R.string.Directions_label_pager),
             backIcon = TopBarBackIcon(
-                iconRes = AppIcon.back,
+                iconRes = AppIcon.Back.iconRes,
                 onBack = onBack
             ),
             rightContent = TopBarBackIcon(

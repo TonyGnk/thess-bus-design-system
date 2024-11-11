@@ -1,11 +1,5 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.textInputs.searchBar
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +24,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.tonyGnk.thessBus.designSystem.mobile.R
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
@@ -82,7 +75,7 @@ fun SearchBar(
             .mySharedElement(sharedElementPlaceHolderTag)
 
         IconButton(
-            iconRes = AppIcon.back,
+            iconRes = AppIcon.Back.iconRes,
             color = AppColor.transparent,
             onClick = onBackIconClick,
             modifier = Modifier.size(sizeInScreen)
@@ -111,7 +104,7 @@ fun SearchBar(
         }
 
         IconButton(
-            iconRes = AppIcon.search,
+            iconRes = AppIcon.Search.iconRes,
             color = AppColor.transparent,
             onClick = onSearchIme,
             modifier = Modifier

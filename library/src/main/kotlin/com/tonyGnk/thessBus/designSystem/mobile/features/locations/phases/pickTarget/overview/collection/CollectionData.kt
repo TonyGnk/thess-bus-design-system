@@ -69,7 +69,7 @@ val FakeFavoritesItems = mutableListOf(
     FavoriteItem(
         id = 1,
         color = ColorToPick.Primary,
-        iconRes = AppIcon.house,
+        iconRes = AppIcon.House.iconRes,
         type = FavoriteItemType.NotConfigured(
             label = "Σπίτι"
         )
@@ -77,14 +77,14 @@ val FakeFavoritesItems = mutableListOf(
     FavoriteItem(
         id = 2,
         color = ColorToPick.Secondary,
-        iconRes = AppIcon.work,
+        iconRes = AppIcon.Work.iconRes,
         type = FavoriteItemType.NotConfigured(
             label = "Δουλειά"
         )
     ),
     FavoriteItem(
         id = 3,
-        iconRes = AppIcon.catBurger,
+        iconRes = AppIcon.CatBurger.iconRes,
         type = FavoriteItemType.Configured(
             title = "Καφετέρια",
             subTitle = "Αριστοτέλους 1",
@@ -94,7 +94,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 4,
-        iconRes = AppIcon.graduation_cap,
+        iconRes = AppIcon.GraduationCap.iconRes,
         type = FavoriteItemType.Configured(
             title = "Πανεπιστήμιο",
             subTitle = "Αριστοτέλους 2",
@@ -104,7 +104,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 5,
-        iconRes = AppIcon.smallCross,
+        iconRes = AppIcon.SmallCross.iconRes,
         type = FavoriteItemType.Configured(
             title = "Νοσοκομείο",
             subTitle = "Αριστοτέλους 3",
@@ -114,7 +114,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 6,
-        iconRes = AppIcon.catBank,
+        iconRes = AppIcon.CatBank.iconRes,
         type = FavoriteItemType.Configured(
             title = "Τράπεζα",
             subTitle = "Αριστοτέλους 4",
