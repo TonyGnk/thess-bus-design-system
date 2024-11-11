@@ -38,10 +38,10 @@ fun TextFade(
         0f to backgroundColor.copy(alpha = 0.1f),
         1f to backgroundColor.copy(alpha = 0.99f)
     )
-    val textSize = text.findScreenSize(style)
-    val remainingWidth = textSize.width - textTargetWidth
-    val widthOfFade = if (remainingWidth >= 4.dp) {
-        textTargetWidth.div(3)  // "abc".findScreenSize(style).width
+    val textSize = text.findScreenSize(style) //82.54
+    val remainingWidth = textSize.width - textTargetWidth //3
+    val widthOfFade = if (remainingWidth >= 1.dp) {
+        textTargetWidth.div(3.2f)  // "abc".findScreenSize(style).width
     } else 0.dp
 
     Box(

@@ -159,7 +159,6 @@ private fun CollectionColumnContent(
         onClick = onClick,
         onLongClick = {
             onLongPressClick()
-
         },
     ) {
         Column(
@@ -179,7 +178,7 @@ private fun CollectionColumnContent(
                 )
             } else SurfaceWithShadows(
                 shape = AppShape.round20,
-                shadowElevation = 10
+                shadowElevation = 7
             ) {
                 IconButton(
                     iconRes = iconRes,
@@ -202,7 +201,7 @@ private fun CollectionColumnContent(
                         textTargetWidth = width,
                         modifier = textModifier
                     )
-                    Spacer(modifier = Modifier.height(1.dp))
+                    Spacer(modifier = Modifier.height(2.dp))
                     TextLabelSmall(
                         text = itemType.subTitle,
                         modifier = textModifier,

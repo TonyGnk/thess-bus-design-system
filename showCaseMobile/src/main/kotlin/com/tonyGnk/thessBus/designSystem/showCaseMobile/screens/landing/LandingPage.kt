@@ -15,6 +15,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.Scaffold
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.LandingUnknown
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.SharedListContainer
 
@@ -28,10 +29,11 @@ fun LandingPage(
     Scaffold {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(MARGIN.dp),
-            contentPadding = it,
+            contentPadding = getExtendedWindowInsets(
+                topPaddingIfNoStatusBar = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+            ),
             modifier = Modifier.fillMaxSize()
         ) {
-            item { Spacer(modifier = Modifier) }
             item { Header() }
             item {
                 SharedListContainer {

@@ -55,7 +55,6 @@ internal class MainActivity : FragmentActivity() {
             }
 
 
-
             ThessBusTheme {
                 val navController = rememberNavController()
 //                Box(
