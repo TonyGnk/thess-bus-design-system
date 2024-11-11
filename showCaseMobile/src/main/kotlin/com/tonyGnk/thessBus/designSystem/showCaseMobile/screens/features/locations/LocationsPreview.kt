@@ -79,8 +79,7 @@ fun LocationsPickTargetPre(
         applySystemBarPadding = true,
         horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
         onBack = onBack,
-        onCategoriesClick = goToCategories,
-        collectionsState = LocationsPickTargetItems.FavoritesState(
+        favoritesState = LocationsPickTargetItems.FavoritesState(
             onClick = { item ->
                 model.setGivenType(item)
                 //goToPickStart()
@@ -165,8 +164,7 @@ fun LocationsPickStartPre(
         applySystemBarPadding = true,
         horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
         onBack = onBack,
-        onCategoriesClick = {},
-        collectionsState = LocationsPickTargetItems.FavoritesState(
+        favoritesState = LocationsPickTargetItems.FavoritesState(
             items = emptyList(),
             selectedId = state.selectedFavoriteItemId,
             onNotConfigured = {},

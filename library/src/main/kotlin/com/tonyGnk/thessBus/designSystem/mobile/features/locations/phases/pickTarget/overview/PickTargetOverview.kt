@@ -3,6 +3,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickT
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconWithTextRow
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
@@ -93,7 +95,11 @@ internal fun PickTargetOverview(
 
         Column(
             verticalArrangement = Arrangement.spacedBy(arrangement.dp),
-            modifier = Modifier.padding(horizontalPadding)
+            modifier = Modifier
+                .padding(horizontalPadding)
+                .padding(
+                    bottom = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+                )
         ) {
             Text(text = "Recent", style = labelStyle)
             Column(

@@ -14,24 +14,24 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTa
 @Stable
 data class LocationsPickTargetItems(
     val onBack: () -> Unit,
-    val onCategoriesClick: () -> Unit,
+//    val onCategoriesClick: () -> Unit,
     val applySystemBarPadding: Boolean,
     val collectionsBottomSheetType: CollectionBottomSheetType,
     val setBottomSheetType: (CollectionBottomSheetType) -> Unit,
     val historyState: HistoryState = HistoryState(),
     val horizontalPadding: PaddingValues,
     val searchState: SearchState,
-    val collectionsState: FavoritesState,
+    val favoritesState: FavoritesState,
     val sharedElementIds: SharedElementIds = SharedElementIds()
 ) {
     companion object {
         val preview = LocationsPickTargetItems(
             searchState = SearchState(),
-            collectionsState = FavoritesState(),
+            favoritesState = FavoritesState(),
             onBack = {},
             setBottomSheetType = {},
             collectionsBottomSheetType = CollectionBottomSheetType.Hidden,
-            onCategoriesClick = {},
+            // onCategoriesClick = {},
             applySystemBarPadding = true,
             horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
         )

@@ -29,6 +29,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTa
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.PickTargetOverview
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.ResultList
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 
 
@@ -108,11 +109,11 @@ internal fun LocationPickerContent(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = if (items.applySystemBarPadding) {
-            getExtendedWindowInsets()
+            getExtendedWindowInsets(topPaddingIfNoStatusBar = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
         } else {
             PaddingValues(0.dp)
         },
-        modifier = modifier.applyContextMenu(items.collectionsState.selectedId != null)
+        modifier = modifier.applyContextMenu(items.favoritesState.selectedId != null)
     ) {
         item {
             SearchBar(
@@ -140,7 +141,7 @@ internal fun LocationPickerContent(
                 emptyQuery = emptyQuery,
                 padding = padding,
                 focusManager = focusManager,
-                collectionsState = items.collectionsState,
+                collectionsState = items.favoritesState,
                 searchState = items.searchState
             )
         }

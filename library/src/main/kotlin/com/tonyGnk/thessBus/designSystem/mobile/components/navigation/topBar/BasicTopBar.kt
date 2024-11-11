@@ -117,14 +117,14 @@ private fun Preview() = ThessBusTheme {
             },
             leftContent = {
                 IconButton(
-                    iconRes = AppIcon.search,
+                    iconRes = AppIcon.search.iconRes,
                     onClick = {},
                     contentDescription = "Search"
                 )
             },
             rightContent = {
                 IconButton(
-                    iconRes = AppIcon.search,
+                    iconRes = AppIcon.search.iconRes,
                     onClick = {},
                     contentDescription = "Search"
                 )
