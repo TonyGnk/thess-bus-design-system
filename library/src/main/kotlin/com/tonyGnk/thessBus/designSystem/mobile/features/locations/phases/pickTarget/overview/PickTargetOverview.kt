@@ -22,7 +22,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWi
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.CollectionWidget
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.CollectionWidget
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode.PickTargetResult
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 

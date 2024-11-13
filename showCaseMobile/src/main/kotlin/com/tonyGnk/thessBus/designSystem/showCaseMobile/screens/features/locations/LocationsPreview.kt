@@ -20,9 +20,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTa
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCard
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCardItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickStart.LocationsPickStart
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.deleteFakeFavorite
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.deleteFakeFavorite
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.preview.LocationsFeatureModel
 
 @Composable
 fun LocationsStartPre(

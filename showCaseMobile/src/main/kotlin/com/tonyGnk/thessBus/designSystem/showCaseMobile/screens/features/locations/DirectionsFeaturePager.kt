@@ -32,7 +32,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.Top
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPhases
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.preview.LocationsFeatureModel
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.shared.Pixel4Phone
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue

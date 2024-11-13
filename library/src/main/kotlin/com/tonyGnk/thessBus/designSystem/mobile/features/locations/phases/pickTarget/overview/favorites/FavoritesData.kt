@@ -1,33 +1,15 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites
 
 import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.ColorOptions
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 
-enum class ColorToPick {
-    Primary, Secondary, Green, Blue, Orange, Red
-}
-
-val colorsMapSaves: Map<ColorToPick, Color>
-    @Composable
-    get() = ColorToPick.entries.associateWith {
-        when (it) {
-            ColorToPick.Primary -> AppColor.primary
-            ColorToPick.Secondary -> AppColor.secondary
-            ColorToPick.Green -> AppColor.green
-            ColorToPick.Blue -> AppColor.blue
-            ColorToPick.Orange -> AppColor.orange
-            ColorToPick.Red -> AppColor.red
-        }
-    }
 
 data class FavoriteItem(
     val id: Int,
     @DrawableRes val iconRes: Int,
-    val color: ColorToPick? = null,
+    val colorOptions: ColorOptions? = null,
     val type: FavoriteItemType,
 )
 
@@ -37,15 +19,11 @@ sealed interface FavoriteItemType {
         val subTitle: String,
         val lat: Double,
         val lon: Double,
-        val isTheSelected: Boolean = false,
-        val updateSelectedFavoriteItemId: (Int?) -> Unit = {},
     ) : FavoriteItemType
 
     data class NotConfigured(
         val label: String,
     ) : FavoriteItemType
-
-    data object Add : FavoriteItemType
 }
 
 fun FavoriteItem.toSingleItem(): DirectionsFeatureItemType.SingleItem? {
@@ -68,7 +46,7 @@ fun deleteFakeFavorite(id: Int) {
 val FakeFavoritesItems = mutableListOf(
     FavoriteItem(
         id = 1,
-        color = ColorToPick.Primary,
+        colorOptions = ColorOptions.Primary,
         iconRes = AppIcon.House.iconRes,
         type = FavoriteItemType.NotConfigured(
             label = "Σπίτι"
@@ -76,7 +54,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 2,
-        color = ColorToPick.Secondary,
+        colorOptions = ColorOptions.Secondary,
         iconRes = AppIcon.Work.iconRes,
         type = FavoriteItemType.NotConfigured(
             label = "Δουλειά"

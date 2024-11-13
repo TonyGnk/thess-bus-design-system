@@ -32,8 +32,8 @@ fun ThessBusTheme(
 //    }
     //if android sdk >=31
     val appTheme =
-        getDynamicTheme(LocalContext.current)
-    //BlueAppTheme
+        //    getDynamicTheme(LocalContext.current)
+        BlueAppTheme
 
     var colorScheme = when (darkTheme) {
         true -> appTheme.darkColorScheme

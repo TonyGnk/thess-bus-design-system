@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.preview
+package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations
 
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.text.input.TextFieldState

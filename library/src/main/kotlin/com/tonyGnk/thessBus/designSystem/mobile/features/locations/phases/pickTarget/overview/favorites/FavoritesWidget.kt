@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -57,10 +57,6 @@ fun CollectionWidget(
                         is FavoriteItemType.NotConfigured -> {
                             onFavoriteNotConfiguredClick()
                         }
-
-                        is FavoriteItemType.Add -> {
-                            onAddCollectionClick()
-                        }
                     }
                 },
                 isTheSelected = isTheSelected,
@@ -68,31 +64,23 @@ fun CollectionWidget(
                     updateSelectedFavoriteItemId(null)
                 },
                 onLongPressClick = {
-                    if (it.type != FavoriteItemType.Add) {
-                        updateSelectedFavoriteItemId(it.id)
-                    }
+                    updateSelectedFavoriteItemId(it.id)
                 },
                 onEdit = {
-                    if (it.type != FavoriteItemType.Add) onEditItem(it.id)
+                    onEditItem(it.id)
                 },
                 onDelete = {
-                    if (it.type != FavoriteItemType.Add) onDeleteItem(it.id)
+                    onDeleteItem(it.id)
 
                 },
                 onUnpin = {
-                    if (it.type != FavoriteItemType.Add) onUnpinItem(it.id)
+                    onUnpinItem(it.id)
                 }
             )
         }
         item {
-            FavoriteItemColumn(
-                item = FavoriteItem(
-                    id = 0,
-                    iconRes = AppIcon.Add.iconRes,
-                    type = FavoriteItemType.Add
-                ),
+            AddFavoriteColumn(
                 onClick = onAddCollectionClick,
-                isTheSelected = false
             )
         }
     }

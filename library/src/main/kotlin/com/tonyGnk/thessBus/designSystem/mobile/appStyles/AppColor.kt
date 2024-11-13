@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 
+
 object AppColor {
     val primary: Color
         @Composable
@@ -158,3 +159,18 @@ fun contentColorFor(backgroundColor: Color) =
     MaterialTheme.colorScheme.contentColorFor(backgroundColor).takeOrElse {
         LocalContentColor.current
     }
+
+enum class ColorOptions {
+    Primary, Secondary, Green, Blue, Orange, Red
+}
+
+
+@Composable
+fun ColorOptions.color() = when (this) {
+    ColorOptions.Primary -> AppColor.primary
+    ColorOptions.Secondary -> AppColor.secondary
+    ColorOptions.Green -> AppColor.green
+    ColorOptions.Blue -> AppColor.blue
+    ColorOptions.Orange -> AppColor.orange
+    ColorOptions.Red -> AppColor.red
+}

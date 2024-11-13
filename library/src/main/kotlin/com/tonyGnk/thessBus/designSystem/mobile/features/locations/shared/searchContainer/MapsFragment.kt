@@ -119,51 +119,51 @@ class MapsFragment : Fragment() {
 
                 map.cameraPosition = CameraPosition.Builder()
                     .target(LatLng(40.631619, 22.953482))
-                    .zoom(16.0)//12
+                    .zoom(14.0)//12
                     .build()
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error loading map: ${e.message}", e)
             }
 
-            maplibreMap.setLatLngBoundsForCameraTarget(
-                LatLngBounds.Builder()
-                    .include(LatLng(40.686, 22.912))
-                    .include(LatLng(40.692, 22.907))
-                    .build()
-            )
-            maplibreMap.addOnMapClickListener { point ->
-                // Get the screen point
-                val screenPoint = map.projection.toScreenLocation(point)
-
-                // Query rendered features at the clicked point
-                val poiFeatures = map.queryRenderedFeatures(screenPoint, "poi-label")
-                Log.d("POI Click", "Name")
-                if (poiFeatures.isNotEmpty()) {
-                    // Get the first POI feature
-                    val poiFeature = poiFeatures[0]
-
-                    // Extract POI information from the feature properties
-                    val properties = poiFeature.properties()
-
-                    // Example properties you might find (depends on your map style)
-                    val name = properties?.get("name")?.asString
-                    val type = properties?.get("type")?.asString
-                    val category = properties?.get("category")?.asString
-
-                    // Do something with the POI information
-                    Log.d("POI Click", "Name: $name, Type: $type, Category: $category")
-
-                    // Example: Show a toast with POI name
-                    context?.let {
-                        Toast.makeText(it, "Clicked POI: $name", Toast.LENGTH_SHORT).show()
-                    }
-
-                    true // Consume the event
-                } else {
-                    false // Don't consume the event
-                }
-            }
+//            maplibreMap.setLatLngBoundsForCameraTarget(
+//                LatLngBounds.Builder()
+//                    .include(LatLng(40.686, 22.912))
+//                    .include(LatLng(40.692, 22.907))
+//                    .build()
+//            )
+//            maplibreMap.addOnMapClickListener { point ->
+//                // Get the screen point
+//                val screenPoint = map.projection.toScreenLocation(point)
+//
+//                // Query rendered features at the clicked point
+//                val poiFeatures = map.queryRenderedFeatures(screenPoint, "poi-label")
+//                Log.d("POI Click", "Name")
+//                if (poiFeatures.isNotEmpty()) {
+//                    // Get the first POI feature
+//                    val poiFeature = poiFeatures[0]
+//
+//                    // Extract POI information from the feature properties
+//                    val properties = poiFeature.properties()
+//
+//                    // Example properties you might find (depends on your map style)
+//                    val name = properties?.get("name")?.asString
+//                    val type = properties?.get("type")?.asString
+//                    val category = properties?.get("category")?.asString
+//
+//                    // Do something with the POI information
+//                    Log.d("POI Click", "Name: $name, Type: $type, Category: $category")
+//
+//                    // Example: Show a toast with POI name
+//                    context?.let {
+//                        Toast.makeText(it, "Clicked POI: $name", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    true // Consume the event
+//                } else {
+//                    false // Don't consume the event
+//                }
+//            }
         }
 
         return view

@@ -8,8 +8,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultSc
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FavoriteItem
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.collection.FakeFavoritesItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FavoriteItem
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FakeFavoritesItems
 
 @Stable
 data class LocationsPickTargetItems(
