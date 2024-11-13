@@ -6,19 +6,19 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeHistory
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FavoriteItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FakeFavoritesItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.recent.FakeRecentItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.recent.RecentItem
 
 @Stable
 data class LocationsPickTargetItems(
     val onBack: () -> Unit,
-//    val onCategoriesClick: () -> Unit,
     val applySystemBarPadding: Boolean,
     val collectionsBottomSheetType: CollectionBottomSheetType,
     val setBottomSheetType: (CollectionBottomSheetType) -> Unit,
-    val historyState: HistoryState = HistoryState(),
+    val recentState: RecentState = RecentState(),
     val horizontalPadding: PaddingValues,
     val searchState: SearchState,
     val favoritesState: FavoritesState,
@@ -31,7 +31,6 @@ data class LocationsPickTargetItems(
             onBack = {},
             setBottomSheetType = {},
             collectionsBottomSheetType = CollectionBottomSheetType.Hidden,
-            // onCategoriesClick = {},
             applySystemBarPadding = true,
             horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
         )
@@ -57,9 +56,9 @@ data class LocationsPickTargetItems(
         val onUnpinItem: (Int) -> Unit = {}
     )
 
-    data class HistoryState(
-        val items: List<DirectionsFeatureItemType.SingleItem> = PickTargetFakeHistory,
-        val onClick: (DirectionsFeatureItemType.SingleItem) -> Unit = {}
+    data class RecentState(
+        val items: List<RecentItem> = FakeRecentItems,
+        val onClick: (RecentItem) -> Unit = {}
     )
 
 

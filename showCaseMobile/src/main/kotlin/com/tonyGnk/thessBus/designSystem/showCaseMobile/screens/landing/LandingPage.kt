@@ -57,7 +57,9 @@ fun LandingPage(
 private fun Header() {
     Column(
         verticalArrangement = Arrangement.spacedBy(MARGIN.dp),
-        modifier = Modifier.padding(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
+        modifier = Modifier
+            .padding(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp)
+            .padding(top = MARGIN.dp)
     ) {
         LandingPageAppBar()
         LandingPageAppBarDescription()

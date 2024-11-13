@@ -39,6 +39,6 @@ enum class Components(
         ComponentsType.Actions
     ),
 
-
+    BasicTopBar(R.string.components_navigation_basic_top_bar, ComponentsType.Navigation),
     NavigationBar(R.string.components_navigation_navigation_bar, ComponentsType.Navigation),
 }

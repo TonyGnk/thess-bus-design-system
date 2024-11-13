@@ -38,7 +38,9 @@ internal fun ResultList(
     ) {
         items.forEach { result ->
             PickTargetResult(
-                result = result,
+                title = result.title,
+                subTitle = result.subTitle,
+                iconRes = result.iconRes,
                 onClick = {
                     onClick(result)
                 }
@@ -49,13 +51,12 @@ internal fun ResultList(
 
 @Composable
 internal fun PickTargetResult(
-    result: DirectionsFeatureItemType.SingleItem,
+    title: String,
+    subTitle: String,
+    iconRes: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val title = result.title
-    val subTitle = result.subTitle
-
     val titleStyle = AppTypo.bodyLarge
     val subTitleStyle = AppTypo.labelMedium
 
@@ -88,7 +89,7 @@ internal fun PickTargetResult(
                     .padding(7.dp)
             ) {
                 Icon(
-                    iconRes = result.iconRes,
+                    iconRes = iconRes,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

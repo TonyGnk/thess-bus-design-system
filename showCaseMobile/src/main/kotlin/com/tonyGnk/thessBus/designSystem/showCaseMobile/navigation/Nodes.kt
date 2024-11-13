@@ -42,6 +42,9 @@ sealed interface ComponentDestination {
     data object NavigationBar : ComponentDestination
 
     @Serializable
+    data object BasicTopBar : ComponentDestination
+
+    @Serializable
     data object Buttons : ComponentDestination
 
     @Serializable

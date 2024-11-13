@@ -32,7 +32,7 @@ internal fun PickTargetOverview(
     modifier: Modifier = Modifier,
     horizontalPadding: PaddingValues = PaddingValues(0.dp),
     favoritesState: LocationsPickTargetItems.FavoritesState = LocationsPickTargetItems.FavoritesState(),
-    historyState: LocationsPickTargetItems.HistoryState = LocationsPickTargetItems.HistoryState(),
+    recentState: LocationsPickTargetItems.RecentState = LocationsPickTargetItems.RecentState(),
 ) {
     val labelStyle = AppTypo.titleMedium.copy(
         color = AppColor.onSurface.copy(alpha = 0.9f)
@@ -106,10 +106,13 @@ internal fun PickTargetOverview(
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                historyState.items.forEach { item ->
+                recentState.items.forEach { item ->
                     PickTargetResult(
-                        result = item, onClick = {
-                            historyState.onClick(item)
+                        title = item.label,
+                        subTitle = "",
+                        iconRes = AppIcon.ClockFive.iconRes,
+                        onClick = {
+                            recentState.onClick(item)
                         }
                     )
                 }
