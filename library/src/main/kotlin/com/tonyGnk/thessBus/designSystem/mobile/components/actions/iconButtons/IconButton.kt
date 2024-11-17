@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
@@ -31,6 +32,7 @@ fun IconButton(
     color: Color = AppColor.background,
     contentColor: Color = AppColor.onSurface,
     shape: Shape = AppShape.round20,
+    padding: Dp = 12.dp,
     contentDescription: String = "",
 ) {
     if (iconRes != 0) Box(
@@ -44,7 +46,7 @@ fun IconButton(
                     onClick = onClick
                 ) else Modifier
             )
-            .padding(12.dp)
+            .padding(padding)
     ) {
         Icon(
             iconRes = iconRes,

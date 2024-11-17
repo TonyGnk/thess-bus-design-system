@@ -1,34 +1,9 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget
 
-import android.content.Context
-import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.os.bundleOf
-import androidx.fragment.compose.AndroidFragment
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MyLibreMap
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.searchContainer.MapsFragment
-import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.Style
-import org.ramani.compose.CameraPosition
-import org.ramani.compose.Circle
-import org.ramani.compose.MapLibre
-import org.ramani.compose.MapProperties
-import org.ramani.compose.Polygon
-import org.ramani.compose.UiSettings
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.InputStream
 
 
 @Composable

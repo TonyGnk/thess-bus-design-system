@@ -27,7 +27,7 @@ fun BasicTopBarPage(
                 .statusBarsPadding()
         ) {
             BasicTopBar(
-                label = stringResource(R.string.landing_destinations_navigation),
+                label = stringResource(R.string.components_navigation_basic_top_bar),
                 backIcon = TopBarBackIcon(
                     onBack = onBack
                 ),

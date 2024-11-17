@@ -27,6 +27,7 @@
 
     <string name="component_types_navigation" translatable="false">Navigation</string>
     <string name="components_navigation_basic_top_bar" translatable="false">Basic Top Bar</string>
+    <string name="components_navigation_large_top_bar" translatable="false">Top Bar Column</string>
     <string name="components_navigation_navigation_bar" translatable="false">Navigation Bar</string>
 
     <string name="component_types_selection" translatable="false">Selection</string>

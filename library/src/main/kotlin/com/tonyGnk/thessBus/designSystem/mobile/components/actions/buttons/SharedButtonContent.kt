@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -15,6 +16,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.Defau
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.iconSizeFor
 
 @Composable
 fun SharedButtonContent(
@@ -62,6 +64,7 @@ fun IconWithTextRow(
             val size = text.findScreenSize(style)
             Row(
                 modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = arrangement,
             ) {
                 if (!iconLeft) Text(
@@ -71,7 +74,7 @@ fun IconWithTextRow(
                 Icon(
                     iconRes = iconRes,
                     color = contentColor,
-                    modifier = Modifier.size(size.height + 1.dp)
+                    modifier = Modifier.iconSizeFor(size.height)
                 )
                 if (iconLeft) Text(text = text, style = style, weight = weight)
             }

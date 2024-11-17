@@ -7,9 +7,10 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestinatio
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.ComponentsList
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.navigation.NavigationBarPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.actions.ComponentsActionsButtonPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.navigation.BasicTopBarPage
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.navigation.NavigationBarPage
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.navigation.TopBarColumnPage
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.Components
 
 fun NavGraphBuilder.componentGraph(
@@ -23,6 +24,7 @@ fun NavGraphBuilder.componentGraph(
             Components.Buttons -> navController.navigate(ComponentDestination.Buttons)
             Components.FloatingActionButton -> navController.navigate(ComponentDestination.FloatingActionButton)
             Components.BasicTopBar -> navController.navigate(ComponentDestination.BasicTopBar)
+            Components.TopBarColumn -> navController.navigate(ComponentDestination.LargeTopBar)
         }
     }
 
@@ -42,6 +44,10 @@ fun NavGraphBuilder.componentGraph(
 
         node<ComponentDestination.BasicTopBar> {
             BasicTopBarPage(onBack)
+        }
+
+        node<ComponentDestination.LargeTopBar> {
+            TopBarColumnPage(onBack)
         }
 
         node<ComponentDestination.Buttons> {

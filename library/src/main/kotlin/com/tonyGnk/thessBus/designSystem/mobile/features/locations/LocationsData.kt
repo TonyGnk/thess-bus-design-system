@@ -2,7 +2,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations
 
 import androidx.annotation.DrawableRes
 import com.tonyGnk.thessBus.designSystem.mobile.R
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 
 
 sealed interface DirectionsFeatureItemType {

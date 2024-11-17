@@ -3,7 +3,6 @@ package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.toRoute
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
 import com.tonyGnk.thessBus.designSystem.mobile.features.directions.phases.DirectionsOverview
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirectionsDestination

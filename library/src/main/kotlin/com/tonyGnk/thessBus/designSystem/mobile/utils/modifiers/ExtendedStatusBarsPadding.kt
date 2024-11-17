@@ -34,7 +34,7 @@ fun getExtendedWindowInsets(
 
     return PaddingValues(
         top = if (top > 0.dp) {
-            top + 4.dp
+            top + 10.dp
         } else topPaddingIfNoStatusBar,
         start = start,
         end = end,

@@ -1,7 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,7 +20,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.TopDestination
 
 internal class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

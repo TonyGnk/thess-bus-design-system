@@ -1,19 +1,12 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment.map
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.net.Uri
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues
 import com.tonyGnk.thessBus.designSystem.mobile.utils.map.DefaultMapValues.DEFAULT_ITEM_ZOOM

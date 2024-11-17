@@ -21,8 +21,8 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.Tonal
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 

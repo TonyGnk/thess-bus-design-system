@@ -7,8 +7,8 @@ import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FavoriteItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FakeFavoritesItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.FavoriteItem
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.recent.FakeRecentItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.recent.RecentItem
 
