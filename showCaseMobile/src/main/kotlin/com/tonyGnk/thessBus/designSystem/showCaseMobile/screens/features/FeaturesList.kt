@@ -23,6 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.VanillaLazyColumn
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
@@ -87,25 +88,17 @@ private val featureToPreview: Map<Feature, FeatureDestination> = Feature.entries
 
 @Composable
 fun FeaturesList(
-    onBack: () -> Unit = {},
+    goBack: () -> Unit = {},
     goTo: (FeatureDestination) -> Unit = {}
 ) {
-    LazyColumn(
-        contentPadding = getExtendedWindowInsets(),
+    VanillaLazyColumn(
+        label = stringResource(R.string.landing_destinations_features),
+        goBack = goBack,
         verticalArrangement = Arrangement.spacedBy(
             DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-        ),
-        modifier = Modifier.fillMaxSize()
-    ) {
-        item {
-            BasicTopBar(
-                label = stringResource(R.string.landing_destinations_features),
-                backIcon = TopBarBackIcon(
-                    onBack = onBack
-                )
-            )
-        }
+        )
 
+    ) {
         items(Feature.entries) { feature ->
             CoolGradientBox(
                 feature = feature,

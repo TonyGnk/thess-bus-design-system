@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,35 +15,20 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.Butto
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.FilledButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.TextButton
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.TonalButton
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
-import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.VanillaLazyColumn
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 
 
 private const val ARRANGEMENT = 11
 
 @Composable
-fun ComponentsActionsButtonPage(onBack: () -> Unit = {}) {
-    LazyColumn(
+fun ComponentsActionsButtonPage(goBack: () -> Unit = {}) {
+    VanillaLazyColumn(
+        label = stringResource(R.string.components_actions_buttons),
         verticalArrangement = Arrangement.spacedBy(ARRANGEMENT.dp),
-        contentPadding = getExtendedWindowInsets().add(bottom = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+        goBack = goBack
     ) {
-        item {
-            BasicTopBar(
-                applyHorizontalPadding = false,
-                label = stringResource(R.string.components_actions_buttons),
-                backIcon = TopBarBackIcon(
-                    onBack = onBack
-                )
-            )
-        }
         item {
             FilledButtonsFlowRow(ButtonType.Filled)
         }

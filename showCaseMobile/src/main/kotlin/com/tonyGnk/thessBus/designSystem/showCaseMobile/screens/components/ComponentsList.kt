@@ -4,10 +4,8 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,37 +17,29 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.actions.buttons.IconWithTextRow
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.VanillaLazyColumn
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalDivider
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
-import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties.ARRANGEMENT
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.Components
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.ComponentsType
 
 @Composable
 fun ComponentsList(
-    onBack: () -> Unit = {},
+    goBack: () -> Unit = {},
     onComponentPick: (Components) -> Unit = {}
 ) {
     val insidePadding = DefaultScaffoldValues.NORMAL_BEZEL_PADDING
 
-    LazyColumn(
-        contentPadding = getExtendedWindowInsets().add(bottom = insidePadding.dp),
-        modifier = Modifier.fillMaxSize()
+    VanillaLazyColumn(
+        label = stringResource(R.string.landing_destinations_colors),
+        applyHorizontalPadding = false,
+        verticalArrangement = Arrangement.spacedBy(insidePadding.div(3).dp),
+        goBack = goBack
     ) {
-        item {
-            BasicTopBar(
-                label = stringResource(R.string.landing_destinations_components),
-                modifier = Modifier.padding(bottom = insidePadding.dp),
-                backIcon = TopBarBackIcon(
-                    onBack = onBack
-                )
-            )
-        }
-
         items(
             items = ComponentsType.entries,
             key = { it.ordinal }

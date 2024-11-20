@@ -34,7 +34,7 @@ fun NavGraphBuilder.componentGraph(
         node<ComponentDestination.Select> {
             ComponentsList(
                 onComponentPick = onComponentPick,
-                onBack = onBack
+                goBack = onBack
             )
         }
 

@@ -23,6 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.VanillaLazyColumn
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
@@ -34,23 +35,12 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 private const val ARRANGEMENT = 12
 
 @Composable
-fun ColorsGridPage(onBack: () -> Unit = {}) {
-    LazyColumn(
+fun ColorsGridPage(goBack: () -> Unit = {}) {
+    VanillaLazyColumn(
+        label = stringResource(R.string.landing_destinations_colors),
         verticalArrangement = Arrangement.spacedBy(ARRANGEMENT.dp),
-        contentPadding = getExtendedWindowInsets().add(bottom = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
+        goBack = goBack
     ) {
-        item {
-            BasicTopBar(
-                applyHorizontalPadding = false,
-                label = stringResource(R.string.landing_destinations_colors),
-                backIcon = TopBarBackIcon(
-                    onBack = onBack
-                )
-            )
-        }
         item {
             FlowRowOfPrimaryColors()
         }

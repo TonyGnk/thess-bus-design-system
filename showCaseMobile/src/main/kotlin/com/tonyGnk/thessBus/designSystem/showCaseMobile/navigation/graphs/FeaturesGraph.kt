@@ -21,7 +21,7 @@ fun NavGraphBuilder.featuresGraph(
     ) {
         node<FeatureDestination.List> {
             FeaturesList(
-                onBack = onBack,
+                goBack = onBack,
                 goTo = navigateTo
             )
         }

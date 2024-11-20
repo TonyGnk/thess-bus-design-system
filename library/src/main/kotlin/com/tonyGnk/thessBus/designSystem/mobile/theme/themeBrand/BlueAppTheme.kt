@@ -167,5 +167,5 @@ private val font = FontFamily(
 internal data object BlueAppTheme : AppTheme(
     lightColorScheme = LightAndroidColorScheme,
     darkColorScheme = DarkAndroidColorScheme,
-    typography = appTypography(font)
+    typography = appTypography()
 )

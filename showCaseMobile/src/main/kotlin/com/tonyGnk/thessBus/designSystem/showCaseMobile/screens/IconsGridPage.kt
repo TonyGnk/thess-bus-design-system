@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -23,21 +24,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.add
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.extendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
@@ -56,15 +64,16 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
             context.startActivity(intent)
         }
     }
+    val padding = remember { DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp }
 
     LazyVerticalGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = getExtendedWindowInsets(),
+        contentPadding = getExtendedWindowInsets(padding).add(bottom = padding),
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
-        columns = GridCells.Adaptive(minSize = 72.dp)
+        columns = GridCells.Adaptive(minSize = 62.dp)
     ) {
         item(
             span = { GridItemSpan(maxLineSpan) }
@@ -99,6 +108,7 @@ fun IconsGridPage(onBack: () -> Unit = {}) {
                     color = AppColor.onSurface
                 )
             }
+
         }
     }
     Column(

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,11 +19,39 @@ fun Modifier.extendedWindowInsets() = composed {
     this.padding(getExtendedWindowInsets())
 }
 
+fun Modifier.statusBarWindowInsets() = composed {
+    this.padding(getExtendedWindowInsets())
+}
+
 @Composable
 fun getExtendedWindowInsets(
     topPaddingIfNoStatusBar: Dp = 0.dp
 ): PaddingValues {
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
+    val top = systemBarPadding.calculateTopPadding()
+    val start = systemBarPadding.calculateStartPadding(
+        layoutDirection = LayoutDirection.Ltr
+    )
+    val end = systemBarPadding.calculateEndPadding(
+        layoutDirection = LayoutDirection.Ltr
+    )
+    val bottom = systemBarPadding.calculateBottomPadding()
+
+    return PaddingValues(
+        top = if (top > 0.dp) {
+            top + 10.dp
+        } else topPaddingIfNoStatusBar,
+        start = start,
+        end = end,
+        bottom = bottom
+    )
+}
+
+@Composable
+fun getStatusBarWindowInsets(
+    topPaddingIfNoStatusBar: Dp = 0.dp
+): PaddingValues {
+    val systemBarPadding = WindowInsets.statusBars.asPaddingValues()
     val top = systemBarPadding.calculateTopPadding()
     val start = systemBarPadding.calculateStartPadding(
         layoutDirection = LayoutDirection.Ltr

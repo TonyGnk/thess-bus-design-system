@@ -52,7 +52,7 @@ fun BasicTopBar(
         horizontalArrangement = Arrangement.spacedBy(DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp),
         modifier = if (applyHorizontalPadding) modifier.padding(
             horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
-        ) else Modifier
+        ) else modifier
     ) {
         if (backIcon != null) IconButton(
             iconRes = backIcon.iconRes,
