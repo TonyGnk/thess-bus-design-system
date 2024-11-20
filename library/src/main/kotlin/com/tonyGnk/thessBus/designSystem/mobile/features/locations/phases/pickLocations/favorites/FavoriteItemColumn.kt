@@ -128,6 +128,7 @@ fun FavoriteItemColumn(
                 },
                 text = listOfOptions[2],
                 makeItRed = true,
+                bottomBorder = false,
                 sizeOfTheMenuItem = sizeOfTheMenuItem,
                 trailingIconRes = AppIcon.Trash.iconRes,
             )
