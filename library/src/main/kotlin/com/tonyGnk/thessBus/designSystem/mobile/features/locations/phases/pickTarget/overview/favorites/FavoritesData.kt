@@ -1,6 +1,5 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites
 
-import androidx.annotation.DrawableRes
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.ColorOptions
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
@@ -8,7 +7,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFea
 
 data class FavoriteItem(
     val id: Int,
-    @DrawableRes val iconRes: Int,
+    val appIcon: AppIcon,
     val colorOptions: ColorOptions? = null,
     val type: FavoriteItemType,
 )
@@ -30,7 +29,7 @@ fun FavoriteItem.toSingleItem(): DirectionsFeatureItemType.SingleItem? {
     return if (type is FavoriteItemType.Configured) {
         DirectionsFeatureItemType.SingleItem(
             id = "f$id",
-            iconRes = iconRes,
+            iconRes = appIcon.iconRes,
             title = type.title,
             subTitle = type.subTitle,
             lat = type.lat,
@@ -47,7 +46,7 @@ val FakeFavoritesItems = mutableListOf(
     FavoriteItem(
         id = 1,
         colorOptions = ColorOptions.Primary,
-        iconRes = AppIcon.House.iconRes,
+        appIcon = AppIcon.House,
         type = FavoriteItemType.NotConfigured(
             label = "Σπίτι"
         )
@@ -55,14 +54,14 @@ val FakeFavoritesItems = mutableListOf(
     FavoriteItem(
         id = 2,
         colorOptions = ColorOptions.Secondary,
-        iconRes = AppIcon.Work.iconRes,
+        appIcon = AppIcon.Work,
         type = FavoriteItemType.NotConfigured(
             label = "Δουλειά"
         )
     ),
     FavoriteItem(
         id = 3,
-        iconRes = AppIcon.CatBurger.iconRes,
+        appIcon = AppIcon.CatBurger,
         type = FavoriteItemType.Configured(
             title = "Καφετέρια",
             subTitle = "Αριστοτέλους 1",
@@ -72,7 +71,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 4,
-        iconRes = AppIcon.GraduationCap.iconRes,
+        appIcon = AppIcon.GraduationCap,
         type = FavoriteItemType.Configured(
             title = "Πανεπιστήμιο",
             subTitle = "Αριστοτέλους 2",
@@ -82,7 +81,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 5,
-        iconRes = AppIcon.SmallCross.iconRes,
+        appIcon = AppIcon.SmallCross,
         type = FavoriteItemType.Configured(
             title = "Νοσοκομείο",
             subTitle = "Αριστοτέλους 3",
@@ -92,7 +91,7 @@ val FakeFavoritesItems = mutableListOf(
     ),
     FavoriteItem(
         id = 6,
-        iconRes = AppIcon.CatBank.iconRes,
+        appIcon = AppIcon.CatBank,
         type = FavoriteItemType.Configured(
             title = "Τράπεζα",
             subTitle = "Αριστοτέλους 4",

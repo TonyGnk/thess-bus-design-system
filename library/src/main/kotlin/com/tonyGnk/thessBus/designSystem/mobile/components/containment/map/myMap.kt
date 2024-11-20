@@ -2,6 +2,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.components.containment.map
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -103,8 +104,21 @@ fun MyLibreMap(
 ) {
     val context = LocalContext.current
 
+//    val styleBuilder = remember {
+//        val style = setupAndGetStyle(context)
+//        Style.Builder().fromUri(
+//            Uri.fromFile(style).toString()
+//        )
+//    }
     val styleBuilder = remember {
-        val style = setupAndGetStyle(context)
+        val styleManager = MapStyleManager(context)
+        val style = when (val result = styleManager.setupStyle()) {
+            is MapStyleManager.StyleSetupResult.Error -> {
+                throw result.exception
+            }
+
+            is MapStyleManager.StyleSetupResult.Success -> result.styleFile
+        }
         Style.Builder().fromUri(
             Uri.fromFile(style).toString()
         )
@@ -132,6 +146,101 @@ fun MyLibreMap(
         cameraPosition = cameraPosition
     ) {
 
+    }
+}
+
+
+@Composable
+fun MyLibreMap2(
+    modifier: Modifier = Modifier,
+) {
+    val context = LocalContext.current
+
+    val styleBuilder = remember {
+        val styleManager = MapStyleManager(context)
+        val style = when (val result = styleManager.setupStyle()) {
+            is MapStyleManager.StyleSetupResult.Error -> {
+                throw result.exception
+            }
+
+            is MapStyleManager.StyleSetupResult.Success -> result.styleFile
+        }
+        Style.Builder().fromUri(
+            Uri.fromFile(style).toString()
+        )
+    }
+
+    val cameraPosition = rememberSaveable {
+        CameraPosition(
+            target = LatLng(40.62172, 22.95200),
+            zoom = 15.0,
+        )
+    }
+
+    MapLibre(
+        modifier = modifier,
+        styleBuilder = styleBuilder,
+        cameraPosition = cameraPosition
+    ) {
+        // Add map markers, polylines, etc.
+    }
+}
+
+class MapStyleManager(private val context: Context) {
+    sealed class StyleSetupResult {
+        data class Success(val styleFile: File) : StyleSetupResult()
+        data class Error(val exception: Exception) : StyleSetupResult()
+    }
+
+    /**
+     * Sets up the style file by copying from assets and replacing the mbtiles URI
+     * @return StyleSetupResult indicating success or failure
+     */
+    fun setupStyle(): StyleSetupResult {
+        return try {
+            val styleFile = copyAssetToInternal(STYLE_FILENAME)
+            val mbtilesFile = copyAssetToInternal(MBTILES_FILENAME)
+
+            updateStyleFileUri(styleFile, mbtilesFile)
+            StyleSetupResult.Success(styleFile)
+        } catch (e: Exception) {
+            StyleSetupResult.Error(e)
+        }
+    }
+
+    /**
+     * Copies an asset file to internal storage
+     * @param assetFileName Name of the file in assets
+     * @return File object pointing to the copied file
+     */
+    private fun copyAssetToInternal(assetFileName: String): File {
+        context.assets.open(assetFileName).use { input ->
+            val outputFile = File(context.filesDir, assetFileName)
+            outputFile.outputStream().use { output ->
+                input.copyTo(output)
+            }
+            return outputFile
+        }
+    }
+
+    /**
+     * Updates the style file with the correct mbtiles URI
+     * @param styleFile The style file to update
+     * @param mbtilesFile The mbtiles file reference to insert
+     */
+    private fun updateStyleFileUri(styleFile: File, mbtilesFile: File) {
+        val styleContent = styleFile.readText()
+        val updatedContent = styleContent.replace(
+            FILE_URI_PLACEHOLDER,
+            "mbtiles:///${mbtilesFile.absolutePath}"
+        )
+        styleFile.writeText(updatedContent)
+    }
+
+    companion object {
+        private const val STYLE_FILENAME = "goodStyle.json"
+        private const val MBTILES_FILENAME = "gr.mbtiles"
+        private const val FILE_URI_PLACEHOLDER = "___FILE_URI___"
     }
 }
 

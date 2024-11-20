@@ -68,7 +68,7 @@ fun FavoriteItemColumn(
                 } else Modifier
             ),
             colorOptions = item.colorOptions,
-            iconRes = item.iconRes,
+            iconRes = item.appIcon.iconRes,
             itemType = item.type,
             iconSize = iconSize,
             width = width,
@@ -85,7 +85,7 @@ fun FavoriteItemColumn(
             ) {
                 CollectionColumnContent(
                     colorOptions = item.colorOptions,
-                    iconRes = item.iconRes,
+                    iconRes = item.appIcon.iconRes,
                     itemType = item.type,
                     iconSize = iconSize,
                     width = width,
