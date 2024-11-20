@@ -38,7 +38,10 @@ fun DirectionsOverview(
     ) {
 
     }
-    MyLibreMap(pickedItem = DirectionsFeatureItemType.JustMap)
+//    MyLibreMap(
+//        pickedItem = DirectionsFeatureItemType.JustMap,
+//
+//    )
 //    Box(modifier = Modifier.fillMaxSize()) {
 //        AndroidFragment<MapsFragment>(
 //            modifier = Modifier.fillMaxSize()

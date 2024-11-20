@@ -85,7 +85,7 @@ fun DestinationOverviewUiLayer(
             ),
         )
         Spacer(Modifier.weight(1f))
-        ItemDetails(items = items)
+       // ItemDetails(items = items)
     }
 }
 

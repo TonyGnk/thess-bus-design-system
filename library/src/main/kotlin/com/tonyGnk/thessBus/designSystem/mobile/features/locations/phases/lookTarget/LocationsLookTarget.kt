@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.CustomCameraPosition
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
+import org.maplibre.android.maps.Style
 
 
 @Stable
@@ -45,10 +46,12 @@ data class LocationsLookTargetItems(
 @Composable
 fun LocationsLookTarget(
     modifier: Modifier = Modifier,
+    styleBuilder: Style.Builder,
     items: LocationsLookTargetItems = LocationsLookTargetItems.preview,
 ) {
     DestinationOverviewMapLayer(
-        items = items
+        items = items,
+        styleBuilder = styleBuilder
     )
     DestinationOverviewUiLayer(
         modifier = modifier,

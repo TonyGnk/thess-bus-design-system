@@ -1,10 +1,14 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs
 
+import android.app.Activity
+import android.net.Uri
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
+import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MapStyleManager
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirectionsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureLocationsDestination
@@ -15,6 +19,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locatio
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickStartPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickTargetPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsStartPre
+import org.maplibre.android.maps.Style
 
 fun NavGraphBuilder.featuresLocationsGraph(
     navController: NavController
@@ -37,6 +42,18 @@ fun NavGraphBuilder.featuresLocationsGraph(
             )
         )
     }
+    val context = navController.context
+
+    val style = when (val result = MapStyleManager(context).setupStyle()) {
+        is MapStyleManager.StyleSetupResult.Error -> {
+            throw result.exception
+        }
+
+        is MapStyleManager.StyleSetupResult.Success -> result.styleFile
+    }
+    val styleBuilder = Style.Builder().fromUri(
+        Uri.fromFile(style).toString()
+    )
 
     graph<FeatureDestination.LocationsGraph>(
         startDestination = FeatureLocationsDestination.PickTarget
@@ -90,10 +107,10 @@ fun NavGraphBuilder.featuresLocationsGraph(
 
 
         node<FeatureLocationsDestination.LookTarget>(
-            enterTransition = AppTransition.fadeEnter,
-            popEnterTransition = AppTransition.fadeEnter,
-            exitTransition = AppTransition.fadeExit,
-            popExitTransition = AppTransition.fadeExit,
+            enterTransition = AppTransition.slideEnter,
+            popEnterTransition = AppTransition.slideEnter,
+            exitTransition = AppTransition.slideExit,
+            popExitTransition = AppTransition.slideExit,
         ) {
             val parentEntry = remember(it) {
                 navController.getBackStackEntry(FeatureDestination.LocationsGraph)
@@ -101,6 +118,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
             LocationsLookTargetPre(
                 model = viewModel(parentEntry),
                 onBack = onBack,
+                styleBuilder = styleBuilder,
                 goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
             )
         }

@@ -70,6 +70,34 @@ data object AppTransition {
     val fadeExit: () -> ExitTransition = {
         fadeOut(animationSpec = tween(DURATION, easing = FastOutSlowInEasing))
     }
+
+    val slideEnter: () -> EnterTransition = {
+        slideInHorizontally(
+            initialOffsetX = { it },
+            animationSpec = tween(DURATION, easing = FastOutSlowInEasing, delayMillis = 0)
+        )
+    }
+
+    val slideExit: () -> ExitTransition = {
+        slideOutHorizontally(
+            targetOffsetX = { it },
+            animationSpec = tween(DURATION, easing = FastOutSlowInEasing)
+        )
+    }
+
+    val slideEnterPop: () -> EnterTransition = {
+        slideInHorizontally(
+            initialOffsetX = { -it },
+            animationSpec = tween(DURATION, easing = FastOutSlowInEasing, delayMillis = 0)
+        )
+    }
+
+    val slideExitPop: () -> ExitTransition = {
+        slideOutHorizontally(
+            targetOffsetX = { -it },
+            animationSpec = tween(DURATION, easing = FastOutSlowInEasing)
+        )
+    }
 }
 
 

@@ -11,7 +11,7 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.Feature
 fun NavGraphBuilder.featuresGraph(
     navController: NavController
 ) {
-    val onBack: () -> Unit = { navController.navigateUp() }
+    val goBack: () -> Unit = { navController.navigateUp() }
     val navigateTo: (FeatureDestination) -> Unit = { destination ->
         navController.navigate(destination)
     }
@@ -21,7 +21,7 @@ fun NavGraphBuilder.featuresGraph(
     ) {
         node<FeatureDestination.List> {
             FeaturesList(
-                goBack = onBack,
+                goBack = goBack,
                 goTo = navigateTo
             )
         }

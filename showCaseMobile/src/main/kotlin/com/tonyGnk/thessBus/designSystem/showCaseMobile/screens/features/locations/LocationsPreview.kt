@@ -23,6 +23,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLo
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites.deleteFakeFavorite
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.recent.FakeRecentItems
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
+import org.maplibre.android.maps.Style
 
 @Composable
 fun LocationsStartPre(
@@ -108,6 +109,7 @@ fun LocationsLookTargetPre(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
     goToPickStart: () -> Unit,
+    styleBuilder: Style.Builder,
     model: LocationsFeatureModel,
 ) {
     val state by model.state.collectAsStateWithLifecycle()
@@ -131,6 +133,7 @@ fun LocationsLookTargetPre(
 
     LocationsLookTarget(
         modifier = modifier,
+        styleBuilder = styleBuilder,
         items = items
     )
 }

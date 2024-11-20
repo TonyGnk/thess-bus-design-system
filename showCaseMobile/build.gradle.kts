@@ -22,10 +22,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        val apiKey = project.findProperty("MAPS_API_KEY") as String
-        //buildConfigField("String", "MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY")}\"")
-        manifestPlaceholders["MAPS_API_KEY"] = apiKey
     }
 
     buildTypes {
