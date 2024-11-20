@@ -22,12 +22,14 @@ import androidx.compose.ui.text.lerp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
+import com.tonyGnk.thessBus.designSystem.mobile.utils.sp
 
-private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 11
+private const val NAVIGATION_ITEM_FIXED_LABEL_SIZE = 14
 
 @Composable
 internal fun NavigationBarItemLabel(
@@ -38,14 +40,14 @@ internal fun NavigationBarItemLabel(
 ) {
     val textStyle = if (selected) {
         LocalTextStyle.current.copy(
-            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
-            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.sp,
+            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.sp,
             fontWeight = FontWeight.W800
         )
     } else {
         LocalTextStyle.current.copy(
-            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
-            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.sp,
+            fontSize = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.sp,
+            lineHeight = NAVIGATION_ITEM_FIXED_LABEL_SIZE.dp.sp,
             fontWeight = FontWeight.W400
         )
     }
@@ -58,9 +60,9 @@ internal fun NavigationBarItemLabel(
     Text(
         text = label,
         style = animatedTextStyle.copy(
-            fontSize = TextUnit.Unspecified,// This prevents scaling based on system settings
             color = color
         ),
+        maxLines =1,
         modifier = modifier
     )
 }
@@ -94,8 +96,6 @@ private fun animateTextStyleAsState(
     return textStyleState
 }
 
-@Composable
-fun Dp.toSp() = with(LocalDensity.current) { toSp() }
 
 @Composable
 @Preview

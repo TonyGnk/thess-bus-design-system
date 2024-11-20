@@ -27,7 +27,9 @@ fun NavigationBar(
     val topCorners = findTheRightCorners(LocalView.current.context)
 
     MaterialNavigationBar(
-        modifier = Modifier.clip(RoundedCornerShape(topStart = topCorners, topEnd = topCorners)),
+        modifier = Modifier.clip(
+            RoundedCornerShape(topStart = topCorners, topEnd = topCorners)
+        ),
         containerColor = AppColor.surfaceLowest,
     ) {
         if (enabledItems.first) NavigationBarItem(
