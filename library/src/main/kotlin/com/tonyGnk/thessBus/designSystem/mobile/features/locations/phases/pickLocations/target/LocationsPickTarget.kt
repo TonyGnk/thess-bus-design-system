@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickStart
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target
 
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -7,14 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.LocationPickerContent
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationPickerEffects
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationsPickTargetItems
-
 
 @Composable
-fun LocationsPickStart(
+fun LocationsPickTarget(
     modifier: Modifier = Modifier,
-    items: LocationsPickTargetItems = LocationsPickTargetItems.preview,
+    items: LocationsPickTargetItems = LocationsPickTargetItems.preview
 ) {
     val listState = rememberLazyListState()
     val focusRequester = remember { FocusRequester() }
@@ -30,7 +27,14 @@ fun LocationsPickStart(
 
     LocationPickerContent(
         modifier = modifier,
-        items = items,
+        items = items.copy(
+            searchState = items.searchState.copy(
+                onClick = { item ->
+                    focusManager.clearFocus()
+                    items.searchState.onClick(item)
+                }
+            )
+        ),
         listState = listState,
         focusRequester = focusRequester,
     )

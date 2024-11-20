@@ -18,9 +18,10 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.L
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTarget
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTargetItems
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickStart.LocationsPickStart
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.LocationsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.data.LocationsPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites.deleteFakeFavorite
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites.deleteFakeFavorite
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.recent.FakeRecentItems
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 
 @Composable
@@ -86,10 +87,14 @@ fun LocationsPickTargetPre(
             onDeleteItem = { deleteFakeFavorite(it) },
             selectedId = state.selectedFavoriteItemId,
             onNotConfigured = {},
-            onLongPress = model::updateSelectedFavoriteItemId,
+            updateSelectedFavoriteItemId = model::updateSelectedFavoriteItemId,
         ),
         collectionsBottomSheetType = state.collectionsBottomSheetType,
         setBottomSheetType = model::setBottomSheetType,
+        recentState = LocationsPickTargetItems.RecentState(
+            items = FakeRecentItems,
+            onClick = {},
+        ),
     )
 
     LocationsPickTarget(
@@ -167,10 +172,14 @@ fun LocationsPickStartPre(
             items = emptyList(),
             selectedId = state.selectedFavoriteItemId,
             onNotConfigured = {},
-            onLongPress = model::updateSelectedFavoriteItemId,
+            updateSelectedFavoriteItemId = model::updateSelectedFavoriteItemId,
         ),
         collectionsBottomSheetType = state.collectionsBottomSheetType,
         setBottomSheetType = model::setBottomSheetType,
+        recentState = LocationsPickTargetItems.RecentState(
+            items = FakeRecentItems,
+            onClick = {},
+        ),
     )
 
     LocationsPickStart(

@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations
 
 import androidx.compose.runtime.Composable
 

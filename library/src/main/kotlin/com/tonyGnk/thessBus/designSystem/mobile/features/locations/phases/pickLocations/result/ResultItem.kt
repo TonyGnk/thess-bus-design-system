@@ -1,10 +1,9 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.searchMode
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.result
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,43 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
-import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
-internal fun ResultList(
-    modifier: Modifier = Modifier,
-    onClick: (DirectionsFeatureItemType.SingleItem) -> Unit,
-    items: List<DirectionsFeatureItemType.SingleItem>
-) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
-    ) {
-        items.forEach { result ->
-            PickTargetResult(
-                title = result.title,
-                subTitle = result.subTitle,
-                iconRes = result.iconRes,
-                onClick = {
-                    onClick(result)
-                }
-            )
-        }
-    }
-}
-
-@Composable
-internal fun PickTargetResult(
+internal fun ResultItem(
     title: String,
     subTitle: String,
     iconRes: Int,
@@ -71,7 +43,7 @@ internal fun PickTargetResult(
     SurfaceWithShadows(
         color = AppColor.surfaceLowest,
         shadowElevation = 0,
-        modifier = modifier.padding(vertical = 2.dp),
+        modifier = modifier,
         onClick = onClick,
         shape = RoundedCornerShape(LocationsProperties.IN_CORNERS.dp),
     ) {
@@ -111,15 +83,4 @@ internal fun PickTargetResult(
             }
         }
     }
-}
-
-@Composable
-@AppPreview.Dark
-private fun Preview() = ThessBusTheme {
-    val results = PickTargetFakeResults
-
-    ResultList(
-        items = results,
-        onClick = { _ -> },
-    )
 }

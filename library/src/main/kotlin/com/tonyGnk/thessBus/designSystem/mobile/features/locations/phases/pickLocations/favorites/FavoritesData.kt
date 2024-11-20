@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites
 
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.ColorOptions

@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.recent
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.recent
 
 data class RecentItem(
     val id: Int,

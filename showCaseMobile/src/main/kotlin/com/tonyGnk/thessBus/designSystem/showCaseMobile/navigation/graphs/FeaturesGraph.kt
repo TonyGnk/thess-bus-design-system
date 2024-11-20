@@ -17,7 +17,7 @@ fun NavGraphBuilder.featuresGraph(
     }
 
     graph<TopDestination.FeaturesGraph>(
-        startDestination = FeatureDestination.List
+        startDestination = FeatureDestination.LocationsGraph
     ) {
         node<FeatureDestination.List> {
             FeaturesList(

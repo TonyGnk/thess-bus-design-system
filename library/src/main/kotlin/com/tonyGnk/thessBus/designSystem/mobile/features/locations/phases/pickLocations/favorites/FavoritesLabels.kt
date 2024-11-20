@@ -1,4 +1,4 @@
-package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.overview.favorites
+package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

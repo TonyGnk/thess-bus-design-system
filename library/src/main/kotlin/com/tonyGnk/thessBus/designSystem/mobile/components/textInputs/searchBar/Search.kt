@@ -55,10 +55,7 @@ fun SearchBar(
     onSearchIme: () -> Unit,
     onBackIconClick: () -> Unit,
     type: SearchBarType,
-    sharedElementPlaceHolderTag: String,
-    sharedElementIconTag: String,
-    sharedElementBox: String,
-    sharedElementTextTag: String,
+    sharedElements: SearchBarSharedElementIds = SearchBarSharedElementIds(),
 ) {
     val searchLabel = LocationsProperties.SEARCH_LABEL
     val searchStyle = LocationsProperties.searchTextStyle
@@ -66,13 +63,13 @@ fun SearchBar(
     val sizeInScreen = searchLabel.findScreenSize(searchStyle).height - 1.dp
 
     SearchBarContainer(
-        modifier = modifier, sharedElementCard = sharedElementBox
+        modifier = modifier, sharedElementCard = sharedElements.searchBar
     ) {
         val modifierOfTheCenteredItem = Modifier
             .padding(vertical = LocationsProperties.IN_PADDING.dp)
             .fillMaxWidth()
             .weight(1f)
-            .mySharedElement(sharedElementPlaceHolderTag)
+            .mySharedElement(sharedElements.placeHolder)
 
         IconButton(
             iconRes = AppIcon.Back.iconRes,
@@ -87,7 +84,7 @@ fun SearchBar(
                 searchLabel = searchLabel,
                 onSearchClick = onSearchIme,
                 textState = type.textFieldState,
-                sharedElementTextTag = sharedElementTextTag,
+                sharedElementTextTag = sharedElements.text,
                 focusRequester = type.focusRequester
             )
 
@@ -109,7 +106,7 @@ fun SearchBar(
             onClick = onSearchIme,
             modifier = Modifier
                 .size(sizeInScreen)
-                .mySharedElement(sharedElementIconTag)
+                .mySharedElement(sharedElements.magnifier)
         )
     }
 }
@@ -199,54 +196,14 @@ private fun Preview() = ThessBusTheme {
         type = SearchBarType.Static(
             text = "Search term", alternativeText = "Search here",
         ) {},
-        sharedElementPlaceHolderTag = "",
-        sharedElementIconTag = "",
-        sharedElementBox = "",
-        sharedElementTextTag = ""
+        sharedElements = SearchBarSharedElementIds()
     )
 }
 
-//class MyView @JvmOverloads constructor(
-//    context: Context,
-//    attrs: AttributeSet? = null,
-//    defStyleAttr: Int = 0
-//) : LinearLayout(context, attrs, defStyleAttr) {
-//
-//    private val titleTextView: EditText
-//
-//    var text: String = ""
-//        set(value) {
-//            field = value
-//            updateContent()
-//        }
-//    var fontSize: Float = 0f
-//        set(value) {
-//            field = value
-//            titleTextView.textSize = value
-//        }
-//    var textColor: Int = 0
-//        set(value) {
-//            field = value
-//            titleTextView.setTextColor(value)
-//        }
-//
-//    init {
-//        orientation = VERTICAL
-//        LayoutInflater.from(context).inflate(R.layout.my_view_layout, this, true)
-//
-//        titleTextView = findViewById(R.id.editText)
-//
-//        updateContent()
-//
-//        titleTextView.requestFocus()
-//
-//        // Show the keyboard
-//        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.showSoftInput(titleTextView, InputMethodManager.SHOW_IMPLICIT)
-//    }
-//
-//    private fun updateContent() {
-//        titleTextView.setText(text)
-//        titleTextView.setSelection(text.length)
-//    }
-//}
+
+data class SearchBarSharedElementIds(
+    val placeHolder: String = "placeHolder",
+    val text: String = "text",
+    val searchBar: String = "searchBar",
+    val magnifier: String = "magnifier"
+)

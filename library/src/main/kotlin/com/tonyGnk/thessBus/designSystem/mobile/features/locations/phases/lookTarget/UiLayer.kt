@@ -83,10 +83,6 @@ fun DestinationOverviewUiLayer(
                 alternativeText = "Search here",
                 onTextClick = items.goToPickTargetResults
             ),
-            sharedElementPlaceHolderTag = "sharedElementPlaceHolderTag",
-            sharedElementIconTag = "sharedElementIconTag",
-            sharedElementTextTag = "sharedElementTextTag",
-            sharedElementBox = items.sharedElements.searchBar
         )
         Spacer(Modifier.weight(1f))
         ItemDetails(items = items)

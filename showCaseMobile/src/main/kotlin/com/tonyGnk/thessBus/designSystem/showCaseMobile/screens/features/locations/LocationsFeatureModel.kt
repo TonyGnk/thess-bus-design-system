@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.CustomCameraPosition
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.LocationsPhases
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickTarget.CollectionBottomSheetType
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.CollectionBottomSheetType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
