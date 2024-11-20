@@ -1,42 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Allows us to override night specific attributes in the
-         values-night folder. -->
-    <style name="NightAdjusted.Theme.Nia" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <!-- The final theme we use -->
-    <style name="Theme.Nia" parent="NightAdjusted.Theme.Nia" />
+    <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+
+    <style name="Theme.Start" parent="Theme.SplashScreen">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">
+            @mipmap/ic_launcher_foreground
+        </item>
     </style>
 
-    <style name="Theme.Nia.Splash" parent="NightAdjusted.Theme.Splash">
-        <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>-->
-        <item name="postSplashScreenTheme">@style/Theme.Nia</item>
-    </style>
-
-</resources><!--<resources xmlns:tools="http://schemas.android.com/tools">-->
-
-    <!--    <style name="NightAdjusted.Theme.Nia" parent="android:Theme.Material.Light.NoActionBar" />-->
-
-    <!--    &lt;!&ndash; The final theme we use &ndash;&gt;-->
-    <!--    <style name="Theme.Nia" parent="NightAdjusted.Theme.Nia" />-->
-
-    <!--    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">-->
-    <!--        <item name="android:windowLightStatusBar">true</item>-->
-    <!--        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>-->
-    <!--    </style>-->
-
-    <!--    <style name="Theme.Nia.Splash" parent="NightAdjusted.Theme.Splash">-->
-    <!--        &lt;!&ndash;        <item name="android:windowSplashScreenBackground">?android:attr/colorBackground</item>&ndash;&gt;-->
-    <!--        <item name="android:navigationBarColor">-->
-    <!--            @android:color/black-->
-    <!--        </item>-->
-    <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>-->
-    <!--        <item name="postSplashScreenTheme">@style/Theme.Nia</item>-->
-    <!--    </style>-->
-
-    <!--</resources>-->
+</resources>

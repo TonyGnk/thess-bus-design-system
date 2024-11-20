@@ -1,5 +1,6 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.components.navigation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ fun TopBarColumnPage(
     onBack: () -> Unit = {}
 ) {
     TopBarLazyColumn(
+        verticalArrangement = Arrangement.SpaceBetween,
         leftSide = TopBarLazyColumnLeftSide(
             onClick = onBack,
             iconRes = AppIcon.Back.iconRes,

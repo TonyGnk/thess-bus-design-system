@@ -2,11 +2,15 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="NightAdjusted.Theme.Nia" parent="android:Theme.Material.NoActionBar" />
+    <style name="Theme.App" parent="android:Theme.Material.NoActionBar" />
 
-    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+    <style name="Theme.Start" parent="Theme.SplashScreen">
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">
+            @mipmap/ic_launcher_foreground
+        </item>
     </style>
 
 </resources><!--<resources xmlns:tools="http://schemas.android.com/tools">-->

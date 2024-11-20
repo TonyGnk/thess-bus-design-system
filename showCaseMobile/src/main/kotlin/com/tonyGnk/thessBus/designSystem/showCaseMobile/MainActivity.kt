@@ -23,10 +23,10 @@ import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.MyNavHost
 
 internal class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        // val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        splashScreen.setKeepOnScreenCondition { false }
+        //splashScreen.setKeepOnScreenCondition { false }
 
 //        var keepSplashScreenOn = true
 //        splashScreen.setKeepOnScreenCondition { keepSplashScreenOn }

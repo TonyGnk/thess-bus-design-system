@@ -65,6 +65,7 @@ fun TopBarLazyColumn(
     screenName: String = "Notes",
     leftSide: TopBarLazyColumnLeftSide = TopBarLazyColumnLeftSide(),
     rightSide: TopBarLazyColumnRightSide? = TopBarLazyColumnRightSide(),
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(12.dp),
     content: LazyListScope.() -> Unit
 ) {
     val state = rememberLazyListState()
@@ -121,7 +122,7 @@ fun TopBarLazyColumn(
         )
         LazyColumn(
             state = state,
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = verticalArrangement,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
