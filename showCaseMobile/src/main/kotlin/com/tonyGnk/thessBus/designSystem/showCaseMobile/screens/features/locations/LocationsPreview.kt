@@ -38,13 +38,15 @@ fun LocationsStartPre(
     )
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = getExtendedWindowInsets()
+        contentPadding = getExtendedWindowInsets(
+            DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
+        )
     ) {
         item {
             LocationsCard(
                 modifier = Modifier
                     .padding(
-                        horizontal = DefaultScaffoldValues.MINIMUM_BEZEL_PADDING.dp
+                        horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp
                     ),
                 items = items
             )

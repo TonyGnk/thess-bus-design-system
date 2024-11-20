@@ -64,7 +64,7 @@ fun TopBarLazyColumn(
     modifier: Modifier = Modifier,
     screenName: String = "Notes",
     leftSide: TopBarLazyColumnLeftSide = TopBarLazyColumnLeftSide(),
-    rightSide: TopBarLazyColumnRightSide = TopBarLazyColumnRightSide(),
+    rightSide: TopBarLazyColumnRightSide? = TopBarLazyColumnRightSide(),
     content: LazyListScope.() -> Unit
 ) {
     val state = rememberLazyListState()
@@ -112,11 +112,11 @@ fun TopBarLazyColumn(
     ) {
         Header(
             screenName = screenName,
-            topBarLazyColumnLeftSide = leftSide,
+            leftSide = leftSide,
             listState = state,
             textStyle = textStyle,
             labelIsHiding = labelIsHiding.value,
-            topBarLazyColumnRightSide = rightSide,
+            rightSide = rightSide,
             heightOfText = heightOfText
         )
         LazyColumn(
@@ -150,8 +150,8 @@ fun TopBarLazyColumn(
 @Composable
 private fun Header(
     screenName: String,
-    topBarLazyColumnLeftSide: TopBarLazyColumnLeftSide,
-    topBarLazyColumnRightSide: TopBarLazyColumnRightSide,
+    leftSide: TopBarLazyColumnLeftSide,
+    rightSide: TopBarLazyColumnRightSide?,
     listState: LazyListState,
     textStyle: TextStyle,
     labelIsHiding: Boolean,
@@ -174,7 +174,7 @@ private fun Header(
             contentAlignment = Alignment.CenterStart,
             modifier = Modifier.weight(1f),
             color = actionColor,
-            onClick = topBarLazyColumnLeftSide.onClick
+            onClick = leftSide.onClick
         ) { color ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -183,12 +183,12 @@ private fun Header(
             ) {
                 Icon(
                     modifier = Modifier.iconSizeFor(heightOfText),
-                    iconRes = topBarLazyColumnLeftSide.iconRes,
-                    contentDescription = topBarLazyColumnLeftSide.contentDescription,
+                    iconRes = leftSide.iconRes,
+                    contentDescription = leftSide.contentDescription,
                     color = color,
                 )
                 Text(
-                    text = topBarLazyColumnLeftSide.destinationName,
+                    text = leftSide.destinationName,
                     style = textStyle.copy(color = color),
                 )
             }
@@ -211,18 +211,22 @@ private fun Header(
                 )
             }
         }
-        ClickableWithoutRipple(
+        Box(
             contentAlignment = Alignment.CenterEnd,
-            modifier = Modifier.weight(1f),
-            color = actionColor,
-            onClick = topBarLazyColumnRightSide.onClick
-        ) { color ->
-            Icon(
-                modifier = Modifier.iconSizeFor(heightOfText),
-                color = color,
-                contentDescription = topBarLazyColumnRightSide.contentDescription,
-                iconRes = topBarLazyColumnRightSide.iconRes,
-            )
+            modifier = Modifier.weight(1f)
+        ) {
+            if (rightSide != null) ClickableWithoutRipple(
+                contentAlignment = Alignment.CenterEnd,
+                color = actionColor,
+                onClick = rightSide.onClick
+            ) { color ->
+                Icon(
+                    modifier = Modifier.iconSizeFor(heightOfText),
+                    color = color,
+                    contentDescription = rightSide.contentDescription,
+                    iconRes = rightSide.iconRes,
+                )
+            }
         }
     }
 }

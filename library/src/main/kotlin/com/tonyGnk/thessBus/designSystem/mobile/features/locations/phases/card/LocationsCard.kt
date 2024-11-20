@@ -92,7 +92,7 @@ fun LocationsCard(
 private fun LargeLabel() = Text(
     text = "Where are you going?",
     style = AppTypo.titleLarge.copy(color = AppColor.onPrimary),
-    weight = FontWeight.W600,
+    weight = FontWeight.W700,
     textAlign = TextAlign.Start,
     modifier = Modifier.fillMaxWidth()
 )

@@ -56,7 +56,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
     )
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.PickTarget
+        startDestination = FeatureLocationsDestination.Card
     ) {
         node<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {
