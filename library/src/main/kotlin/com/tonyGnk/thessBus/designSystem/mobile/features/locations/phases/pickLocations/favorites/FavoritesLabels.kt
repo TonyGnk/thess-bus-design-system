@@ -3,7 +3,6 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickL
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.TextFade
@@ -11,7 +10,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.TextFade
 @Composable
 fun FavoritesLargeLabel(
     modifier: Modifier = Modifier,
-    textTargetWidth: Dp,
     text: String
 ) {
     TextFade(
@@ -19,7 +17,6 @@ fun FavoritesLargeLabel(
         textAlign = TextAlign.Center,
         style = AppTypo.bodySmall,
         modifier = modifier,
-        textTargetWidth = textTargetWidth,
         backgroundColor = AppColor.surfaceLowest
     )
 }
@@ -28,7 +25,6 @@ fun FavoritesLargeLabel(
 @Composable
 fun FavoritesSmallLabel(
     modifier: Modifier = Modifier,
-    textTargetWidth: Dp,
     text: String
 ) {
     TextFade(
@@ -39,7 +35,6 @@ fun FavoritesSmallLabel(
             fontSize = AppTypo.bodySmall.fontSize.div(1.25f)
         ),
         modifier = modifier,
-        textTargetWidth = textTargetWidth,
         backgroundColor = AppColor.surfaceLowest
     )
 }

@@ -15,6 +15,7 @@ import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -24,7 +25,6 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SurfaceWithShadows(
     modifier: Modifier = Modifier,
@@ -35,6 +35,7 @@ fun SurfaceWithShadows(
     tonalElevation: Int = 0,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable () -> Unit,
 ) {
     val hasClicked = remember { mutableStateOf(false) }
@@ -48,6 +49,7 @@ fun SurfaceWithShadows(
         modifier = modifier
     ) {
         Box(
+            contentAlignment = contentAlignment,
             modifier = Modifier
                 .then(
                     if (onClick != null || onLongClick != null)

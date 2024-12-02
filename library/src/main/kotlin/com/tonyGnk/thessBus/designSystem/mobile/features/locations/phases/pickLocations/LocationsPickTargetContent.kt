@@ -3,6 +3,7 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickL
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -56,6 +57,7 @@ internal fun LocationPickerContent(
             PaddingValues(0.dp)
         },
         modifier = modifier
+            .imePadding()
             .applyContextMenu(items.favoritesState.selectedId != null)
             .padding(
                 horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp

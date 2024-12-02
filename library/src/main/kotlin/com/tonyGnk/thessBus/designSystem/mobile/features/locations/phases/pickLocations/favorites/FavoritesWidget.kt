@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ fun FavoritesWidget(
     state: LocationsPickTargetItems.FavoritesState,
 ) {
     val lazyRowState = rememberLazyListState()
+    val itemWidth = remember { 80.dp }
 
     SurfaceWithShadows(
         modifier = Modifier.fillMaxWidth(),
@@ -34,11 +36,11 @@ fun FavoritesWidget(
         LazyRow(
             modifier = modifier.padding(vertical = LocationsProperties.IN_PADDING.div(2).dp),
             state = lazyRowState,
-            contentPadding = PaddingValues(horizontal = LocationsProperties.IN_PADDING.div(2).dp),
+            contentPadding = PaddingValues(
+                horizontal = LocationsProperties.IN_PADDING.div(2).dp
+            ),
             verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(
-                LocationsProperties.ARRANGEMENT.div(4).dp
-            )
+            horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             items(
                 items = state.items, key = { it.id }
@@ -46,6 +48,7 @@ fun FavoritesWidget(
                 val isTheSelected = state.selectedId == it.id
 
                 FavoriteItemColumn(
+                    itemWidth = itemWidth,
                     modifier = Modifier.animateItem(),
                     item = it,
 
@@ -81,6 +84,7 @@ fun FavoritesWidget(
             }
             item {
                 AddFavoriteColumn(
+                    itemWidth = itemWidth,
                     onClick = state.onAdd,
                 )
             }

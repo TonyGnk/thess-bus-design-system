@@ -3,6 +3,8 @@ package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickL
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,19 +25,12 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.L
 @Composable
 fun AddFavoriteColumn(
     modifier: Modifier = Modifier,
+    itemWidth: Dp = 80.dp,
     onClick: () -> Unit = {},
 ) {
-    val iconSize = 33.dp
-    val width = iconSize + 24.dp + 15.dp
-    val textModifier = remember {
-        Modifier.width(width)
-    }
 
     CollectionColumnContent(
-        modifier = modifier,
-        iconSize = iconSize,
-        width = width,
-        textModifier = textModifier,
+        modifier = modifier.width(itemWidth),
         onClick = onClick,
     )
 }
@@ -43,10 +38,7 @@ fun AddFavoriteColumn(
 @Composable
 private fun CollectionColumnContent(
     modifier: Modifier = Modifier,
-    textModifier: Modifier,
     onClick: () -> Unit,
-    iconSize: Dp,
-    width: Dp,
 ) {
     SurfaceWithShadows(
         modifier = modifier,
@@ -61,6 +53,7 @@ private fun CollectionColumnContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             SurfaceWithShadows(
+                modifier = Modifier.padding(horizontal = 5.dp),
                 shape = AppShape.round20,
                 shadowElevation = 0
             ) {
@@ -68,14 +61,14 @@ private fun CollectionColumnContent(
                     iconRes = AppIcon.Add.iconRes,
                     color = AppColor.surface,
                     contentColor = AppColor.primary,
-                    modifier = Modifier.size(iconSize)
+                    modifier = Modifier
+                        .aspectRatio(1f)
+                        .fillMaxSize()
                 )
             }
             Spacer(modifier = Modifier.height(9.dp))
             FavoritesLargeLabel(
                 text = "Προσθήκη",
-                textTargetWidth = width,
-                modifier = textModifier
             )
         }
     }

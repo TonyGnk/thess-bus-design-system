@@ -30,7 +30,7 @@ internal fun LocationPickerEffects(
     if (searchState.requestFocus) {
         LaunchedEffect(canScrollBackward) {
             if (listState.canScrollBackward) {
-                focusManager.clearFocus()
+                //  focusManager.clearFocus()
             } else {
                 focusRequester.requestFocus()
             }

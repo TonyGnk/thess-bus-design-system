@@ -1,9 +1,7 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs
 
-import android.app.Activity
 import android.net.Uri
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -56,7 +54,7 @@ fun NavGraphBuilder.featuresLocationsGraph(
     )
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.Card
+        startDestination = FeatureLocationsDestination.PickTarget
     ) {
         node<FeatureLocationsDestination.Info> {
             val parentEntry = remember(it) {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,12 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppIcon
+import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTypo
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.SurfaceWithShadows
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.icons.Icon
-import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
+import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.TextFade
 import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties
+import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
 import com.tonyGnk.thessBus.designSystem.mobile.utils.findScreenSize
 
 @Composable
@@ -68,13 +72,16 @@ internal fun ResultItem(
             Column(
                 verticalArrangement = Arrangement.Center,
             ) {
-                Text(
+                TextFade(
+                    backgroundColor = AppColor.surfaceLowest,
                     text = title,
                     style = titleStyle.copy(
                         color = AppColor.onSurface
                     )
                 )
-                if (subTitle.isNotBlank()) Text(
+                Spacer(modifier = Modifier.size(2.dp))
+                if (subTitle.isNotBlank()) TextFade(
+                    backgroundColor = AppColor.surfaceLowest,
                     text = subTitle,
                     style = subTitleStyle.copy(
                         color = AppColor.onSurface.copy(alpha = 0.7f)
@@ -83,4 +90,16 @@ internal fun ResultItem(
             }
         }
     }
+}
+
+
+@AppPreview.Dark
+@Composable
+private fun Preview() = ThessBusTheme {
+    ResultItem(
+        title = "Αριστοτέλειο Πανεπιστήμιο Πανεπιστήμιο Θεσσαλονίκης",
+        subTitle = "Εγνατία 156, Θεσσαλονίκη",
+        iconRes = AppIcon.GraduationCap.iconRes,
+        onClick = {}
+    )
 }

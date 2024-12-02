@@ -1,10 +1,15 @@
 package com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -37,6 +42,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.L
 @Composable
 fun FavoriteItemColumn(
     modifier: Modifier = Modifier,
+    itemWidth: Dp = 80.dp,
     onClick: () -> Unit = {},
     onDelete: () -> Unit = {},
     onUnpin: () -> Unit = {},
@@ -46,33 +52,16 @@ fun FavoriteItemColumn(
     onContextMenuDismiss: () -> Unit = {},
     item: FavoriteItem
 ) {
-    val iconSize = 33.dp
-    val width = iconSize + 24.dp + 15.dp //Paddings
-    val textModifier = remember {
-        Modifier.width(width)
-    }
-    var position by remember {
-        mutableFloatStateOf(0f)
-    }
 
     val listOfOptions = remember { listOf("Επεξεργασία", "Ξεκαρφίτσωμα", "Διαγραφή") }
     val sizeOfTheMenuItem = findSizeOfMenuItem(listOfOptions)
 
-    Box {
+    Box(modifier) {
         CollectionColumnContent(
-            modifier = modifier.then(
-                if (isTheSelected) {
-                    Modifier.onGloballyPositioned {
-                        position = it.boundsInParent().left
-                    }
-                } else Modifier
-            ),
+            modifier = Modifier.width(itemWidth),
             colorOptions = item.colorOptions,
             iconRes = item.appIcon.iconRes,
             itemType = item.type,
-            iconSize = iconSize,
-            width = width,
-            textModifier = textModifier,
             onClick = onClick,
             onLongPressClick = onLongPressClick
         )
@@ -84,12 +73,10 @@ fun FavoriteItemColumn(
                 onDismissRequest = onContextMenuDismiss,
             ) {
                 CollectionColumnContent(
+                    modifier = Modifier.width(itemWidth),
                     colorOptions = item.colorOptions,
                     iconRes = item.appIcon.iconRes,
                     itemType = item.type,
-                    iconSize = iconSize,
-                    width = width,
-                    textModifier = textModifier,
                     onClick = onClick,
                     onLongPressClick = onLongPressClick
                 )
@@ -139,17 +126,15 @@ fun FavoriteItemColumn(
 @Composable
 private fun CollectionColumnContent(
     modifier: Modifier = Modifier,
-    textModifier: Modifier,
     onClick: () -> Unit,
     onLongPressClick: () -> Unit,
     colorOptions: ColorOptions?,
     iconRes: Int,
     itemType: FavoriteItemType,
-    iconSize: Dp,
-    width: Dp,
 ) {
     SurfaceWithShadows(
         modifier = modifier,
+        contentAlignment = Alignment.Center,
         shape = AppShape.round15,
         color = AppColor.surfaceLowest,
         shadowElevation = 0,
@@ -164,6 +149,7 @@ private fun CollectionColumnContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (colorOptions == null) SurfaceWithShadows(
+                modifier = Modifier.padding(horizontal = 5.dp),
                 shape = AppShape.round20,
                 shadowElevation = 0
             ) {
@@ -171,17 +157,22 @@ private fun CollectionColumnContent(
                     iconRes = iconRes,
                     color = AppColor.surface,
                     contentColor = AppColor.primary,
-                    modifier = Modifier.size(iconSize)
+                    modifier = Modifier
+                        .aspectRatio(1f)
+                        .fillMaxSize()//.size(iconSize)
                 )
             } else SurfaceWithShadows(
+                modifier = Modifier.padding(horizontal = 5.dp),
                 shape = AppShape.round20,
-                shadowElevation = 7
+                shadowElevation = 6
             ) {
                 IconButton(
                     iconRes = iconRes,
                     color = colorOptions.color(),
                     contentColor = AppColor.surfaceLowest,
-                    modifier = Modifier.size(iconSize)
+                    modifier = Modifier
+                        .aspectRatio(1f)
+                        .fillMaxSize()
                 )
             }
             Spacer(modifier = Modifier.height(9.dp))
@@ -189,28 +180,20 @@ private fun CollectionColumnContent(
                 is FavoriteItemType.Configured -> {
                     FavoritesLargeLabel(
                         text = itemType.title,
-                        textTargetWidth = width,
-                        modifier = textModifier
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     FavoritesSmallLabel(
                         text = itemType.subTitle,
-                        modifier = textModifier,
-                        textTargetWidth = width,
                     )
                 }
 
                 is FavoriteItemType.NotConfigured -> {
                     FavoritesLargeLabel(
                         text = itemType.label,
-                        textTargetWidth = width,
-                        modifier = textModifier
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     FavoritesSmallLabel(
                         text = "Προσθήκη",
-                        modifier = textModifier,
-                        textTargetWidth = width,
                     )
                 }
             }
