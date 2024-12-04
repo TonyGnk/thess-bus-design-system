@@ -1,20 +1,22 @@
 package com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graphs
 
 import android.net.Uri
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppTransition
-import com.tonyGnk.thessBus.designSystem.mobile.components.containment.map.MapStyleManager
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.map.MapStyleManager
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureDirectionsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.FeatureLocationsDestination
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.graph
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.navigation.node
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.DirectionsFeaturePager
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsLookTargetPre
-import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickStartPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsFeatureModel
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.DirectionsMapPre
+import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsOverviewPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsPickTargetPre
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.features.locations.LocationsStartPre
 import org.maplibre.android.maps.Style
@@ -40,36 +42,23 @@ fun NavGraphBuilder.featuresLocationsGraph(
             )
         )
     }
-    val context = navController.context
-
-    val style = when (val result = MapStyleManager(context).setupStyle()) {
-        is MapStyleManager.StyleSetupResult.Error -> {
-            throw result.exception
-        }
-
-        is MapStyleManager.StyleSetupResult.Success -> result.styleFile
-    }
-    val styleBuilder = Style.Builder().fromUri(
-        Uri.fromFile(style).toString()
-    )
 
     graph<FeatureDestination.LocationsGraph>(
-        startDestination = FeatureLocationsDestination.PickTarget
+        startDestination = FeatureLocationsDestination.NAV
     ) {
-        node<FeatureLocationsDestination.Info> {
-            val parentEntry = remember(it) {
-                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
-            }
-            DirectionsFeaturePager(
-                model = viewModel(parentEntry),
-                onFullScreen = { goTo(FeatureLocationsDestination.Card) },
-                onBack = onBack
-            )
-        }
-
         node<FeatureLocationsDestination.Card> {
             LocationsStartPre(
                 goToPickTarget = { goTo(FeatureLocationsDestination.PickTarget) },
+            )
+        }
+
+
+        node<FeatureLocationsDestination.NAV> {
+            val parentEntry = remember(it) {
+                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
+            }
+            MapNavHost(
+                model = viewModel(parentEntry),
             )
         }
 
@@ -102,33 +91,60 @@ fun NavGraphBuilder.featuresLocationsGraph(
                 },
             )
         }
+    }
+}
 
 
-        node<FeatureLocationsDestination.LookTarget>(
-            enterTransition = AppTransition.slideEnter,
-            popEnterTransition = AppTransition.slideEnter,
-            exitTransition = AppTransition.slideExit,
-            popExitTransition = AppTransition.slideExit,
-        ) {
-            val parentEntry = remember(it) {
-                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
-            }
-            LocationsLookTargetPre(
-                model = viewModel(parentEntry),
-                onBack = onBack,
-                styleBuilder = styleBuilder,
-                goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
+@Composable
+fun MapNavHost(
+    goBack: () -> Unit = {},
+    model: LocationsFeatureModel
+) {
+    val navController = rememberNavController()
+    val context = navController.context
+
+    val style = when (val result = MapStyleManager(context).setupStyle()) {
+        is MapStyleManager.StyleSetupResult.Error -> {
+            throw result.exception
+        }
+
+        is MapStyleManager.StyleSetupResult.Success -> result.styleFile
+    }
+    val styleBuilder = Style.Builder().fromUri(
+        Uri.fromFile(style).toString()
+    )
+
+    DirectionsMapPre(
+        model = model,
+        onBack = {},
+        styleBuilder = styleBuilder,
+        goToPickStart = { },
+    )
+
+    NavHost(
+        navController = navController,
+        startDestination = FeatureLocationsDestination.Overview
+    ) {
+        val goTo: (FeatureLocationsDestination) -> Unit = { phase ->
+            navController.navigate(phase)
+        }
+
+        node<FeatureLocationsDestination.Overview> {
+            LocationsOverviewPre(
+                model = model,
+                goToPickTarget = { goTo(FeatureLocationsDestination.PickTarget) },
             )
         }
 
-        node<FeatureLocationsDestination.PickStart> {
-            val parentEntry = remember(it) {
-                navController.getBackStackEntry(FeatureDestination.LocationsGraph)
-            }
-            LocationsPickStartPre(
-                model = viewModel(parentEntry),
-                goToDirections = goToDirections,
-                onBack = onBack,
+        node<FeatureLocationsDestination.PickTarget> {
+            LocationsPickTargetPre(
+                model = model,
+                onBack = navController::navigateUp,
+                goToLookTarget = { goTo(FeatureLocationsDestination.LookTarget) },
+                goToPickStart = { goTo(FeatureLocationsDestination.PickStart) },
+                goToCategories = {
+                    //goTo(FeatureLocationsDestination.PickCategory)
+                },
             )
         }
     }

@@ -10,6 +10,7 @@ enum class AppIcon(val iconRes: Int) {
     Back(R.drawable.back),
     Search(R.drawable.search),
     Cross(R.drawable.cross),
+    Close(R.drawable.close),
     SmallCross(R.drawable.cross_small),
     Navigate(R.drawable.navigate),
     Bookmark(R.drawable.bookmark),

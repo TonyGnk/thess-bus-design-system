@@ -1,6 +1,5 @@
 package com.tonyGnk.thessBus.designSystem.mobile.components.containment
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -13,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +24,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppColor
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppPreview
 import com.tonyGnk.thessBus.designSystem.mobile.appStyles.AppShape
 import com.tonyGnk.thessBus.designSystem.mobile.theme.ThessBusTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun SurfaceWithShadows(
@@ -39,6 +40,11 @@ fun SurfaceWithShadows(
     content: @Composable () -> Unit,
 ) {
     val hasClicked = remember { mutableStateOf(false) }
+
+    if (hasClicked.value) LaunchedEffect(hasClicked) {
+        delay(1000)
+        hasClicked.value = false
+    }
 
     Surface(
         shape = shape,

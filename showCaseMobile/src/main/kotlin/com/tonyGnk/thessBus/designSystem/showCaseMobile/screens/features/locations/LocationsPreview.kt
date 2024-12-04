@@ -4,36 +4,63 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tonyGnk.thessBus.designSystem.mobile.components.containment.DefaultScaffoldValues
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.DirectionsFeatureItemType
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.PickTargetFakeResults
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCard
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsCardItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.lookTarget.LocationsLookTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickStart.LocationsPickStart
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationsPickTarget
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.target.LocationsPickTargetItems
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.favorites.deleteFakeFavorite
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.pickLocations.recent.FakeRecentItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.data.PickTargetFakeResults
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.map.DirectionsMap
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.map.LocationsLookTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.overview.DirectionsOverview
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.overview.DirectionsOverviewItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.pickLocations.favorites.deleteFakeFavorite
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.pickLocations.recent.FakeRecentItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.pickLocations.target.DirectionsPickTarget
+import com.tonyGnk.thessBus.designSystem.mobile.features.directions.ui.pickLocations.target.LocationsPickTargetItems
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.card.LocationsCard
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.card.LocationsCardItems
 import com.tonyGnk.thessBus.designSystem.mobile.utils.modifiers.getExtendedWindowInsets
 import org.maplibre.android.maps.Style
+
+@Composable
+fun LocationsOverviewPre(
+    modifier: Modifier = Modifier,
+    model: LocationsFeatureModel,
+    goToPickTarget: () -> Unit = {},
+) {
+    val state by model.state.collectAsStateWithLifecycle()
+    val placeHolder = state.textState.text.toString()
+
+    val items = DirectionsOverviewItems(
+        pickedItem = state.pickedItem,
+        clearPickedItem = model::clearPickedItem,
+    )
+
+    DirectionsOverview(
+        goToPickTarget = goToPickTarget,
+        items = items,
+        placeHolder = placeHolder
+    )
+}
+
 
 @Composable
 fun LocationsStartPre(
     modifier: Modifier = Modifier,
     goToPickTarget: () -> Unit,
 ) {
+    /*
+        val placeHolder: String = "placeHolder",
+    val text: String = "text",
+    val searchBar: String = "searchBar",
+    val magnifier: String = "magnifier"
+     */
     val items = LocationsCardItems(
-        sharedElementCard = "card",
-        sharedElementText = "text",
-        sharedElementMagnifier = "icon",
+        sharedElementCard = "searchBar",
+        sharedElementText = "placeHolder",
+        sharedElementMagnifier = "magnifier",
         onSearchClick = goToPickTarget,
     )
     LazyColumn(
@@ -66,22 +93,22 @@ fun LocationsPickTargetPre(
     val state by model.state.collectAsStateWithLifecycle()
 
     val items = LocationsPickTargetItems(
+        onBack = onBack,
         searchState = LocationsPickTargetItems.SearchState(
-            requestFocus = false,
+            requestFocus = true,
             onSearchIme = {},
             onClick = { item ->
                 model.setGivenType(item)
                 model.setTextField(item?.title)
-                goToLookTarget()
+                onBack()
             },
-            clearText = model::clearSearchField,
+            clearText = model::clearPickedItem,
             textFieldState = state.textState,
             results = PickTargetFakeResults,
         ),
 
         applySystemBarPadding = true,
         horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
-        onBack = onBack,
         favoritesState = LocationsPickTargetItems.FavoritesState(
             onClick = { item ->
                 model.setGivenType(item)
@@ -100,14 +127,14 @@ fun LocationsPickTargetPre(
         ),
     )
 
-    LocationsPickTarget(
+    DirectionsPickTarget(
         modifier = modifier.fillMaxSize(),
         items = items
     )
 }
 
 @Composable
-fun LocationsLookTargetPre(
+fun DirectionsMapPre(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
     goToPickStart: () -> Unit,
@@ -117,78 +144,13 @@ fun LocationsLookTargetPre(
     val state by model.state.collectAsStateWithLifecycle()
 
     val items = LocationsLookTargetItems(
-        applySystemBarPadding = true,
-        query = state.textState.text.toString(),
-        paddingValues = PaddingValues(),
-        goToPickTargetResults = onBack,
-        onPickItem = {
-            model.clearSearchField()
-            model.setGivenType(it)
-        },
-        onNavigate = {
-            goToPickStart()
-        },
         pickedItem = state.pickedItem,
-        clearTextField = model::clearSearchField,
-        onCameraPositionChanged = { model.updateCameraPosition(it) },
+        onMapLongClick = model::onMapLongClick,
     )
 
-    LocationsLookTarget(
+    DirectionsMap(
         modifier = modifier,
         styleBuilder = styleBuilder,
         items = items
-    )
-}
-
-@Composable
-fun LocationsPickStartPre(
-    modifier: Modifier = Modifier,
-    model: LocationsFeatureModel,
-    goToDirections: (String, Double, Double, String, Double, Double) -> Unit,
-    onBack: () -> Unit,
-) {
-    val state by model.state.collectAsStateWithLifecycle()
-    val pickedItem = state.pickedItem
-    val onResultClick = { item: DirectionsFeatureItemType.SingleItem? ->
-        if (item != null && pickedItem is DirectionsFeatureItemType.SingleItem) goToDirections(
-            pickedItem.title,
-            pickedItem.lat,
-            pickedItem.lon,
-            item.title,
-            item.lat,
-            item.lon
-        )
-    }
-
-    val items = LocationsPickTargetItems(
-        searchState = LocationsPickTargetItems.SearchState(
-            requestFocus = true,
-            onSearchIme = {},
-            onClick = onResultClick,
-            clearText = {},
-            textFieldState = rememberTextFieldState(),
-            results = PickTargetFakeResults,
-        ),
-
-        applySystemBarPadding = true,
-        horizontalPadding = PaddingValues(horizontal = DefaultScaffoldValues.NORMAL_BEZEL_PADDING.dp),
-        onBack = onBack,
-        favoritesState = LocationsPickTargetItems.FavoritesState(
-            items = emptyList(),
-            selectedId = state.selectedFavoriteItemId,
-            onNotConfigured = {},
-            updateSelectedFavoriteItemId = model::updateSelectedFavoriteItemId,
-        ),
-        collectionsBottomSheetType = state.collectionsBottomSheetType,
-        setBottomSheetType = model::setBottomSheetType,
-        recentState = LocationsPickTargetItems.RecentState(
-            items = FakeRecentItems,
-            onClick = {},
-        ),
-    )
-
-    LocationsPickStart(
-        modifier = modifier.fillMaxSize(),
-        items = items,
     )
 }

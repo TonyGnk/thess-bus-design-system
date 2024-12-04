@@ -22,7 +22,7 @@ import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.HorizontalD
 import com.tonyGnk.thessBus.designSystem.mobile.components.core.text.Text
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.BasicTopBar
 import com.tonyGnk.thessBus.designSystem.mobile.components.navigation.topBar.TopBarBackIcon
-import com.tonyGnk.thessBus.designSystem.mobile.features.locations.phases.card.LocationsProperties.ARRANGEMENT
+import com.tonyGnk.thessBus.designSystem.mobile.features.locations.shared.card.LocationsProperties.ARRANGEMENT
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.R
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.Components
 import com.tonyGnk.thessBus.designSystem.showCaseMobile.screens.landing.ComponentsType

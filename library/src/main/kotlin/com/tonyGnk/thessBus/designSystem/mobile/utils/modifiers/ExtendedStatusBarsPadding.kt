@@ -15,12 +15,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
-fun Modifier.extendedWindowInsets() = composed {
-    this.padding(getExtendedWindowInsets())
+private const val ExtraTopPadding = 8
+
+fun Modifier.extendedWindowInsets(
+    topPaddingIfNoStatusBar: Dp = 0.dp
+) = composed {
+    this.padding(getExtendedWindowInsets(topPaddingIfNoStatusBar))
 }
 
 fun Modifier.statusBarWindowInsets() = composed {
-    this.padding(getExtendedWindowInsets())
+    this.padding(getStatusBarWindowInsets())
 }
 
 @Composable
@@ -39,7 +43,7 @@ fun getExtendedWindowInsets(
 
     return PaddingValues(
         top = if (top > 0.dp) {
-            top + 10.dp
+            top + ExtraTopPadding.dp
         } else topPaddingIfNoStatusBar,
         start = start,
         end = end,
@@ -63,7 +67,7 @@ fun getStatusBarWindowInsets(
 
     return PaddingValues(
         top = if (top > 0.dp) {
-            top + 10.dp
+            top + ExtraTopPadding.dp
         } else topPaddingIfNoStatusBar,
         start = start,
         end = end,

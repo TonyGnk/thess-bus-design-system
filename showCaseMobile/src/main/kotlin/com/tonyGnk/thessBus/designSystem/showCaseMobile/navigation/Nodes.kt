@@ -79,6 +79,12 @@ sealed interface FeatureLocationsDestination {
 
     @Serializable
     data object PickStart : FeatureLocationsDestination
+
+    @Serializable
+    data object Overview : FeatureLocationsDestination
+
+    @Serializable
+    data object NAV : FeatureLocationsDestination
 }
 
 @Serializable

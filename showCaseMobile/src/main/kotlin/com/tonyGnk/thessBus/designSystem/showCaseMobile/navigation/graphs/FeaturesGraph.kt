@@ -27,6 +27,5 @@ fun NavGraphBuilder.featuresGraph(
         }
 
         featuresLocationsGraph(navController)
-        featuresDirectionsGraph(navController)
     }
 }
